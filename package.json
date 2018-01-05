@@ -1,0 +1,28 @@
+{
+  "name": "vue-nuxt",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "Amo <xiaomozyw@sina.com>",
+  "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "8888"
+    }
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@xkeshi/vue-qrcode": "0.3.0",
+    "axios": "^0.17.1",
+    "nuxt": "1.0.0-rc11"
+  },
+  "devDependencies": {
+    "node-sass": "4.6.0",
+    "sass-loader": "6.0.6"
+  }
+}
