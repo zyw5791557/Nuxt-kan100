@@ -33,10 +33,7 @@ export default {
 	<div class="home">
 		<base-header :searchPlaceholderVal="base_header_searchPlaceholderVal" @search="baseSearch"></base-header>
 		<base-nav></base-nav>
-		<transition name="fade"
-		            mode="out-in">
-			<router-view></router-view>
-		</transition>
+		<nuxt />
 		<base-footer></base-footer>
 	</div>
 </template>

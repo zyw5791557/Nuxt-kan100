@@ -27,6 +27,13 @@ export default {
                 query: { backEnable: this.loadData.backEnable }
             };
             return o;
+        },
+        sideIconAction () {
+            if(this.loadData.classifyGuide) {
+                return this.loadData.classifyGuide;
+            }else {
+                return { name: 'index' };
+            }
         }
     }
 }
@@ -37,16 +44,16 @@ export default {
         <div class="mainer">
             <div class="header-module">
                 <h2>{{ loadData.type }}</h2>
-                <router-link :to="{ name: loadData.routeName }" v-if="loadData.headLinkName || loadData.headLinkIcon">
+                <nuxt-link :to="sideIconAction()" v-if="loadData.headLinkName || loadData.headLinkIcon">
                     <span>{{ loadData.headLinkName }}</span>
                     <i :class="loadData.headLinkIcon"></i>
-                </router-link>
+                </nuxt-link>
             </div>
             <div class="m-pic-list">
                 <ul>
                     <li v-for="(item,index) in loadData.piclistData" :key="index">
                         <div class="piclist-img">
-                            <router-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -57,14 +64,14 @@ export default {
                                         ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                     </span>
                                 </div>
-                            </router-link>
+                            </nuxt-link>
                         </div>
                         <div class="piclist-title">
                             <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                <router-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</router-link>
+                                <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                             </div>
                             <div class="c-info" v-if="item.des">
-                                <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</router-link>
+                                <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                             </div>
                         </div>
                     </li>
@@ -74,7 +81,7 @@ export default {
             <div class="m-new-list" v-if="loadData.newsData">
                 <ul>
                     <li v-for="(item,index) in loadData.newsData" :key="index">
-                        <router-link :to="item.url" class="text-ellipsis">{{ item.msg }}</router-link>
+                        <nuxt-link :to="item.url" class="text-ellipsis">{{ item.msg }}</nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -84,8 +91,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
     .base-hot-module {
         &.news {
             padding-top: $moduleTopPadding;
@@ -119,10 +126,10 @@ export default {
                     color: $orange;
                     font-size: 14px;
                     i.change {
-                        @include smallIcon('../../static/images/change.png');
+                        @include smallIcon('~assets/images/change.png');
                     }
                     i.more {
-                        @include smallIcon('../../static/images/more.png');
+                        @include smallIcon('~assets/images/more.png');
                     }
                 }
             }

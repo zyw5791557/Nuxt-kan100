@@ -16,7 +16,9 @@ export default {
             new Swiper('#base-person-swiper'+this.loadData.id, {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
-                slidesPerView: 'auto'
+                slidesPerView: 'auto',
+                observer:true,
+                observeParents: true
             });
         }
     },
@@ -37,11 +39,11 @@ export default {
             <div :id="`base-person-swiper${loadData.id}`" class="swiper-container">
                 <ul class="swiper-wrapper">
                     <li v-for="(item,index) in loadData.personlistData" class="swiper-slide">
-                        <router-link :to="item.url" :class="{ fire: index < 3 && loadData.fire }">
+                        <nuxt-link :to="item.url" :class="{ fire: index < 3 && loadData.fire }">
                             <img :src="item.img" alt="" width="100%">
                             <div class="c-title text-ellipsis">{{ item.name }}</div>
                             <div v-if="item.sup" class="c-sup text-ellipsis">{{ item.sup }}</div>
-                        </router-link>
+                        </nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -50,8 +52,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .base-person-swiper {
     padding-top: $moduleTopPadding;
     &.pd {
@@ -105,7 +107,7 @@ export default {
             position: absolute;
             right: .092593rem;
             top: 0;
-            background-image: url('../../static/images/fire.png');
+            background-image: url('~assets/images/fire.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;

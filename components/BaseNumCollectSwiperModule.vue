@@ -16,7 +16,9 @@ export default {
             new Swiper('#base-collect-swiper'+this.loadData.id, {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
-                slidesPerView: 'auto'
+                slidesPerView: 'auto',
+                observer:true,
+                observeParents: true
             });
         }
     },
@@ -50,8 +52,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .base-collect-swiper {
     padding-top: $moduleTopPadding;
     &.pd {
@@ -79,10 +81,10 @@ export default {
                 color: $orange;
                 font-size: 14px;
                 i.change {
-                    @include smallIcon('../../static/images/change.png');
+                    @include smallIcon('~assets/images/change.png');
                 }
                 i.more {
-                    @include smallIcon('../../static/images/more.png');
+                    @include smallIcon('~assets/images/more.png');
                 }
                 i.arrow {
                     width: .138889rem;

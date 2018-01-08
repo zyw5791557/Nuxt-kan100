@@ -23,7 +23,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../../styles/vars.scss';
+@import '~assets/css/vars.scss';
 .starDetail-info-module {
     padding: .37037rem $gap 0;
     .info-text {

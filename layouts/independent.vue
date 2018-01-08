@@ -1,6 +1,9 @@
 <template>
 	<div id="app">
-        
+        <transition name="fade"
+		            mode="out-in">
+            <nuxt />
+        </transition>
 	</div>
 </template>
 <script>

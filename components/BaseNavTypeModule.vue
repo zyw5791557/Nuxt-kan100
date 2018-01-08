@@ -10,6 +10,15 @@ export default {
         return {
             loadData: this.data
         }
+    },
+    methods: {
+        sideIconAction (item) {
+            if(item.classifyGuide) {
+                return item.classifyGuide;
+            }else {
+                return { name: 'index' };
+            }
+        }
     }
 }
 </script>
@@ -17,13 +26,13 @@ export default {
 <template>
     <section class="base-nav--type">
         <div class="nav-list">
-            <router-link v-for="(item,index) in loadData" :key="index" :to="{ name: item.routerName }" class="nav-btn">{{ item.name }}</router-link>
+            <nuxt-link v-for="(item,index) in loadData" :key="index" :to="sideIconAction(item)" class="nav-btn">{{ item.name }}</nuxt-link>
         </div>
     </section>
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
+@import '~assets/css/vars.scss';
 .base-nav--type {
     padding: 0 $gap;
     // margin-bottom: .416667rem;

@@ -37,10 +37,10 @@ export default {
             <div class="person-container">
                 <ul class="person-wrapper">
                     <li v-for="(item,index) in loadData.personlistData" class="person-item">
-                        <router-link :to="routeGuide(item)">
+                        <nuxt-link :to="routeGuide(item)">
                             <img :src="item.img" alt="" width="100%">
                             <div class="c-title">{{ item.name }}</div>
-                        </router-link>
+                        </nuxt-link>
                     </li>
                 </ul>
             </div>
@@ -49,8 +49,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .base-person-swiper {
     padding-top: $moduleTopPadding;
     &.pd {
@@ -77,10 +77,10 @@ export default {
                 color: $orange;
                 font-size: 14px;
                 i.change {
-                    @include smallIcon('../../static/images/change.png');
+                    @include smallIcon('~assets/images/change.png');
                 }
                 i.more {
-                    @include smallIcon('../../static/images/more.png');
+                    @include smallIcon('~assets/images/more.png');
                 }
             }
         }

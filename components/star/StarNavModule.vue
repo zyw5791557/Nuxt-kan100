@@ -51,7 +51,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../../styles/vars.scss';
+@import '~assets/css/vars.scss';
     .swiper-slide {
         color: $baseColor;
         line-height: 1.055556rem;

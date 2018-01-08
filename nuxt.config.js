@@ -6,22 +6,32 @@ module.exports = {
 		title: 'Readhub',
 		meta: [
 			{ charset: 'utf-8' },
-			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 			{ hid: 'description', name: 'description', content: 'Nuxt.js project' }
 		],
+		script: [
+			{ src: 'http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js' },
+			{ src: 'https://cdn.bootcss.com/Swiper/4.0.6/js/swiper.min.js' }
+		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-		]
+			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+			{ rel: 'stylesheet', href: 'https://cdn.bootcss.com/Swiper/4.0.6/css/swiper.min.css' }
+		],
 	},
 	css: [
-		'~/css/normalize.css',
-		'~/css/main.css',
+		'~assets/css/normalize.css',
+		'~assets/css/main.css',
 	],
+	env: {
+		baseUrl: process.env.BASE_URL || 'http://localhost:8888'
+	},
 	/*
 	** Customize the progress bar color
 	*/
 	loading: { color: '#3B8070' },
-	plugins: ['~/plugins/vue-qrcode.js'],
+	plugins: [
+		'~/plugins/vue-mint.js',
+		{ src: '~/plugins/fastclick.js', ssr: false }
+	],
 	/*
 	** Build configuration
 	*/

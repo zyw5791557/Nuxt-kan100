@@ -19,7 +19,9 @@ export default {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
                 slidesPerView: 'auto',
-                roundLengths : true, 
+                roundLengths : true,
+                observer:true,
+                observeParents: true
             });
         },
         sortCollect() {
@@ -61,8 +63,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../../styles/vars.scss';
-@import '../../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .popup-container {
     .header-module {
         display: flex;
@@ -109,7 +111,7 @@ export default {
             width: .351852rem;
             height: .351852rem;
             padding: .266667rem 0 .266667rem .266667rem;
-            background-image: url('../../../static/images/close.png');
+            background-image: url('~assets/images/close.png');
             background-position: right center;
             background-size: .351852rem .351852rem;
             background-repeat: no-repeat;

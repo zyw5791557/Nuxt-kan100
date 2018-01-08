@@ -72,8 +72,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../../styles/vars.scss';
-@import '../../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 #starDetail-music-swiper-module {
     padding: .287037rem $gap 0;
     .swiper-slide {

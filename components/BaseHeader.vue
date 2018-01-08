@@ -22,9 +22,9 @@ export default {
 
 <template>
     <header class="header">
-        <router-link :to="{ name: 'HomeView' }" class="logo">
+        <nuxt-link :to="{ name: 'index' }" class="logo">
 
-        </router-link>
+        </nuxt-link>
         <div class="base-search">
             <input type="search" :placeholder="searchPlaceholderVal" class="base-search-input" v-model="searchVal">
             <i class="base-search-icon" @click="search"></i>
@@ -33,7 +33,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
+@import '~assets/css/vars.scss';
     .header {
         display: flex;
         align-items: center;
@@ -67,7 +67,7 @@ export default {
                 width: .314815rem;
                 height: .314815rem;
                 margin-right: .342593rem;
-                background-image: url('../../static/images/search-icon.png');
+                background-image: url('~assets/images/search-icon.png');
                 background-size: 100% 100%;
             }
         }

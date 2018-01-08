@@ -19,6 +19,8 @@
   "dependencies": {
     "@xkeshi/vue-qrcode": "0.3.0",
     "axios": "^0.17.1",
+    "fastclick": "1.0.6",
+    "mint-ui": "2.2.13",
     "nuxt": "1.0.0-rc11"
   },
   "devDependencies": {

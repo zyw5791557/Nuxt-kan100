@@ -5,7 +5,7 @@ export default {
             navLinks: [
                 {
                     name: '首页',
-                    routerName: 'HomeView'
+                    routerName: 'index'
                 },
                 {
                     name: '电影',
@@ -33,7 +33,7 @@ export default {
                 },
                 {
                     name: '资讯',
-                    routerName: 'NewView'
+                    routerName: 'NewsView'
                 },
                 {
                     name: '专题',
@@ -58,7 +58,9 @@ export default {
             new Swiper('#nav-swiper--head', {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
-                slidesPerView: 'auto'
+                slidesPerView: 'auto',
+                observer:true,
+                observeParents: true
             });
             if(this.$route.query.backEnable === 'true' || this.$route.query.backEnable === true) {
                 this.backEnable = true;
@@ -83,18 +85,18 @@ export default {
         <div class="content">
             <div class="swiper-container" id="nav-swiper--head">
                 <div class="swiper-wrapper">
-                    <router-link v-for="(item, index) in navLinks" :key="index" class="swiper-slide" :to="{ name: item.routerName }">{{ item.name }}</router-link>
+                    <nuxt-link v-for="(item, index) in navLinks" :key="index" class="swiper-slide" :to="{ name: item.routerName }">{{ item.name }}</nuxt-link>
                 </div>
             </div>
         </div>
-        <router-link class="moreLinks" to="">
+        <nuxt-link class="moreLinks" to="">
             <i class="menu-more-icon"></i>
-        </router-link>
+        </nuxt-link>
     </nav>
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
+@import '~assets/css/vars.scss';
     .backEnable {
         .swiper-slide:first-child {
             &:before {
@@ -114,7 +116,7 @@ export default {
                 display: block;
                 width: .925926rem;
                 height: .851852rem;
-                background: url('/static/images/back.png') no-repeat left center;
+                background: url('~assets/images/back.png') no-repeat left center;
                 background-size: .222222rem .407407rem;
             }
         }
@@ -132,8 +134,7 @@ export default {
             }
         }
         
-        &.router-link-exact-active,
-        &.router-link-active {
+        &.nuxt-link-exact-active {
             color: $orange;
             &:after {
                 content: '';
@@ -167,7 +168,7 @@ export default {
                 display: block;
                 width: .925926rem;
                 height: .851852rem;
-                background: url('../../static/images/moreLinks.png') no-repeat right center;
+                background: url('~assets/images/moreLinks.png') no-repeat right center;
                 background-size: .333333rem .305556rem;
             }
         }

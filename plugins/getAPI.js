@@ -1,47 +1,16 @@
 import axios from 'axios';
 
-const localURL = 'http://localhost:8888';
-// const localURL = 'http://readhub.emlice.top';
-const baseUrl  = 'https://api.readhub.me/';
+const baseURL = 'http://localhost:8888';
 
-let initParams = function(params) {
-    var str = '';
-    for(let k in params) {
-        str += k + '=' + params[k] + '&';
-    }
-    str = str.replace(/&$/,'');
-    return str;
+export default (api,...arg) => {
+	const api_port = {
+		// 获取追番表信息
+		animeTimeline: '/mock/timeline.json',
+	}
+	let params = {};
+	params.url = baseURL + api_port[api];
+	for ( let key in arg[0]) {
+		params[key] = arg[0][key];
+	};
+	return axios(params);
 }
-
-
-let getAPI = {
-    sponsors() {
-        return axios.get( localURL + '/mock/Sponsors.json');
-    },
-    // 热门话题
-    topicData(params) {
-        var p = initParams(params) || 'lastCursor=&pageSize=10';
-        return axios.get( baseUrl + `topic?${p}`);
-    },
-    // 科技动态
-    newsData(params) {
-        var p = initParams(params) || 'lastCursor=&pageSize=10';
-        return axios.get( baseUrl + `news?${p}`);
-    },
-    // 开发者资讯
-    techsData(params) {
-        var p = initParams(params) || 'lastCursor=&pageSize=10';
-        return axios.get( baseUrl + `technews?${p}`);
-    },
-    instantView(id) {
-        return axios.get( baseUrl + `topic/instantview?topicId=${id}`);
-    },
-    topicCheckCount(order) {
-        return axios.get( baseUrl + `topic/newCount?latestCursor=${order}`);
-    },
-    topicDetail(id) {
-        return axios.get( baseUrl + `topic/${id}`);
-    }
-}
-
-export default getAPI;

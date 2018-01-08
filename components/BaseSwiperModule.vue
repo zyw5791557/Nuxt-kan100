@@ -29,7 +29,9 @@ export default {
             new Swiper('#base-swiper--module' + this.loadData.id, {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
-                slidesPerView: 'auto'
+                slidesPerView: 'auto',
+                observer:true,
+                observeParents: true
             });
         },
         routeGuide(item) {
@@ -60,10 +62,10 @@ export default {
         <div class="mainer">
             <div class="header-module">
                 <h2>{{ loadData.type }}</h2>
-                <router-link :to="{ name: loadData.routerName }" v-if="loadData.headLinkName">
+                <nuxt-link :to="{ name: loadData.routerName }" v-if="loadData.headLinkName">
                     <span>{{ loadData.headLinkName }}</span>
                     <i></i>
-                </router-link>
+                </nuxt-link>
             </div>
             <div v-if="loadData.selectBtn" class="m-tabs-week">
                 <a v-for="(itm,idx) in weekData" :key="idx" @click.stop="selectTabs(itm[0],$event)" class="m-tabs-item" href="javascript:void(0);">{{ itm[1] }}</a>
@@ -75,7 +77,7 @@ export default {
                             <span class="c-timeline">{{ item.timeline }}</span>
                         </div>
                         <div class="piclist-img">
-                            <router-link class="piclist-link" :to="routeGuide(item)" :style="`background-image: url(${item.img})`">
+                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :style="`background-image: url(${item.img})`">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -89,14 +91,14 @@ export default {
                                         ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                     </span>
                                 </div>
-                            </router-link>
+                            </nuxt-link>
                         </div>
                         <div class="piclist-title">
                             <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsisLines }">
-                                <router-link :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }" :to="routeGuide(item)">{{ item.title }}</router-link>
+                                <nuxt-link :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                             </div>
                             <div class="c-info">
-                                <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</router-link>
+                                <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                             </div>
                         </div>
                     </li>
@@ -107,8 +109,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .base-swiper-timeline {
     padding-top: $moduleTopPadding;
     .mainer {
@@ -132,7 +134,7 @@ export default {
                 color: $orange;
                 font-size: 14px;
                 i {
-                    @include smallIcon('../../static/images/more.png');
+                    @include smallIcon('~assets/images/more.png');
                 }
             }
         }

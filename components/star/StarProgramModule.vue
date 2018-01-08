@@ -43,18 +43,18 @@ export default {
             class="m-pic-list">
             <li v-for="(item,index) in loadData.data" :key="index">
                 <div class="piclist-img">
-                    <router-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                    <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
                         <div class="c-lb">
                             <span class="c-date c-date-score">
                                 <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
                                 ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                             </span>
                         </div>
-                    </router-link>
+                    </nuxt-link>
                 </div>
                 <div class="piclist-title">
                     <div class="c-title">
-                        <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.title }}</router-link>
+                        <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                     </div>
                 </div>
             </li>
@@ -64,8 +64,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../../styles/vars.scss';
-@import '../../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .starDetail-program-module {
     padding: .287037rem $gap 0;
     ul {

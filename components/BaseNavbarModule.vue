@@ -52,7 +52,7 @@ export default {
                     <ul>
                         <li v-for="(item,index) in loadData.newData" :key="index" class="branch">
                             <div class="piclist-img">
-                                <router-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
                                     <div class="c-rt">
                                         <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                     </div>
@@ -63,14 +63,14 @@ export default {
                                             ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                         </span>
                                     </div>
-                                </router-link>
+                                </nuxt-link>
                             </div>
                             <div class="piclist-title">
                                 <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <router-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</router-link>
+                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                                 </div>
                                 <div class="c-info"  v-if="item.des">
-                                    <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</router-link>
+                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                                 </div>
                             </div>
                         </li>
@@ -82,7 +82,7 @@ export default {
                     <ul>
                         <li v-for="(item,index) in loadData.movieData" :key="index" class="branch">
                             <div class="piclist-img">
-                                <router-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
                                     <div class="c-rt">
                                         <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                     </div>
@@ -93,14 +93,14 @@ export default {
                                             ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                         </span>
                                     </div>
-                                </router-link>
+                                </nuxt-link>
                             </div>
                             <div class="piclist-title">
                                 <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <router-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</router-link>
+                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                                 </div>
                                 <div class="c-info"  v-if="item.des">
-                                    <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</router-link>
+                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                                 </div>
                             </div>
                         </li>
@@ -112,7 +112,7 @@ export default {
                     <ul>
                         <li v-for="(item,index) in loadData.teleplayData" :key="index" class="branch">
                             <div class="piclist-img">
-                                <router-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
                                     <div class="c-rt">
                                         <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                     </div>
@@ -123,14 +123,14 @@ export default {
                                             ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                         </span>
                                     </div>
-                                </router-link>
+                                </nuxt-link>
                             </div>
                             <div class="piclist-title">
                                 <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <router-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</router-link>
+                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                                 </div>
                                 <div class="c-info"  v-if="item.des">
-                                    <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</router-link>
+                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                                 </div>
                             </div>
                         </li>
@@ -142,7 +142,7 @@ export default {
                     <ul>
                         <li v-for="(item,index) in loadData.showData" :key="index" class="branch">
                             <div class="piclist-img">
-                                <router-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
                                     <div class="c-rt">
                                         <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                     </div>
@@ -153,14 +153,14 @@ export default {
                                             ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                         </span>
                                     </div>
-                                </router-link>
+                                </nuxt-link>
                             </div>
                             <div class="piclist-title">
                                 <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <router-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</router-link>
+                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                                 </div>
                                 <div class="c-info"  v-if="item.des">
-                                    <router-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</router-link>
+                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                                 </div>
                             </div>
                         </li>
@@ -172,8 +172,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .navbar-module {
     .nav-title-box {
         border-bottom: $moduleBorder;
@@ -219,22 +219,24 @@ export default {
     }
 }
 
+@include moduleFontSize('.navbar-module');
+</style>
+
+<style lang="scss">
 /* 字体大小调整 */
 .navbar-module {
-    .nav-title {
+    .nav-title .mint-tab-item-label {
         font-size: 18px;
     }
 }
 [data-dpr="2"] .navbar-module {
-    .nav-title {
+    .nav-title .mint-tab-item-label {
         font-size: 36px;
     }
 }
 [data-dpr="3"] .navbar-module {
-    .nav-title {
+    .nav-title .mint-tab-item-label {
         font-size: 54px;
     }
 }
-
-@include moduleFontSize('.navbar-module');
 </style>

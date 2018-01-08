@@ -60,8 +60,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .wiki-module {
     border-bottom: $moduleBorder;
 }
@@ -168,7 +168,7 @@ export default {
         height: .87037rem;
         border-radius: 50%;
         background-color: rgba(0, 0, 0, .5);
-        background-image: url('../../static/images/share.png');
+        background-image: url('~assets/images/share.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: .472222rem .407407rem, 
@@ -181,7 +181,7 @@ export default {
         padding: 0 .37037rem 0 .6rem;
         height: .518519rem;
         line-height: .518519rem;
-        background-image: url('../../static/images/source-icon.png');
+        background-image: url('~assets/images/source-icon.png');
         background-repeat: no-repeat;
         background-size: .533333rem 32.533333rem;
         &:after {

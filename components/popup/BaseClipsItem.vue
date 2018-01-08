@@ -13,8 +13,7 @@ export default {
     },
     methods: {
         init() {
-            console.log('初始化')
-            new Swiper('#clips-swiper-module',{
+            new Swiper('#clips-swiper-module' + this.loadData.id,{
                 direction: 'vertical',
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
@@ -38,7 +37,7 @@ export default {
             <h2>{{ loadData.type }}</h2>
             <a @click="$emit('close')" href="javascript:void(0);"></a>
         </div>
-        <div id="clips-swiper-module" class="m-pic-list swiper-container">
+        <div :id="`clips-swiper-module${loadData.id}`" class="m-pic-list swiper-container">
             <ul class="swiper-wrapper">
                 <li v-for="(item,index) in loadData.piclistData" :key="index" class="swiper-slide">
                     <div class="piclist-img">
@@ -70,8 +69,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../../styles/vars.scss';
-@import '../../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
 .popup-container {
     .header-module {
         display: flex;
@@ -89,16 +88,19 @@ export default {
             width: .351852rem;
             height: .351852rem;
             padding: .266667rem 0 .266667rem .266667rem;
-            background-image: url('../../../static/images/close.png');
+            background-image: url('~assets/images/close.png');
             background-position: right center;
             background-size: .351852rem .351852rem;
             background-repeat: no-repeat;
         }
     }
-    #clips-swiper-module {
+    .swiper-container {
         padding: .287037rem $gap 0;
         max-height: 10.87037rem;
-        .swiper-wrapper { flex-direction: column; }
+        .swiper-wrapper { 
+            flex-direction: column;
+            overflow-y: auto;
+        }
         .swiper-slide {
             display: flex;
             justify-content: flex-start;

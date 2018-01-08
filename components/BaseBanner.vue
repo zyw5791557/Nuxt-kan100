@@ -50,12 +50,12 @@ export default {
 		<div class="swiper-container" id="banner-swiper--home">
 			<div class="swiper-wrapper">
 				<div v-for="(item,index) in loadData.piclistData" :key="index" class="swiper-slide" title="" >
-                    <router-link :to="routeGuide(item)" :style="`background-image: url(${item.img})`">
+                    <nuxt-link :to="routeGuide(item)" :style="`background-image: url(${item.img})`">
                         <div class="c-lb">
                             <h3>{{ item.content.title }}</h3>
                             <p class="text-ellipsis">{{ item.content.des }}</p>
                         </div>
-                    </router-link>
+                    </nuxt-link>
                 </div>
 			</div>
             <!-- 如果需要分页器 -->
@@ -65,8 +65,8 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import '../styles/vars.scss';
-@import '../styles/mixins.scss';
+@import '~assets/css/vars.scss';
+@import '~assets/css/mixins.scss';
     .base-banner {
         padding: $bannerPadding;
     }
@@ -86,7 +86,7 @@ export default {
     }
 </style>
 <style lang="scss">
-@import '../styles/vars.scss';
+@import '~assets/css/vars.scss';
 .base-banner {
     .swiper-pagination {
         text-align: right;
