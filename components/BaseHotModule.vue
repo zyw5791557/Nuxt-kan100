@@ -20,13 +20,22 @@ export default {
         }
     },
     methods: {
-        routeGuide(item) {
-            let o = {
+        routeGuide(item, type) {
+            let o1 = {
                 name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
                 params: { id: item.id },
                 query: { backEnable: this.loadData.backEnable }
             };
-            return o;
+            let o2 = {
+                name: 'NewsDetailView-id',
+                params: { id: item.id },
+                query: { backEnable: true }
+            };
+            if(type === 1) {
+                return o1;
+            } else if (type === 2) {
+                return o2;
+            }
         },
         sideIconAction () {
             if(this.loadData.classifyGuide) {
@@ -53,7 +62,7 @@ export default {
                 <ul>
                     <li v-for="(item,index) in loadData.piclistData" :key="index">
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                            <nuxt-link class="piclist-link" :to="routeGuide(item,1)" :title="item.title" :style="`background-image: url(${item.img})`">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -68,10 +77,10 @@ export default {
                         </div>
                         <div class="piclist-title">
                             <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
+                                <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item,1)">{{ item.title }}</nuxt-link>
                             </div>
                             <div class="c-info" v-if="item.des">
-                                <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
+                                <nuxt-link class="text-ellipsis" :to="routeGuide(item,1)">{{ item.des }}</nuxt-link>
                             </div>
                         </div>
                     </li>
@@ -81,7 +90,7 @@ export default {
             <div class="m-new-list" v-if="loadData.newsData">
                 <ul>
                     <li v-for="(item,index) in loadData.newsData" :key="index">
-                        <nuxt-link :to="item.url" class="text-ellipsis">{{ item.msg }}</nuxt-link>
+                        <nuxt-link :to="routeGuide(item,2)" class="text-ellipsis">{{ item.title }}</nuxt-link>
                     </li>
                 </ul>
             </div>

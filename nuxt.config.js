@@ -3,7 +3,7 @@ module.exports = {
 	** Headers of the page
 	*/
 	head: {
-		title: 'Readhub',
+		title: 'kan100',
 		meta: [
 			{ charset: 'utf-8' },
 			{ hid: 'description', name: 'description', content: 'Nuxt.js project' }

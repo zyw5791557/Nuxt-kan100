@@ -8,6 +8,8 @@ export default (api,...arg) => {
 	const api_port = {
 		// 首页
 		'index': 'index',
+		// 电影
+		'movie': 'movieIndex',
 		// 获取追番表信息
 		animeTimeline: baseURL + '/mock/timeline.json',
 	}
