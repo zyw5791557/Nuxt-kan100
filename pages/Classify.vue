@@ -1,10 +1,32 @@
 <script>
+import Axios from '~/plugins/getAPI.js';
+import { ToastHandle } from '~/util/util.js';
 import BaseFooter from '~/components/BaseFooter';
 export default {
     layout: 'independent',
 	components: {
 		BaseFooter
-	},
+    },
+    // asyncData ({ params }, callback) {
+    //     Axios('classify', {
+    //         method: 'post',
+    //         data: {
+    //             'classify': '电视剧',
+    //             'level': '1',
+    //             'page': 1
+    //         },
+    //         headers: {
+    //             "Content-Type": "application/x-www-form-urlencoded"
+    //         }
+    //     }).then(res => {
+    //         console.log(res);
+    //         const result = res.data.data;
+    //         const code   = res.data.code;
+    //         callback();
+    //     }).catch (err => {
+    //         console.log(err);
+    //     });
+    // },
     data () {
         return {
             classifyData: {
@@ -235,6 +257,16 @@ export default {
     },
     mounted () {
         this.init();
+        Axios('classify', {
+            method: 'post',
+            data:{
+                classify:'电视剧',
+                level: 1,
+                page: 1
+            }
+        }).then(res => {
+            console.log(res);
+        })
     }
 }
 </script>
