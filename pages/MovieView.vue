@@ -163,7 +163,7 @@ export default {
                     hotSwiperModuleData: {
                         id: '001',
                         type: '热播榜',
-                        headLinkName: '查看完整榜单',
+                        // headLinkName: '查看完整榜单',
                         rank: true,
                         backEnable: true,
                         itemRouteName: 'MovieDetailView-id',

@@ -74,10 +74,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder { /* IE 10+ */
 
 
 // 全局字体大小
-div {
-  font-size: 12px;      // 默认写上dpr为1的fontSize
-}
-.mint-toast-text {      // 数据加载失败
+div { font-size: 12px; }  // 默认写上dpr为1的fontSize
+.mint-toast-text {        // 数据加载失败
   font-size: 17px;
 }
 

@@ -1,4 +1,5 @@
 <script>
+import { Toast, InfiniteScroll } from 'mint-ui';
 import Axios from '~/plugins/getAPI.js';
 import { ToastHandle } from '~/util/util.js';
 import BaseFooter from '~/components/BaseFooter';
@@ -7,128 +8,68 @@ export default {
 	components: {
 		BaseFooter
     },
-    // asyncData ({ params }, callback) {
-    //     Axios('classify', {
-    //         method: 'post',
-    //         data: {
-    //             'classify': '电视剧',
-    //             'level': '1',
-    //             'page': 1
-    //         },
-    //         headers: {
-    //             "Content-Type": "application/x-www-form-urlencoded"
-    //         }
-    //     }).then(res => {
-    //         console.log(res);
-    //         const result = res.data.data;
-    //         const code   = res.data.code;
-    //         callback();
-    //     }).catch (err => {
-    //         console.log(err);
-    //     });
-    // },
+    asyncData ({ route }, callback) {
+        let $level = 1;
+        if(
+            route.query.classifyType || 
+            route.query.classifyArea || 
+            route.query.classifyTime || 
+            route.query.classifyActor ||
+            route.query.classifySort
+        ) {
+            $level = 2;
+        }
+        Axios('classify', {
+            method: 'post',
+            data: {
+                classify: route.query.classifyNav || '电影',
+                type: route.query.classifyType || '',
+                region: route.query.classifyArea || '',
+                age: route.query.classifyTime || '',
+                actor: route.query.classifyActor || '',
+                recent: route.query.classifySort || '',
+                level: $level,
+                page: 1
+            }
+        }).then(res => {
+            const result = res.data.data;
+            const code   = res.data.code;
+            if(code === 1) {
+                ToastHandle(1);
+                callback();
+            } else if (code === 0) {
+                if(result.length === 0) {
+                    callback(null, {
+                        resData: []
+                    })
+                }
+                callback(null, {
+                    classifyData: {
+                        nav: ['电影','电视剧','综艺','动漫','搞笑'],
+                        type: result.type,
+                        area: result.region,
+                        time: result.age,
+                        actor: result.actor,
+                        sort: result.recent
+                    },
+                    resData: result.video
+                });
+            }
+        });
+    },
     data () {
         return {
-            classifyData: {
-                nav: ['电影','电视剧','综艺','动漫','搞笑'],
-                type: ['犯罪','爱情','悬疑','惊悚','科幻','动画'],
-                area: ['大陆','香港','美国','印度','泰国','韩国'],
-                time: [2017, 2016, 2015, 2014, 2013, 2012],
-                sort: ['最近热播','最新播出']
-            },
             selectStat: {
                 nav: this.$route.query.classifyNav || '电影',
                 type: this.$route.query.classifyType || '全部',
                 area: this.$route.query.classifyArea || '全部',
                 time: this.$route.query.classifyTime || '全部',
+                actor: this.$route.query.classifyActor || '全部',
                 sort: this.$route.query.classifySort || '全部'
             },
-            resData: [
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                },
-                {
-                    id: 123456,
-                    routeName: 'MovieDetailView-id',
-                    img: 'http://pic9.qiyipic.com/image/20170713/38/3a/v_112258492_m_601_m3_195_260.jpg',
-                    score: '9.3',
-                    title: '青春逗'
-                }
-            ],
+            resData: [],
+            requestPage: 1,
+            requestLock: true,
             loading: false
         }
     },
@@ -147,6 +88,10 @@ export default {
     },
     methods: {
         init() {
+            let $slideType = this.classifyData.type.indexOf(this.selectStat.type) === -1 ? 0 :  this.classifyData.type.indexOf(this.selectStat.type);
+            let $slideArea = this.classifyData.area.indexOf(this.selectStat.area) === -1 ? 0 :  this.classifyData.area.indexOf(this.selectStat.area);
+            let $slideTime = this.classifyData.time.indexOf(this.selectStat.time) === -1 ? 0 :  this.classifyData.time.indexOf(this.selectStat.time);
+            let $slideActor = this.classifyData.actor.indexOf(this.selectStat.actor) === -1 ? 0 :  this.classifyData.actor.indexOf(this.selectStat.actor);
             this.$refs.navSwiper && 
             new Swiper(this.$refs.navSwiper, {
                 freeMode: true,
@@ -162,7 +107,7 @@ export default {
                 slidesPerView: 'auto',
                 observer:true,
                 observeParents: true
-            });
+            }).slideTo($slideType, 1000, false);
             this.$refs.areaSwiper && 
             new Swiper(this.$refs.areaSwiper, {
                 freeMode: true,
@@ -170,7 +115,7 @@ export default {
                 slidesPerView: 'auto',
                 observer:true,
                 observeParents: true
-            });
+            }).slideTo($slideArea, 1000, false);
             this.$refs.timeSwiper &&
             new Swiper(this.$refs.timeSwiper, {
                 freeMode: true,
@@ -178,7 +123,15 @@ export default {
                 slidesPerView: 'auto',
                 observer:true,
                 observeParents: true
-            });
+            }).slideTo($slideTime, 1000, false);
+            this.$refs.actorSwiper &&
+            new Swiper(this.$refs.actorSwiper, {
+                freeMode: true,
+                freeModeMomentumRatio: 0.5,
+                slidesPerView: 'auto',
+                observer:true,
+                observeParents: true
+            }).slideTo($slideActor, 1000, false);
             this.$refs.sortSwiper &&
             new Swiper(this.$refs.sortSwiper, {
                 freeMode: true,
@@ -188,62 +141,99 @@ export default {
                 observeParents: true
             });
         },
+        requestHandle () {
+            let $level = 1;
+            if(this.selectStat.type !== '全部' || 
+            this.selectStat.area !== '全部' || 
+            this.selectStat.time !== '全部' || 
+            this.selectStat.actor !== '全部' || 
+            this.selectStat.sort !== '全部') {
+                $level = 2;
+            }
+            return Axios('classify', {
+                method: 'post',
+                data: {
+                    classify: this.selectStat.nav,
+                    type: this.selectStat.type || '',
+                    region: this.selectStat.area || '',
+                    age: this.selectStat.time || '',
+                    actor: this.selectStat.actor || '',
+                    recent: this.selectStat.sort || '',
+                    level: $level,
+                    page: ++this.requestPage
+                }
+            });
+        },
         loadMore() {
             this.loading = true;
-            setTimeout(() => {
-                var mockData = [
-                    {
-                        id: 123456,
-                    routeName: 'MovieDetailView-id',
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                    routeName: 'MovieDetailView-id',
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        routeName: 'MovieDetailView-id',
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        routeName: 'MovieDetailView-id',
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        routeName: 'MovieDetailView-id',
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        routeName: 'MovieDetailView-id',
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    }
-                ];
-                this.resData = this.resData.concat(mockData);
+            if(!this.requestLock) {
+                Toast({
+                    message: '没有更多数据啦!',
+                    position: 'bottom',
+                    duration: 1000
+                });
                 this.loading = false;
-            }, 2500);
+                return;
+            }
+            this.requestHandle().then(res => {
+                const result = res.data.data;
+                const code   = res.data.code;
+                if(code === 1) {
+                    ToastHandle(1);
+                } else if (code === 0) {
+                    if(result.length === 0) {
+                        this.requestLock = false;
+                        this.loading = false;
+                        return;
+                    }
+                    if(result.video.length < 12) this.requestLock = false; 
+                    this.resData = this.resData.concat(result.video);
+                    this.loading = false;
+                }
+            });
         },
         select (type,val) {
+            // 请求锁重置。
+            this.requestLock = true;
+            this.requestPage = 0;
             if(type === 'nav') {
                 this.selectStat[type] = val;
+                this.selectStat['type'] = '全部';
+                this.selectStat['area'] = '全部';
+                this.selectStat['time'] = '全部';
+                this.selectStat['actor'] = '全部';
+                this.selectStat['sort'] = '全部';
+                this.requestHandle().then(res => {
+                    const result = res.data.data;
+                    const code   = res.data.code;
+                    if(code === 1) {
+                        ToastHandle(1);
+                    } else if (code === 0) {
+                        this.classifyData.type = result.type;
+                        this.classifyData.area = result.region;
+                        this.classifyData.time = result.age;
+                        this.classifyData.actor = result.actor;
+                        this.classifyData.sort = result.recent;
+                        if(result.video.length < 12) this.requestLock = false;
+                        this.resData = result.video;
+                    }
+                });
             }else {
                 this.selectStat[type] = val;
+                this.requestHandle().then(res => {
+                    const result = res.data.data;
+                    const code   = res.data.code;
+                    if(code === 1) {
+                        ToastHandle(1);
+                    } else if (code === 0) { 
+                        if(result.length === 0) {
+                            this.resData = [];
+                            return;
+                        }
+                        if(result.video.length < 12) this.requestLock = false; 
+                        this.resData = result.video;
+                    }
+                });
             }
         },
         routeGuide(item) {
@@ -253,20 +243,17 @@ export default {
                 query: { backEnable: true }
             };
             return o;
+        },
+        minHeightComputed() {
+            const dom = (document.documentElement.clientHeight) / (lib.flexible.rem);
+            const header = 1.22222;
+            const classify = 0.851852 + (0.851852 + 0.314815) * 5 + 0.555556;
+            const footer = 2.092593 + 1.62963;
+            return (dom - (header + classify + footer) + 'rem');
         }
     },
     mounted () {
         this.init();
-        Axios('classify', {
-            method: 'post',
-            data:{
-                classify:'电视剧',
-                level: 1,
-                page: 1
-            }
-        }).then(res => {
-            console.log(res);
-        })
     }
 }
 </script>
@@ -291,9 +278,6 @@ export default {
                 </div>
                 <div v-if="classifyData.type" class="swiper-container" ref="typeSwiper" id="stat1-swiper">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide">
-                            <a :class="{ active: selectStat.type === '全部' }" @click="select('type','全部')" href="javascript:void(0);">全部</a>
-                        </li>
                         <li v-for="(item,index) in classifyData.type" class="swiper-slide">
                             <a :class="{ active: selectStat.type === item }" @click="select('type',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
@@ -301,9 +285,6 @@ export default {
                 </div>
                 <div v-if="classifyData.area" class="swiper-container" ref="areaSwiper" id="stat2-swiper">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide">
-                            <a :class="{ active: selectStat.area === '全部' }" @click="select('area','全部')" href="javascript:void(0);">全部</a>
-                        </li>
                         <li v-for="(item,index) in classifyData.area" class="swiper-slide">
                             <a :class="{ active: selectStat.area === item }" @click="select('area',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
@@ -311,26 +292,27 @@ export default {
                 </div>
                 <div v-if="classifyData.time" class="swiper-container" ref="timeSwiper" id="stat3-swiper">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide">
-                            <a :class="{ active: selectStat.time === '全部' }" @click="select('time','全部')" href="javascript:void(0);">全部</a>
-                        </li>
                         <li v-for="(item,index) in classifyData.time" class="swiper-slide">
                             <a :class="{ active: selectStat.time === item }" @click="select('time',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
-                <div v-if="classifyData.sort" class="swiper-container" ref="sortSwiper" id="stat4-swiper">
+                <div v-if="classifyData.actor" class="swiper-container" ref="actorSwiper" id="stat4-swiper">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide">
-                            <a :class="{ active: selectStat.sort === '全部' }" @click="select('sort','全部')" href="javascript:void(0);">全部</a>
+                        <li v-for="(item,index) in classifyData.actor" class="swiper-slide">
+                            <a :class="{ active: selectStat.actor === item }" @click="select('actor',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
+                    </ul>
+                </div>
+                <div v-if="classifyData.sort" class="swiper-container" ref="sortSwiper" id="stat5-swiper">
+                    <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.sort" class="swiper-slide">
                             <a :class="{ active: selectStat.sort === item }" @click="select('sort',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
             </section>
-            <section class="classify-result">
+            <section v-if="resData.length > 0" class="classify-result">
                 <ul 
                     v-infinite-scroll="loadMore"
                     infinite-scroll-distance="10"
@@ -355,7 +337,10 @@ export default {
                     </li>
                 </ul>
             </section>
-            <div class="loading">
+            <section v-if="resData.length === 0" class="no-result" :style="`min-height: ${minHeightComputed()}`">
+                暂无对应的筛选结果，请尝试其他类型
+            </section>
+            <div v-if="resData.length > 0" class="loading">
                 <img v-show="loading" src="~assets/images/loading.gif" width="100%" alt="">
             </div>
         </div>
@@ -440,6 +425,7 @@ export default {
     #stat2-swiper,
     #stat3-swiper,
     #stat4-swiper,
+    #stat5-swiper
      {
          padding-top: .314815rem;
         .swiper-slide {
@@ -463,7 +449,7 @@ export default {
         margin-top: .555556rem;
         ul {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             flex-wrap: wrap;
             li {
                 width: 32.35294117647059%;
@@ -499,6 +485,13 @@ export default {
             }
         }   
     }
+    .no-result {
+        color: #999;
+        line-height: .2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .loading {
         display: flex;
         justify-content: center;
@@ -520,13 +513,17 @@ export default {
         #stat1-swiper,
         #stat2-swiper,
         #stat3-swiper,
-        #stat4-swiper
+        #stat4-swiper,
+        #stat5-swiper
          {
             a {
                 font-size: 14px;
             }
         }
+        .no-result { font-size: 14px; }
     }
+
+    
     [data-dpr="2"] .classify {
         .return-header {
             font-size: 36px;
@@ -535,11 +532,13 @@ export default {
         #stat1-swiper,
         #stat2-swiper,
         #stat3-swiper,
-        #stat4-swiper {
+        #stat4-swiper,
+        #stat5-swiper {
             a {
                 font-size: 28px;
             }
         }
+        .no-result { font-size: 28px; }
     }
     [data-dpr="3"] .classify {
         .return-header {
@@ -549,12 +548,14 @@ export default {
         #stat1-swiper,
         #stat2-swiper,
         #stat3-swiper,
-        #stat4-swiper
+        #stat4-swiper,
+        #stat5-swiper
          {
             a {
                 font-size: 42px;
             }
         }
+        .no-result { font-size: 42px; }
     }
     // 根据 data-dpr 设置字体大小
     @include moduleFontSize('.classify');
