@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Toast } from 'mint-ui';
 
-const baseURL = 'http://localhost:8888';
+const baseURL = 'http://localhost:3389';
 
 const serverURL = 'http://localhost:3001/api.php?op=v1/'
 

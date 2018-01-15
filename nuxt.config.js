@@ -22,7 +22,7 @@ module.exports = {
 		'~assets/css/main.css',
 	],
 	env: {
-		baseUrl: process.env.BASE_URL || 'http://localhost:8888'
+		baseUrl: process.env.BASE_URL || 'http://localhost:3389'
 	},
 	/*
 	** Customize the progress bar color
