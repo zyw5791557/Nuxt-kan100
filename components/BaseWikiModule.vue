@@ -8,11 +8,16 @@ export default {
     },
     data () {
         return {
-            loadData: this.data,
             wikiFold: true,
         }
     },
     computed: {
+        loadData () {
+            return this.data;
+        },
+        current_source () {
+            return this.loadData.sourceArr[0]
+        },
         foldText() {
             if(this.wikiFold) {
                 return '展开';
@@ -31,25 +36,27 @@ export default {
                 <div :style="`background-image:url(${loadData.img})`" class="img-mask"></div>
                 <div class="color-mask"></div>
             </div>
-            <img :src="loadData.img" :alt="loadData.title">
-            <div class="card-info">
-                <h1 class="c-title text-ellipsis">
-                    {{ loadData.title }}
-                    <span v-if="loadData.meta" class="c-meta">{{ loadData.meta }}</span>
-                </h1>
-                <p class="c-score">
-                    <i>豆</i>
-                    <span>{{ loadData.score }}</span>
-                    分
-                </p>
-                <p class="c-type">{{ loadData.type }}</p>
-                <p class="c-release">{{ loadData.release }}</p>
-                <p class="c-time">{{ loadData.time }}</p>
-                <a class="playBtn" href="javascript:void(0);">立即播放</a>
-                <a class="shareBtn" href="javascript:void(0);">分享</a>
-                <a @click="$emit('popup')" :class="loadData.default_source" class="sourceBtn" href="javascript:void(0);">
-                    {{ loadData.default_source_title }}
-                </a>
+            <div class="wiki-main">
+                <img :src="loadData.img" :alt="loadData.title">
+                <div class="card-info">
+                    <div v-if="loadData.title" class="c-title-box">
+                        <h1 class="c-title text-ellipsis">
+                            {{ loadData.title }}
+                        </h1>
+                        <!-- <span v-if="loadData.meta" class="c-meta">{{ loadData.meta }}</span> -->
+                    </div>
+                    <p v-if="loadData.score" class="c-score">
+                        <i>豆</i><span>{{ loadData.score }}</span>分
+                    </p>
+                    <p v-if="loadData.type" class="c-type">{{ loadData.type }}</p>
+                    <p v-if="loadData.release" class="c-release">{{ loadData.release }}</p>
+                    <p v-if="loadData.time" class="c-time">{{ loadData.time }}</p>
+                    <a v-if="$store.state.play_source.play_list" class="playBtn" :href="$store.state.play_source.play_list[0].playurl">立即播放</a>
+                    <!-- <a class="shareBtn" href="javascript:void(0);">分享</a> -->
+                    <a @click="$emit('popup')" :class="$store.state.play_source.channel" class="sourceBtn" href="javascript:void(0);">
+                        {{ $store.state.play_source.channel_name }}
+                    </a>
+                </div>
             </div>
         </div>
         <div class="wiki-des">
@@ -74,15 +81,8 @@ export default {
     width: 100%;
     height: 4.592593rem;
     box-sizing: border-box;
-    display: flex;
     padding-top: .462963rem;
     margin-bottom: 1.916667rem;
-    img {
-        width: 3.685185rem;
-        height: 5.518519rem;
-        border-radius: .111111rem;
-        box-shadow: .066667rem .066667rem .266667rem rgba(0, 0, 0, 0.3);
-    }
 }
 .wiki-mask {
     position: absolute;
@@ -91,9 +91,9 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1;
     .img-mask {
         position: absolute;
+        z-index: 10;
         width: 100%;
         height: 100%;
         filter: blur(100px);
@@ -113,6 +113,18 @@ export default {
         opacity: .2;
     }
 }
+.wiki-main {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    img {
+        flex-shrink: 0;
+        width: 3.685185rem;
+        height: 5.518519rem;
+        border-radius: .111111rem;
+        box-shadow: .066667rem .066667rem .266667rem rgba(0, 0, 0, 0.3);
+    }
+}
 .card-info {
     flex: 1;
     position: relative;
@@ -123,21 +135,29 @@ export default {
     p {
         line-height: .533333rem;
     }
-    .c-title {
-        line-height: .666667rem;
-        height: .666667rem;
-        .c-meta {
+    .c-title-box {
+        display: flex;
+        align-items: center;
+        .c-title {
+            max-width: 4.37037rem;
             line-height: .666667rem;
-            padding: .092593rem;
-            background-color: $orange;
-            border-radius: .092593rem;
-            vertical-align: top;
+            height: .666667rem;
         }
+        // .c-meta {
+        //     margin-left: .203704rem;
+        //     width: 1.018519rem;
+        //     height: .425926rem;
+        //     text-align: center;
+        //     line-height: .425926rem;
+        //     background-color: $orange;
+        //     border-radius: .092593rem;
+        // }
     }
     .c-score {
         line-height: .666667rem;
+        display: flex;
+        align-items: baseline;
         i {
-            display: inline-block;
             width: .333333rem;
             height: .333333rem;
             line-height: .333333rem;
@@ -146,12 +166,15 @@ export default {
             background-color: #2aae33;
             vertical-align: baseline;
         }
-        span { vertical-align: bottom; }
+        span {
+            align-self: flex-end; 
+            margin: 0 .148148rem;
+        }
     }
     .playBtn {
         position: absolute;
         left: 0;
-        bottom: -.5rem;
+        bottom: .981481rem;
         width: 3.5rem;
         height: 1rem;
         line-height: 1rem;
@@ -163,7 +186,7 @@ export default {
         text-indent: -1333.32rem;
         position: absolute;
         right: 0;
-        bottom: .268519rem;
+        bottom: 1.657407rem;
         width: .87037rem;
         height: .87037rem;
         border-radius: 50%;
@@ -176,7 +199,7 @@ export default {
     .sourceBtn {
         position: absolute;
         left: 0;
-        bottom: -1.25rem;
+        bottom: .148148rem;
         color: $baseColor;
         padding: 0 .37037rem 0 .6rem;
         height: .518519rem;

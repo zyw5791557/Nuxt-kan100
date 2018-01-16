@@ -1149,7 +1149,7 @@ export default {
         <base-swiper-module :data="hotData"></base-swiper-module>
         <!-- popup -->
         <mt-popup
-            v-model="selectSourcePopupCloak"
+            v-model="selectSourcePopupFlag"
             position="bottom"
             class="selectSourcePopup">
             <base-select-item :data="playSource" @close="selectSourcePopupFlag=false"></base-select-item>

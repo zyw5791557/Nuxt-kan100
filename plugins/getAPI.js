@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Toast } from 'mint-ui';
 
-const baseURL = 'http://localhost:3389';
+const baseURL = 'http://localhost:8888';
 
 const serverURL = 'http://localhost:3001/api.php?op=v1/'
 
@@ -11,6 +11,8 @@ export default (api, ...arg) => {
 		'index': 'index',
 		// 电影
 		'movie': 'movieIndex',
+		// 视频详情
+		'detailItem': 'detailItem',
 		// 分类
 		'classify': 'categoryList',
 		// 获取追番表信息

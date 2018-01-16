@@ -176,88 +176,7 @@ export default {
                         rank: false,
                         backEnable: true,
                         itemRouteName: 'MovieDetailView-id',
-                        piclistData: [
-                            {
-                                timeline: '12月02日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月03日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月04日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月05日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月06日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月07日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月08日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            },
-                            {
-                                timeline: '12月09日',
-                                id: 123456,
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '预告',
-                                collect: '',
-                                score: '9.2',
-                                title: '青春逗',
-                                des: '期待指数：100%',
-                            }
-                        ]
+                        piclistData: result.readyOnline
                     },
                     newModuleData: {
                         type: '每日电影资讯',
@@ -389,7 +308,7 @@ export default {
 		<base-hot-module :data="hotModuleData"></base-hot-module>
 		<base-home-module :data="featureMovieModuleData"></base-home-module>
         <base-swiper-module :data="hotSwiperModuleData"></base-swiper-module>
-        <base-swiper-module :data="timelineSwiperModuleData"></base-swiper-module>
+        <base-swiper-module v-if="timelineSwiperModuleData.piclistData > 0" :data="timelineSwiperModuleData"></base-swiper-module>
         <base-hot-module :data="newModuleData"></base-hot-module>
 		<base-hot-module :data="onlineModuleData"></base-hot-module>
 		<base-hot-module :data="chineseModuleData"></base-hot-module>

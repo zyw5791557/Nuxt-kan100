@@ -1,4 +1,5 @@
 <script>
+import { mapMutations } from 'vuex';
 export default {
     props: {
         data: {
@@ -10,6 +11,18 @@ export default {
         return {
             loadData: this.data
         }
+    },
+    methods: {
+        selectSource (item) {
+            this.$store.dispatch('selectSource', item).then(res => {
+                this.$emit('close');
+                this.$toast({
+                    message: '切换成功!',
+                    position: 'middle',
+                    duration: 1000
+                });
+            });
+        }
     }
 }
 </script>
@@ -19,7 +32,7 @@ export default {
         <div class="popup-title">{{ loadData.title }}</div>
         <ul class="popup-list">
             <li v-for="(item,index) in loadData.items" :key="index" class="list-item">
-                <a :href="item.url">{{ item.name }}</a>
+                <a @click="selectSource(item)" href="javascript:void(0);">{{ item.channel_name }}</a>
             </li>
         </ul>
         <a @click="$emit('close')" class="popup-close" href="javascript:void(0);">取消</a>

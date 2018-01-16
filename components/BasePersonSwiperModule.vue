@@ -20,7 +20,15 @@ export default {
                 observer:true,
                 observeParents: true
             });
-        }
+        },
+        routeGuide(item) {
+            let o = {
+                name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
+                params: { id: item.id },
+                query: { backEnable: this.loadData.backEnable }
+            };
+            return o;
+        },
     },
     mounted () {
         this.$nextTick(() => {
@@ -39,10 +47,10 @@ export default {
             <div :id="`base-person-swiper${loadData.id}`" class="swiper-container">
                 <ul class="swiper-wrapper">
                     <li v-for="(item,index) in loadData.personlistData" class="swiper-slide">
-                        <nuxt-link :to="item.url" :class="{ fire: index < 3 && loadData.fire }">
+                        <nuxt-link :to="routeGuide(item)" :class="{ fire: index < 3 && loadData.fire }">
                             <img :src="item.img" alt="" width="100%">
-                            <div class="c-title text-ellipsis">{{ item.name }}</div>
-                            <div v-if="item.sup" class="c-sup text-ellipsis">{{ item.sup }}</div>
+                            <div class="c-title text-ellipsis">{{ item.realname }}</div>
+                            <div v-if="item.actorname" class="c-sup text-ellipsis">饰 {{ item.actorname }}</div>
                         </nuxt-link>
                     </li>
                 </ul>
@@ -89,6 +97,14 @@ export default {
         color: $baseColor;
         text-align: center;
         img {
+            width: 1.333333rem;
+            height: 1.333333rem;
+            min-width: 1.333333rem;
+            min-height: 1.333333rem;
+            background-image: url('~assets/images/default-avatar.gif');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             position: relative;
             border-radius: 50%;
         }

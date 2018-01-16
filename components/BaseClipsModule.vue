@@ -27,7 +27,7 @@ export default {
         <div class="mainer">
             <div class="header-module">
                 <h2>{{ loadData.type }}</h2>
-                <a v-if="loadData.headLinkName || loadData.headLinkIcon" @click="$emit('popup')" href="javascript:void(0);">
+                <a v-if="loadData.piclistData.length > 6 && loadData.headLinkIcon" @click="$emit('popup')" href="javascript:void(0);">
                     <span>{{ loadData.headLinkName }}</span>
                     <i :class="loadData.headLinkIcon"></i>
                 </a>
@@ -41,7 +41,7 @@ export default {
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
                                 <div class="c-lb">
-                                    <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
+                                    <span class="c-date" v-if="item.long">{{ item.long }}</span>
                                     <span class="c-date c-date-score">
                                         <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
                                         ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
@@ -50,10 +50,10 @@ export default {
                             </a>
                         </div>
                         <div class="piclist-title">
-                            <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsisLines }">
+                            <div v-if="item.title" class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsisLines }">
                                 <a :href="item.url" :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }">{{ item.title }}</a>
                             </div>
-                            <div class="c-info" v-if="item.des">
+                            <div v-if="item.des" class="c-info">
                                 <a :href="item.url" class="text-ellipsis">{{ item.des }}</a>
                             </div>
                         </div>

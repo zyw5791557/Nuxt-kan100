@@ -1,5 +1,4 @@
 <script>
-import { Toast, InfiniteScroll } from 'mint-ui';
 import Axios from '~/plugins/getAPI.js';
 import { ToastHandle } from '~/util/util.js';
 import BaseFooter from '~/components/BaseFooter';
@@ -167,7 +166,7 @@ export default {
         loadMore() {
             this.loading = true;
             if(!this.requestLock) {
-                Toast({
+                this.$toast({
                     message: '没有更多数据啦!',
                     position: 'bottom',
                     duration: 1000
