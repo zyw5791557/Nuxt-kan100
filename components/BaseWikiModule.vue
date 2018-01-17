@@ -51,16 +51,16 @@ export default {
                     <p v-if="loadData.type" class="c-type">{{ loadData.type }}</p>
                     <p v-if="loadData.release" class="c-release">{{ loadData.release }}</p>
                     <p v-if="loadData.time" class="c-time">{{ loadData.time }}</p>
-                    <a v-if="$store.state.play_source.play_list" class="playBtn" :href="$store.state.play_source.play_list[0].playurl">立即播放</a>
+                    <a v-if="$store.state.play_source.play_list !== undefined" class="playBtn" :href="$store.state.play_source.play_list[0].playurl">立即播放</a>
                     <!-- <a class="shareBtn" href="javascript:void(0);">分享</a> -->
-                    <a @click="$emit('popup')" :class="$store.state.play_source.channel" class="sourceBtn" href="javascript:void(0);">
+                    <a @click="$emit('popup')" v-if="$store.state.play_source.channel !== undefined" :class="$store.state.play_source.channel" class="sourceBtn" href="javascript:void(0);">
                         {{ $store.state.play_source.channel_name }}
                     </a>
                 </div>
             </div>
         </div>
         <div class="wiki-des">
-            <p :class="{ 'text-ellipsis-n': wikiFold }" class="wiki-text">{{ loadData.des }}</p>
+            <p :class="{ 'text-ellipsis-n': wikiFold }" v-html="loadData.des" class="wiki-text"></p>
             <a @click="wikiFold=!wikiFold" class="fold" href="javascript:void(0);">{{ foldText }}</a>
         </div>
     </section>

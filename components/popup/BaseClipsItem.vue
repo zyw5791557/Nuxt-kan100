@@ -46,7 +46,7 @@ export default {
                                 <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>
                             <div class="c-lb">
-                                <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
+                                <span class="c-date" v-if="item.long">{{ item.long }}</span>
                                 <span class="c-date c-date-score">
                                     <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
                                     ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>

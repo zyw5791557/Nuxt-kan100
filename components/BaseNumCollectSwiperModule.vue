@@ -6,9 +6,9 @@ export default {
             required: true
         }
     },
-    data () {
-        return {
-            loadData: this.data
+    computed: {
+        loadData () {
+            return this.data;
         }
     },
     methods: {
@@ -37,13 +37,13 @@ export default {
                 <h2>{{ loadData.type }}</h2>
                 <a v-if="loadData.headLinkName || loadData.headLinkIcon" @click="$emit('popup')" href="javascript:void(0);">
                     <span>{{ loadData.headLinkName }}</span>
-                    <i :class="loadData.headLinkIcon"></i>
+                    <i v-if="$store.state.play_source.play_list.length > 0" :class="loadData.headLinkIcon"></i>
                 </a>
             </div>
             <div :id="`base-collect-swiper${loadData.id}`" class="swiper-container">
                 <ul class="swiper-wrapper">
-                    <li v-for="(item,index) in loadData.playlistData" class="swiper-slide">
-                        <a :href="item" class="collect-item">{{ index + 1 }}</a>
+                    <li v-if="$store.state.play_source.play_list.length > 0" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
+                        <a :href="item.playurl" class="collect-item">{{ item.title }}</a>
                     </li>
                 </ul>
             </div>

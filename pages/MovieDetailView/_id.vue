@@ -38,7 +38,6 @@ export default {
                 category: '电影'
             }
         }).then(res => {
-            console.log(res);
             const result = res.data.data;
             const code   = res.data.code;
             if (code === 0) {
@@ -52,7 +51,6 @@ export default {
                         release: result.broadcast_time,
                         time: '',
                         des: result.introduce,
-                        default_source: result.video_list[0].channel,
                         sourceArr: result.video_list
                     },
                     playerData: {
@@ -93,6 +91,9 @@ export default {
                         piclistData: result.hotMovieList
                     },
                 })
+            } else {
+                ToastHandle(1);
+                callback();
             }
         });
     },
@@ -111,14 +112,14 @@ export default {
             return o;
         }
     },
+    created () {
+        // 修改电影默认源
+        this.PLAY_SOURCE(this.wikiData.sourceArr[0]);
+    },
     methods: {
         ...mapMutations({
-            MOVIE_SOURCE: 'SET_PLAY_SOURCE'
+            PLAY_SOURCE: 'SET_PLAY_SOURCE'
         }),
-    },
-    mounted () {
-        // 修改电影默认源
-        this.MOVIE_SOURCE(this.wikiData.sourceArr[0]);
     }
 }
 </script>
@@ -129,10 +130,11 @@ export default {
         <base-person-swiper-module v-if="playerData.personlistData.length > 0" :data="playerData"></base-person-swiper-module>
         <base-clips-module v-if="clipsData.piclistData.length > 0" :data="clipsData" @popup="clipsPopupFlag = true;"></base-clips-module>
         <base-hot-module v-if="relatedData.piclistData.length > 0" :data="relatedData"></base-hot-module>
-        <base-swiper-module :data="similarData"></base-swiper-module>
-        <base-swiper-module :data="hotData"></base-swiper-module>
+        <base-swiper-module v-if="similarData.piclistData.length > 0" :data="similarData"></base-swiper-module>
+        <base-swiper-module v-if="hotData.piclistData.length > 0" :data="hotData"></base-swiper-module>
         <!-- popup -->
         <mt-popup
+            v-if="playSource.items.length"
             v-model="selectSourcePopupFlag"
             position="bottom"
             class="selectSourcePopup">

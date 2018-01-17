@@ -110,3 +110,7 @@ div {
 .page-enter, .page-leave-active {
   opacity: 0;
 }
+
+.flip-list-move {
+  transition: transform 1s;
+}

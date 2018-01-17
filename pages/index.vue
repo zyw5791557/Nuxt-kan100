@@ -105,7 +105,8 @@ export default {
                         type: '电影',
                         headLinkName: '更多',
                         headLinkIcon: 'more',
-                        routeName: 'MovieView',
+                        backEnable: true,
+                        itemRouteName: 'MovieDetailView-id',
                         classifyGuide: {
                             name: 'Classify',
                             query: {
@@ -118,7 +119,8 @@ export default {
                         type: '电视剧',
                         headLinkName: '更多',
                         headLinkIcon: 'more',
-                        routeName: 'TeleplayView',
+                        backEnable: true,
+                        itemRouteName: 'TeleplayDetailView-id',
                         classifyGuide: {
                             name: 'Classify',
                             query: {
@@ -131,7 +133,8 @@ export default {
                         type: '综艺',
                         headLinkName: '更多',
                         headLinkIcon: 'more',
-                        routeName: 'ShowView',
+                        backEnable: true,
+                        itemRouteName: 'ShowDetailView-id',
                         classifyGuide: {
                             name: 'Classify',
                             query: {
@@ -144,7 +147,8 @@ export default {
                         type: '动漫',
                         headLinkName: '更多',
                         headLinkIcon: 'more',
-                        routeName: 'AnimeView',
+                        backEnable: true,
+                        itemRouteName: 'AnimeDetailView-id',
                         classifyGuide: {
                             name: 'Classify',
                             query: {

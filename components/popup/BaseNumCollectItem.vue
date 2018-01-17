@@ -8,8 +8,12 @@ export default {
     },
     data () {
         return {
-            loadData: this.data,
             sortFlag: true,
+        }
+    },
+    computed: {
+        loadData () {
+            return [...this.data.play_list];
         }
     },
     methods: {
@@ -25,7 +29,7 @@ export default {
             });
         },
         sortCollect() {
-            this.loadData.playlistData.reverse();
+            this.loadData.reverse();
             this.sortFlag = !this.sortFlag;
         }
     },
@@ -41,7 +45,7 @@ export default {
     <div class="popup-container">
         <div class="header-module">
             <div class="flex-left">
-                <h2>{{ loadData.type }}</h2>
+                <h2>选集</h2>
                 <div @click="sortCollect" class="sort-box">
                     <a href="javascript:void(0);">{{ sortFlag ? '倒序' : '正序' }}</a>
                     <!-- <span>
@@ -54,9 +58,9 @@ export default {
         </div>
         <div id="clips-swiper-module" class="m-pic-list swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <a v-for="(item,index) in loadData.playlistData" :key="index" :href="item" class="collect-item">{{ sortFlag ? index + 1 : loadData.playlistData.length - index }}</a>
-                </div>
+                <transition-group name="flip-list" tag="div" class="swiper-slide">
+                    <a v-if="loadData.length > 0" v-for="(item,index) in loadData" :key="item.title" :href="item.playurl" class="collect-item">{{ item.title }}</a>
+                </transition-group>
             </div>
         </div>
     </div>
@@ -142,6 +146,5 @@ export default {
 }
 
 @include moduleFontSize('.popup-container');
-
 </style>
 

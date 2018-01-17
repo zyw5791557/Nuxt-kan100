@@ -92,3 +92,8 @@ div { font-size: 12px; }  // 默认写上dpr为1的fontSize
 .page-enter, .page-leave-active {
   opacity: 0;
 }
+
+// 洗牌
+.flip-list-move {
+  transition: transform 1s;
+}
