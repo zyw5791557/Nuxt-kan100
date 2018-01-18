@@ -64,12 +64,12 @@ export default {
             </div>
             <div class="swiper-container" id="img-play-swiper">
                 <ul class="swiper-wrapper m-pic-list">
-                    <li v-for="(item,index) in loadData.piclistData" :key="index" v-if="index < 20" class="swiper-slide">
+                    <li v-if="$store.state.play_source.play_list.length > 0" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
                         <div class="piclist-time" v-if="item.timeline">
                             <span class="c-timeline">{{ item.timeline }}</span>
                         </div>
                         <div class="piclist-img">
-                            <a class="piclist-link" :href="item.url" :style="`background-image: url(${item.img})`">
+                            <a class="piclist-link" :href="item.playurl" :style="`background-image: url(${item.img})`">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -87,10 +87,10 @@ export default {
                         </div>
                         <div class="piclist-title">
                             <div class="c-title text-ellipsis-2">
-                                <a :href="item.url">{{ item.title }}</a>
+                                <a :href="item.playurl">{{ item.title }}</a>
                             </div>
                             <div class="c-info">
-                                <a class="text-ellipsis" :href="item.url">{{ item.des }}</a>
+                                <a class="text-ellipsis" :href="item.playurl">{{ item.des }}</a>
                             </div>
                         </div>
                     </li>

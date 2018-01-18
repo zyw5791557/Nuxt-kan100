@@ -6,9 +6,9 @@ export default {
             required: true
         }
     },
-    data () {
-        return {
-            loadData: this.data,
+    computed: {
+        loadData () {
+            return this.data.play_list
         }
     },
     methods: {
@@ -34,19 +34,19 @@ export default {
 <template>
     <div class="popup-container">
         <div class="header-module">
-            <h2>{{ loadData.type }}</h2>
+            <h2>选集</h2>
             <a @click="$emit('close')" href="javascript:void(0);"></a>
         </div>
         <div :id="`clips-swiper-module${loadData.id}`" class="m-pic-list swiper-container">
             <ul class="swiper-wrapper">
-                <li v-for="(item,index) in loadData.piclistData" :key="index" class="swiper-slide">
+                <li v-for="(item,index) in loadData" :key="index" class="swiper-slide">
                     <div class="piclist-img">
-                        <a class="piclist-link" :href="item.url" :title="item.title" :style="`background-image: url(${item.img})`">
+                        <a class="piclist-link" :href="item.playurl" :title="item.title" :style="`background-image: url(${item.img})`">
                             <div class="c-rt">
                                 <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>
                             <div class="c-lb">
-                                <span class="c-date" v-if="item.long">{{ item.long }}</span>
+                                <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
                                 <span class="c-date c-date-score">
                                     <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
                                     ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
@@ -56,10 +56,10 @@ export default {
                     </div>
                     <div class="piclist-title">
                         <div class="c-title text-ellipsis-2">
-                            <a :href="item.url">{{ item.title }}</a>
+                            <a :href="item.playurl">{{ item.title }}</a>
                         </div>
                         <div class="c-info" v-if="item.des">
-                            <a class="text-ellipsis" :href="item.url">{{ item.des }}</a>
+                            <a class="text-ellipsis" :href="item.playurl">{{ item.des }}</a>
                         </div>
                     </div>
                 </li>

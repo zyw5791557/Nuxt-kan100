@@ -53,86 +53,13 @@ export default {
                         release: result.broadcast_time,
                         time: '',
                         des: result.introduce,
-                        sourceArr: result.video_list
+                        sourceArr: Object.prototype.toString.call(result.video_list) === '[object Object]' ? Object.values(result.video_list) : result.video_list
                     },
                     playData: {
                         id: '001',
                         type: '选集',
                         headLinkIcon: 'arrow',
-                        piclistData: [
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放',
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            },
-                            {
-                                url: 'https://www.emlice.top',
-                                img: 'http://pic3.qiyipic.com/common/lego/20171208/5672d497f03048d8a9fd346bb91c062b.jpg',
-                                catname: '',
-                                collect: '20171125期',
-                                score: '',
-                                title: '章子怡吐槽柳是士大夫',
-                                des: '6187.6万次播放'
-                            }
-                        ]
+                        piclistData: Object.prototype.toString.call(result.video_list) === '[object Object]' ? Object.values(result.video_list) : result.video_list
                     },
                     playerData: {
                         type: '参演明星',
@@ -168,7 +95,7 @@ export default {
                         type: '热播榜',
                         rank: true,
                         backEnable: true,
-                        itemRouteName: 'ShowDetailView-id',
+                        itemRouteName: 'MovieDetailView-id',
                         piclistData: result.hotMovieList
                     },
                 });
@@ -189,12 +116,13 @@ export default {
         playSource() {
             const o = {
                 title: '请选择播放源',
-                items: this.wikiData.sourceArr
+                items: Object.prototype.toString.call(this.wikiData.sourceArr) === '[object Object]' ? Object.values(this.wikiData.sourceArr) : this.wikiData.sourceArr
             };
             return o;
         }
     },
     created () {
+        // console.log('数据源',Object.prototype.toString.call(this.playData.piclistData))
         // 修改默认源
         this.PLAY_SOURCE(this.wikiData.sourceArr[0]);
     },
@@ -209,7 +137,7 @@ export default {
 <template>
     <div class="container">
         <base-wiki-module :data="wikiData" @popup="selectSourcePopupFlag = true;"></base-wiki-module>
-        <base-img-play-swiper-module  v-if="playData.piclistData.length > 0" :data="playData" @popup="collectPopupFlag = true;"></base-img-play-swiper-module>  
+        <base-img-play-swiper-module  v-if="$store.state.play_source.play_list !== undefined" :data="playData" @popup="collectPopupFlag = true;"></base-img-play-swiper-module>  
         <base-person-swiper-module v-if="playerData.personlistData.length > 0" :data="playerData"></base-person-swiper-module>
         <base-clips-module v-if="clipsData.piclistData.length > 0" :data="clipsData" @popup="clipsPopupFlag = true;"></base-clips-module>
         <base-hot-module v-if="relatedData.piclistData.length > 0" :data="relatedData"></base-hot-module>
@@ -217,18 +145,18 @@ export default {
         <base-swiper-module v-if="hotData.piclistData.length > 0" :data="hotData"></base-swiper-module>
         <!-- popup -->
         <mt-popup
-            v-if="playSource.items.length"
+            v-if="playSource.items.length > 0"
             v-model="selectSourcePopupFlag"
             position="bottom"
             class="selectSourcePopup">
             <base-select-item :data="playSource" @close="selectSourcePopupFlag=false"></base-select-item>
         </mt-popup>
         <mt-popup
-            v-if="$store.state.play_source.play_list.length"
+            v-if="$store.state.play_source.play_list !== undefined"
             v-model="collectPopupFlag"
             position="bottom"
             class="collectPopup">
-            <base-clips-item :data="playData" @close="collectPopupFlag=false"></base-clips-item>
+            <base-clips-item :data="$store.state.play_source" @close="collectPopupFlag=false"></base-clips-item>
         </mt-popup>
         <mt-popup
             v-if="clipsData.piclistData.length > 6"

@@ -43,7 +43,7 @@ export default {
             <div :id="`base-collect-swiper${loadData.id}`" class="swiper-container">
                 <ul class="swiper-wrapper">
                     <li v-if="$store.state.play_source.play_list.length > 0" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
-                        <a :href="item.playurl" class="collect-item">{{ item.title }}</a>
+                        <a :href="item.playurl" class="collect-item">{{ item.collect }}</a>
                     </li>
                 </ul>
             </div>

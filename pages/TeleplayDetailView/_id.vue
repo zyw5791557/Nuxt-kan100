@@ -99,7 +99,7 @@ export default {
                         type: '热播榜',
                         rank: true,
                         backEnable: true,
-                        itemRouteName: 'TeleplayDetailView-id',
+                        itemRouteName: 'MovieDetailView-id',
                         piclistData: result.hotMovieList
                     },
                 });
@@ -148,14 +148,14 @@ export default {
         <base-swiper-module v-if="hotData.piclistData.length > 0" :data="hotData"></base-swiper-module>
         <!-- popup -->
         <mt-popup
-            v-if="playSource.items.length"
+            v-if="playSource.items.length > 0"
             v-model="selectSourcePopupFlag"
             position="bottom"
             class="selectSourcePopup">
             <base-select-item :data="playSource" @close="selectSourcePopupFlag=false"></base-select-item>
         </mt-popup>
         <mt-popup
-            v-if="$store.state.play_source.play_list.length"
+            v-if="$store.state.play_source.play_list !== undefined"
             v-model="collectPopupFlag"
             position="bottom"
             class="collectPopup">

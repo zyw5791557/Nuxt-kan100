@@ -1,4 +1,5 @@
 <script>
+import { chunk } from '~/util/util.js';
 export default {
     props: {
         data: {
@@ -9,16 +10,42 @@ export default {
     data () {
         return {
             sortFlag: true,
+            tabActiveNum: 0
         }
     },
     computed: {
         loadData () {
             return [...this.data.play_list];
+        },
+        collectChunk () {
+            return chunk(this.loadData, 100);
         }
     },
     methods: {
-        init() {
-            new Swiper('#clips-swiper-module',{
+        init(f) {
+            if(f) {
+                this.$refs["collect-num-tab"] && 
+                new Swiper(this.$refs["collect-num-tab"],{
+                    freeMode: true,
+                    freeModeMomentumRatio: 0.5,
+                    slidesPerView: 'auto',
+                    roundLengths : true,
+                    observer:true,
+                    observeParents: true
+                });
+                this.$refs["clips-swiper-module-noChunk"] && 
+                new Swiper(this.$refs["clips-swiper-module-noChunk"],{
+                    direction: 'vertical',
+                    freeMode: true,
+                    freeModeMomentumRatio: 0.5,
+                    slidesPerView: 'auto',
+                    roundLengths : true,
+                    observer:true,
+                    observeParents: true
+                });
+            }
+            this.$refs["clips-swiper-module-chunk"] && 
+            new Swiper(this.$refs["clips-swiper-module-chunk"],{
                 direction: 'vertical',
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
@@ -31,11 +58,23 @@ export default {
         sortCollect() {
             this.loadData.reverse();
             this.sortFlag = !this.sortFlag;
+        },
+        collectNumFilter (val) {
+            const preVal  = val === 0 ? val : val + '01';
+            const backVal = val === this.collectChunk.length - 1 ? val + '' + this.collectChunk.slice(-1)[0].length : (val + 1) + '00'; 
+            const tip = '-';
+            return preVal + tip + backVal;
+        },
+        selectCollectNum (index) {
+            this.tabActiveNum = index;
+            this.$nextTick(() => {
+                this.init(false);
+            });
         }
     },
     mounted () {
         this.$nextTick(() => {
-            this.init();
+            this.init(true);
         });
     }
 }
@@ -47,7 +86,7 @@ export default {
             <div class="flex-left">
                 <h2>选集</h2>
                 <div @click="sortCollect" class="sort-box">
-                    <a href="javascript:void(0);">{{ sortFlag ? '倒序' : '正序' }}</a>
+                    <a v-if="loadData.length <= 100" href="javascript:void(0);">{{ sortFlag ? '倒序' : '正序' }}</a>
                     <!-- <span>
                         <i :class="{ active: sortFlag }" class="fa fa-sort-asc" aria-hidden="true"></i>
                         <i :class="{ active: !sortFlag }" class="fa fa-sort-desc" aria-hidden="true"></i>
@@ -56,11 +95,47 @@ export default {
             </div>
             <a @click="$emit('close')" class="close" href="javascript:void(0);"></a>
         </div>
-        <div id="clips-swiper-module" class="m-pic-list swiper-container">
+        <div 
+            v-if="loadData.length > 100" 
+            ref="collect-num-tab" 
+            class="collect-num-tab swiper-container">
+            <div class="swiper-wrapper">
+                <a 
+                    v-for="(item, index) in collectChunk" 
+                    :key="index" 
+                    @click="selectCollectNum(index)" 
+                    :class="{ active: tabActiveNum === index }" 
+                    class="swiper-slide num-item" 
+                    href="javascript:void(0);">
+                    {{ collectNumFilter(index) }}集
+                </a>
+            </div>
+        </div>
+        <div v-if="loadData.length < 100" ref="clips-swiper-module-noChunk" id="clips-swiper-module" class="m-pic-list swiper-container">
             <div class="swiper-wrapper">
                 <transition-group name="flip-list" tag="div" class="swiper-slide">
-                    <a v-if="loadData.length > 0" v-for="(item,index) in loadData" :key="item.title" :href="item.playurl" class="collect-item">{{ item.title }}</a>
+                    <a 
+                        v-if="loadData.length > 0" 
+                        v-for="(item,index) in loadData" 
+                        :key="item.collect" 
+                        :href="item.playurl" 
+                        class="collect-item">
+                        {{ item.collect }}
+                    </a>
                 </transition-group>
+            </div>
+        </div>
+        <div v-else-if="loadData.length > 100" ref="clips-swiper-module-chunk" id="clips-swiper-module" class="m-pic-list swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a 
+                        v-for="(item,index) in collectChunk[tabActiveNum]" 
+                        :key="item.collect" 
+                        :href="item.playurl" 
+                        class="collect-item">
+                        {{ item.collect }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -121,8 +196,30 @@ export default {
             background-repeat: no-repeat;
         }
     }
+    .collect-num-tab {
+        padding: .287037rem $gap 0;
+        .num-item {
+            width: 2.37037rem;
+            height: .777778rem;
+            line-height: .777778rem;
+            text-align: center;
+            color: $baseColor;
+            background-color: #f5f5f5;
+            border-radius: .777778rem;
+            margin-right: .314815rem;
+            border: solid 3px #f5f5f5;
+            box-sizing: border-box;
+            &:last-child { margin-right: 0; }
+            &.active {
+                color: $orange;
+                border: solid 3px $orange;
+                background-color: #fff;
+            }
+        }
+    }
     #clips-swiper-module {
-        padding: .287037rem .555556rem 0;
+        padding: 0 .555556rem 0;
+        margin-top: .287037rem;
         max-height: 10.87037rem;
         .swiper-slide {
             display: flex;
@@ -143,6 +240,19 @@ export default {
             }
         }
     }
+}
+
+// 字体适配设置
+.num-item {
+    font-size: 14px;
+}
+
+[data-dpr="2"] .num-item {
+    font-size: 28px;
+}
+
+[data-dpr="3"] .num-item {
+    font-size: 42px;
 }
 
 @include moduleFontSize('.popup-container');

@@ -10,9 +10,6 @@ export let ToastHandle = ($code) => {
     }
 }
 
-
-
-
 export let timeHandle = function (UTC) {
     // UTC 换算成毫秒数
     const date = new Date().getTime() - new Date(UTC).getTime();
@@ -81,3 +78,18 @@ ScrollTopEvents.prototype = {
                 document.body.clientHeight;
     }
 }
+
+
+
+// 优秀的 javascript 代码
+
+/**
+ * 
+ * @param {*} arr 要分块的数组
+ * @param {*} size 一块多少个
+ * @example chunk([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]
+ */
+export const chunk = (arr, size) =>
+Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+  arr.slice(i * size, i * size + size)
+);

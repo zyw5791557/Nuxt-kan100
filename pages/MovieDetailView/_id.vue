@@ -134,7 +134,7 @@ export default {
         <base-swiper-module v-if="hotData.piclistData.length > 0" :data="hotData"></base-swiper-module>
         <!-- popup -->
         <mt-popup
-            v-if="playSource.items.length"
+            v-if="playSource.items.length > 0"
             v-model="selectSourcePopupFlag"
             position="bottom"
             class="selectSourcePopup">
