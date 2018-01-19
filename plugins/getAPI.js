@@ -3,7 +3,7 @@ import { Toast } from 'mint-ui';
 
 const baseURL = 'http://localhost:8888';
 
-const serverURL = 'http://localhost:3001/api.php?op=v1/'
+const serverURL = 'http://localhost:3001/api.php?op=v1/';
 
 export default (api, ...arg) => {
 	const api_port = {

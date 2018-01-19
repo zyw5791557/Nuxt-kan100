@@ -38,68 +38,7 @@ export default {
                         headLinkName: '换一换',
                         headLinkIcon: 'change',
                         backEnable: true,
-                        piclistData: [
-                            {   
-                                id: 123456,
-                                routeName: '',
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '电视剧',
-                                collect: '更新至40集',
-                                score: '',
-                                title: '猎场',
-                                des: '郑秋冬拆骗局攻陈修风'
-                            },
-                            {
-                                id: 123456,
-                                routeName: '',
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '更新至22集',
-                                score: '',
-                                title: '九州海上牧云记',
-                                des: '三角恋？组合你站谁你站谁你沾水啊啊啊啊'
-                            },
-                            {
-                                id: 123456,
-                                routeName: '',
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '11-28期',
-                                score: '',
-                                title: '演员的诞生被被被被猩猩嫌弃',
-                                des: '章子怡：只有她会这样对我'
-                            },
-                            {
-                                id: 123456,
-                                routeName: '',
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '新片',
-                                collect: '',
-                                score: '9.1',
-                                title: '追捕',
-                                des: '吴宇森展教科书式暴力美学'
-                            },
-                            {
-                                id: 123456,
-                                routeName: '',
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '更新至40集',
-                                score: '',
-                                title: '我的！体育老师',
-                                des: '小米心忧马克患老年痴呆老年痴呆'
-                            }, 
-                            {
-                                id: 123456,
-                                routeName: '',
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '专题',
-                                collect: '',
-                                score: '',
-                                title: 'NBA十佳妖星绝杀勇士啊啊啊啊',
-                                des: '看哭！40岁卡特扣出青春'
-                            }
-                        ]
+                        piclistData: []
                     },
                     movieModuleData: {
                         type: '电影',
@@ -160,23 +99,18 @@ export default {
                 });
             }
         });
-	},
-    data () {
-        return {
-            
-        }
-    }
+	}
 }
 </script>
 
 <template>
     <div class="container">
-        <base-banner :data="bannerModuleData"></base-banner>
-		<base-hot-module :data="hotModuleData"></base-hot-module>
-		<base-home-module :data="movieModuleData"></base-home-module>
-		<base-home-module :data="teleplayModuleData"></base-home-module>
-		<base-home-module :data="showModuleData"></base-home-module>
-		<base-home-module :data="animeModuleData"></base-home-module>
+        <base-banner v-if="bannerModuleData.piclistData.length > 0" :data="bannerModuleData"></base-banner>
+		<base-hot-module v-if="hotModuleData.piclistData.length > 0" :data="hotModuleData"></base-hot-module>
+		<base-home-module v-if="movieModuleData.piclistData.length > 0" :data="movieModuleData"></base-home-module>
+		<base-home-module v-if="teleplayModuleData.piclistData.length > 0" :data="teleplayModuleData"></base-home-module>
+		<base-home-module v-if="showModuleData.piclistData.length > 0" :data="showModuleData"></base-home-module>
+		<base-home-module v-if="animeModuleData.piclistData.length > 0" :data="animeModuleData"></base-home-module>
     </div>
 </template>
 

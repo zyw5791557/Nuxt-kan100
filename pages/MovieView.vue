@@ -112,53 +112,7 @@ export default {
                                 classifyNav: '电影'
                             }
                         },
-                        piclistData: [
-                            {   
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '9.7',
-                                title: '长城·免费首播',
-                                des: '中外巨星汇聚长城打怪兽',
-                            },
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '8.2',
-                                title: '星际特工：千里之城之',
-                                des: '蕾哈娜上演变装热舞秀'
-                            },
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '8.9',
-                                title: '空天猎',
-                                des: '李晨范冰冰激战恐怖分子恐怖扥自啊as的    '
-                            },
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '7.9',
-                                title: '悟空传',
-                                des: '彭于晏变身大圣勇斗天庭'
-                            }, 
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '9.3',
-                                title: '夜宴',
-                                des: '章子怡上演宫廷版权力的游戏'
-                            }
-                        ]
+                        piclistData: []
                     },
                     hotSwiperModuleData: {
                         id: '001',
@@ -202,44 +156,7 @@ export default {
                                 classifyNav: '电影'
                             }
                         },
-                        piclistData: [
-                            {   
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '9.7',
-                                title: '长城·免费首播',
-                                des: '中外巨星汇聚长城打怪兽',
-                            },
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '8.2',
-                                title: '星际特工：千里之城之',
-                                des: '蕾哈娜上演变装热舞秀'
-                            },
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '8.9',
-                                title: '空天猎',
-                                des: '李晨范冰冰激战恐怖分子恐怖扥自啊as的    '
-                            },
-                            {
-                                id: 123456,
-                                img: 'http://m.qiyipic.com/common/lego/20171204/5f2ffe54b5f841e08c91e32b8c3a7dfc.jpg',
-                                catname: '',
-                                collect: '',
-                                score: '7.9',
-                                title: '悟空传',
-                                des: '彭于晏变身大圣勇斗天庭'
-                            }
-                        ]
+                        piclistData: []
                     },
                     chineseModuleData: {
                         type: '华语电影',
@@ -303,17 +220,17 @@ export default {
 
 <template>
     <div class="container">
-        <base-banner :data="bannerModuleData"></base-banner>
-        <base-nav-type-module :data="navTypeModuleData"></base-nav-type-module>
-		<base-hot-module :data="hotModuleData"></base-hot-module>
-		<base-home-module :data="featureMovieModuleData"></base-home-module>
-        <base-swiper-module :data="hotSwiperModuleData"></base-swiper-module>
+        <base-banner v-if="bannerModuleData.piclistData.length > 0" :data="bannerModuleData"></base-banner>
+        <base-nav-type-module v-if="navTypeModuleData.length > 0" :data="navTypeModuleData"></base-nav-type-module>
+		<base-hot-module v-if="hotModuleData.piclistData.length > 0" :data="hotModuleData"></base-hot-module>
+		<base-home-module v-if="featureMovieModuleData.piclistData.length > 0" :data="featureMovieModuleData"></base-home-module>
+        <base-swiper-module v-if="hotSwiperModuleData.piclistData.length > 0" :data="hotSwiperModuleData"></base-swiper-module>
         <base-swiper-module v-if="timelineSwiperModuleData.piclistData > 0" :data="timelineSwiperModuleData"></base-swiper-module>
-        <base-hot-module :data="newModuleData"></base-hot-module>
-		<base-hot-module :data="onlineModuleData"></base-hot-module>
-		<base-hot-module :data="chineseModuleData"></base-hot-module>
-		<base-hot-module :data="eaModuleData"></base-hot-module>
-		<base-hot-module :data="jkModuleData"></base-hot-module>
+        <base-hot-module v-if="newModuleData.piclistData.length > 0" :data="newModuleData"></base-hot-module>
+		<base-hot-module v-if="onlineModuleData.piclistData.length > 0" :data="onlineModuleData"></base-hot-module>
+		<base-hot-module v-if="chineseModuleData.piclistData.length > 0" :data="chineseModuleData"></base-hot-module>
+		<base-hot-module v-if="eaModuleData.piclistData.length > 0" :data="eaModuleData"></base-hot-module>
+		<base-hot-module v-if="jkModuleData.piclistData.length > 0" :data="jkModuleData"></base-hot-module>
     </div>
 </template>
 

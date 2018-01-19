@@ -181,6 +181,7 @@ export default {
         border-radius: .092593rem;
         text-align: center;
         background-color: $orange;
+        color: #fff;
     }
     .shareBtn {
         text-indent: -1333.32rem;

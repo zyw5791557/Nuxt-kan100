@@ -99,11 +99,7 @@ export default {
 @import '~assets/css/vars.scss';
     .backEnable {
         .swiper-slide:first-child {
-            &:before {
-                content: '';
-                display: inline-block;
-                width: .425926rem;
-            }
+            padding-left: .925926rem;
         }
         .back {
             position: absolute;
@@ -127,11 +123,8 @@ export default {
         width: auto;
         margin-right: .518519rem;
         &:last-child {
-            &:after {
-                content: '';
-                display: inline-block;
-                width: .407407rem;
-            }
+            padding-right: .925926rem;
+            margin-right: 0;
         }
         
         &.nuxt-link-exact-active {

@@ -53,7 +53,7 @@ export default {
                 roundLengths : true,
                 observer:true,
                 observeParents: true
-            });
+            }).slideTo(0, 1000, false);
         },
         sortCollect() {
             this.loadData.reverse();

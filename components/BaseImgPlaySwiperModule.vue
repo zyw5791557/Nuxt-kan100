@@ -30,8 +30,13 @@ export default {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
                 slidesPerView: 'auto',
+                roundLengths : true,
                 observer:true,
-                observeParents: true
+                observeParents: true,
+                scrollbar: {
+                    el: this.$refs['img-play-swiper-scrollbar'],
+                    hide: true,
+                },
             });
         },
         selectTabs(param,e) {
@@ -64,7 +69,7 @@ export default {
             </div>
             <div class="swiper-container" id="img-play-swiper">
                 <ul class="swiper-wrapper m-pic-list">
-                    <li v-if="$store.state.play_source.play_list.length > 0" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
+                    <li v-if="($store.state.play_source.play_list.length > 0) && index < 50" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
                         <div class="piclist-time" v-if="item.timeline">
                             <span class="c-timeline">{{ item.timeline }}</span>
                         </div>
@@ -94,7 +99,11 @@ export default {
                             </div>
                         </div>
                     </li>
+                    <li v-if="$store.state.play_source.play_list.length > 50" class="swiper-slide more-collect-box">
+                        <a @click="$emit('popup')" class="more-collect" href="javascript:void(0);">加载更多</a>
+                    </li>
                 </ul>
+                <div ref="img-play-swiper-scrollbar" class="swiper-scrollbar"></div>
             </div>
         </div>
     </section>
@@ -232,5 +241,18 @@ export default {
         }
     }
 }
+
+.mainer .more-collect-box {
+    width: 13%!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .more-collect {
+        padding-top: .6rem;
+        width: .5rem;
+        color: $orange;
+    }
+}
+
 @include moduleFontSize('.base-img-play-swiper');
 </style>

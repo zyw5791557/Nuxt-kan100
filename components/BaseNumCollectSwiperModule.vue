@@ -17,8 +17,13 @@ export default {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
                 slidesPerView: 'auto',
+                roundLengths : true,
                 observer:true,
-                observeParents: true
+                observeParents: true,
+                scrollbar: {
+                    el: this.$refs['base-collect-swiper-scrollbar'+this.loadData.id],
+                    hide: true,
+                },
             });
         }
     },
@@ -42,10 +47,14 @@ export default {
             </div>
             <div :id="`base-collect-swiper${loadData.id}`" class="swiper-container">
                 <ul class="swiper-wrapper">
-                    <li v-if="$store.state.play_source.play_list.length > 0" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
+                    <li v-if="($store.state.play_source.play_list.length > 0) && index < 100" v-for="(item,index) in $store.state.play_source.play_list" :key="index" class="swiper-slide">
                         <a :href="item.playurl" class="collect-item">{{ item.collect }}</a>
                     </li>
+                    <li v-if="$store.state.play_source.play_list.length >= 100" class="swiper-slide">
+                        <a @click="$emit('popup')" class="collect-item more-collect" href="javascript:void(0);">更多</a>
+                    </li>
                 </ul>
+                <div :ref="`base-collect-swiper-scrollbar${loadData.id}`" class="swiper-scrollbar"></div>
             </div>
         </div>
     </section>
@@ -114,6 +123,11 @@ export default {
         color: $baseColor;
         text-align: center;
     }
+}
+// 更多
+.more-collect {
+    background-color: $orange!important;
+    color: #fff!important;
 }
 
     // 根据 data-dpr 设置字体大小

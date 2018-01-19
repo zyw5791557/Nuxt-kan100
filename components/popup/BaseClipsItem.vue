@@ -18,8 +18,13 @@ export default {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
                 slidesPerView: 'auto',    
+                roundLengths : true,
                 observer:true,
-                observeParents: true
+                observeParents: true,
+                scrollbar: {
+                    el: this.$refs['clips-swiper-module-scrollbar' + this.loadData.id],
+                    hide: true,
+                },
             });
         }
     },
@@ -64,6 +69,7 @@ export default {
                     </div>
                 </li>
             </ul>
+            <div :ref="`clips-swiper-module-scrollbar${loadData.id}`" class="swiper-scrollbar"></div>
         </div>
     </div>
 </template>
