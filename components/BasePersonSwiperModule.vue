@@ -54,7 +54,7 @@ export default {
                     <li v-for="(item,index) in loadData.personlistData" class="swiper-slide">
                         <nuxt-link :to="routeGuide(item)" :class="{ fire: index < 3 && loadData.fire }">
                             <img :src="item.img" alt="" width="100%">
-                            <div class="c-title text-ellipsis">{{ item.realname }}</div>
+                            <div class="c-title text-ellipsis">{{ item.realname ? item.realname : item.title }}</div>
                             <div v-if="item.actorname" class="c-sup text-ellipsis">饰 {{ item.actorname }}</div>
                         </nuxt-link>
                     </li>

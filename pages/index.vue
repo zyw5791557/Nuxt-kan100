@@ -1,6 +1,5 @@
 <script>
 import Axios from '~/plugins/getAPI.js';
-import { ToastHandle } from '~/util/util.js';
 import BaseBanner from '~/components/BaseBanner';
 import BaseHotModule from '~/components/BaseHotModule';
 import BaseHomeModule from '~/components/BaseHomeModule';
@@ -18,86 +17,81 @@ export default {
 		BaseHotModule,
 		BaseHomeModule,  
     },
-    asyncData ({ params }, callback) {
+    asyncData ({ route }, callback) {
 		Axios('index', {
             method: 'get'
-        }).then(res => {
-            const result = res.data.data;
-            const code   = res.data.code;
-            if(code === 1) {
-                ToastHandle(1);
-                callback();
-            }else if (code === 0) {
-                callback(null, {
-                    bannerModuleData: {
-                        backEnable: true,
-                        piclistData: result.index_slideshow
+        }).then(result => {
+            callback(null, {
+                bannerModuleData: {
+                    backEnable: true,
+                    piclistData: result.index_slideshow
+                },
+                hotModuleData: {
+                    type: '重磅热播',
+                    headLinkName: '换一换',
+                    headLinkIcon: 'change',
+                    backEnable: true,
+                    piclistData: []
+                },
+                movieModuleData: {
+                    type: '电影',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    backEnable: true,
+                    itemRouteName: 'MovieDetailView-id',
+                    classifyGuide: {
+                        name: 'Classify',
+                        query: {
+                            classifyNav: '电影'
+                        }
                     },
-                    hotModuleData: {
-                        type: '重磅热播',
-                        headLinkName: '换一换',
-                        headLinkIcon: 'change',
-                        backEnable: true,
-                        piclistData: []
+                    piclistData: result.index_movieshow
+                },
+                teleplayModuleData: {
+                    type: '电视剧',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
+                    classifyGuide: {
+                        name: 'Classify',
+                        query: {
+                            classifyNav: '电视剧'
+                        }
                     },
-                    movieModuleData: {
-                        type: '电影',
-                        headLinkName: '更多',
-                        headLinkIcon: 'more',
-                        backEnable: true,
-                        itemRouteName: 'MovieDetailView-id',
-                        classifyGuide: {
-                            name: 'Classify',
-                            query: {
-                                classifyNav: '电影'
-                            }
-                        },
-                        piclistData: result.index_movieshow
+                    piclistData: result.index_tvshow
+                },
+                showModuleData: {
+                    type: '综艺',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    backEnable: true,
+                    itemRouteName: 'ShowDetailView-id',
+                    classifyGuide: {
+                        name: 'Classify',
+                        query: {
+                            classifyNav: '综艺'
+                        }
                     },
-                    teleplayModuleData: {
-                        type: '电视剧',
-                        headLinkName: '更多',
-                        headLinkIcon: 'more',
-                        backEnable: true,
-                        itemRouteName: 'TeleplayDetailView-id',
-                        classifyGuide: {
-                            name: 'Classify',
-                            query: {
-                                classifyNav: '电视剧'
-                            }
-                        },
-                        piclistData: result.index_tvshow
+                    piclistData: result.index_varietyshow
+                },
+                animeModuleData: {
+                    type: '动漫',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
+                    classifyGuide: {
+                        name: 'Classify',
+                        query: {
+                            classifyNav: '动漫'
+                        }
                     },
-                    showModuleData: {
-                        type: '综艺',
-                        headLinkName: '更多',
-                        headLinkIcon: 'more',
-                        backEnable: true,
-                        itemRouteName: 'ShowDetailView-id',
-                        classifyGuide: {
-                            name: 'Classify',
-                            query: {
-                                classifyNav: '综艺'
-                            }
-                        },
-                        piclistData: result.index_varietyshow
-                    },
-                    animeModuleData: {
-                        type: '动漫',
-                        headLinkName: '更多',
-                        headLinkIcon: 'more',
-                        backEnable: true,
-                        itemRouteName: 'AnimeDetailView-id',
-                        classifyGuide: {
-                            name: 'Classify',
-                            query: {
-                                classifyNav: '动漫'
-                            }
-                        },
-                        piclistData: result.index_cartoonshow
-                    }
-                });
-            }
+                    piclistData: result.index_cartoonshow
+                }
+            });
+        }).catch(error => {
+            callback();
         });
 	}
 }

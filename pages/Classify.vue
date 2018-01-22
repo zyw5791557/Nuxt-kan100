@@ -1,6 +1,5 @@
 <script>
 import Axios from '~/plugins/getAPI.js';
-import { ToastHandle } from '~/util/util.js';
 import BaseFooter from '~/components/BaseFooter';
 export default {
     layout: 'independent',
@@ -30,30 +29,25 @@ export default {
                 level: $level,
                 page: 1
             }
-        }).then(res => {
-            const result = res.data.data;
-            const code   = res.data.code;
-            if(code === 1) {
-                ToastHandle(1);
-                callback();
-            } else if (code === 0) {
-                if(result.length === 0) {
-                    callback(null, {
-                        resData: []
-                    })
-                }
+        }).then(result => {
+            if(result.length === 0) {
                 callback(null, {
-                    classifyData: {
-                        nav: ['电影','电视剧','综艺','动漫','搞笑'],
-                        type: result.type,
-                        area: result.region,
-                        time: result.age,
-                        actor: result.actor,
-                        sort: result.recent
-                    },
-                    resData: result.video
-                });
+                    resData: []
+                })
             }
+            callback(null, {
+                classifyData: {
+                    nav: ['电影','电视剧','综艺','动漫','搞笑'],
+                    type: result.type,
+                    area: result.region,
+                    time: result.age,
+                    actor: result.actor,
+                    sort: result.recent
+                },
+                resData: result.video
+            });
+        }).catch(error => {
+            callback();
         });
     },
     data () {
@@ -174,21 +168,15 @@ export default {
                 this.loading = false;
                 return;
             }
-            this.requestHandle().then(res => {
-                const result = res.data.data;
-                const code   = res.data.code;
-                if(code === 1) {
-                    ToastHandle(1);
-                } else if (code === 0) {
-                    if(result.length === 0) {
-                        this.requestLock = false;
-                        this.loading = false;
-                        return;
-                    }
-                    if(result.video.length < 12) this.requestLock = false; 
-                    this.resData = this.resData.concat(result.video);
+            this.requestHandle().then(result => {
+                if(result.length === 0) {
+                    this.requestLock = false;
                     this.loading = false;
+                    return;
                 }
+                if(result.video.length < 12) this.requestLock = false; 
+                this.resData = this.resData.concat(result.video);
+                this.loading = false;
             });
         },
         select (type,val) {
@@ -202,36 +190,24 @@ export default {
                 this.selectStat['time'] = '全部';
                 this.selectStat['actor'] = '全部';
                 this.selectStat['sort'] = '全部';
-                this.requestHandle().then(res => {
-                    const result = res.data.data;
-                    const code   = res.data.code;
-                    if(code === 1) {
-                        ToastHandle(1);
-                    } else if (code === 0) {
-                        this.classifyData.type = result.type;
-                        this.classifyData.area = result.region;
-                        this.classifyData.time = result.age;
-                        this.classifyData.actor = result.actor;
-                        this.classifyData.sort = result.recent;
-                        if(result.video.length < 12) this.requestLock = false;
-                        this.resData = result.video;
-                    }
+                this.requestHandle().then(result => {
+                    this.classifyData.type = result.type;
+                    this.classifyData.area = result.region;
+                    this.classifyData.time = result.age;
+                    this.classifyData.actor = result.actor;
+                    this.classifyData.sort = result.recent;
+                    if(result.video.length < 12) this.requestLock = false;
+                    this.resData = result.video;
                 });
             }else {
                 this.selectStat[type] = val;
-                this.requestHandle().then(res => {
-                    const result = res.data.data;
-                    const code   = res.data.code;
-                    if(code === 1) {
-                        ToastHandle(1);
-                    } else if (code === 0) { 
-                        if(result.length === 0) {
-                            this.resData = [];
-                            return;
-                        }
-                        if(result.video.length < 12) this.requestLock = false; 
-                        this.resData = result.video;
+                this.requestHandle().then(result => {
+                    if(result.length === 0) {
+                        this.resData = [];
+                        return;
                     }
+                    if(result.video.length < 12) this.requestLock = false; 
+                    this.resData = result.video;
                 });
             }
         },

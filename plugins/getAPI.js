@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Toast } from 'mint-ui';
+import { ToastHandle } from '~/util/util.js';
 
 const baseURL = 'http://localhost:8888';
 
@@ -11,6 +12,10 @@ export default (api, ...arg) => {
 		'index': 'index',
 		// 电影
 		'movie': 'movieIndex',
+		// 电视剧
+		'teleplay': 'tvIndex',
+		// 动漫
+		'anime': 'cartoonIndex',
 		// 视频详情
 		'detailItem': 'detailItem',
 		// 分类
@@ -25,7 +30,18 @@ export default (api, ...arg) => {
 	for (let key in arg[0]) {
 		params[key] = arg[0][key];
 	};
-	return axios(params);
+	return new Promise((resolve, reject) => {
+		axios(params).then(res => {
+			const result = res.data.data;
+			const code   = res.data.code;
+			if(code === 1) {
+				ToastHandle(1);
+				reject();
+			} else if (code === 0) {
+				resolve(result);
+			}
+		});
+	})
 }
 
 // axios request 拦截器

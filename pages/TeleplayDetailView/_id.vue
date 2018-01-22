@@ -1,7 +1,6 @@
 <script>
 import { mapMutations } from 'vuex';
 import Axios from '~/plugins/getAPI.js';
-import { ToastHandle } from '~/util/util.js';
 import BaseWikiModule from '@/components/BaseWikiModule';
 import BaseSelectItem from '@/components/popup/BaseSelectItem';
 import BaseNumCollectSwiperModule from '@/components/BaseNumCollectSwiperModule';
@@ -41,72 +40,67 @@ export default {
                 id: ~~route.params.id,
                 category: '电视剧'
             }
-        }).then(res => {
-            const result = res.data.data;
-            const code   = res.data.code;
-            if(code === 0) {
-                callback(null, {
-                    wikiData: {
-                        img: result.img,
-                        title: result.title,
-                        meta: '1080P',
-                        score: result.score,
-                        type: result.type,
-                        release: result.broadcast_time,
-                        time: '',
-                        des: result.introduce,
-                        sourceArr: result.video_list
-                    },
-                    playData: {
-                        id: '001',
-                        type: '选集',
-                        headLinkIcon: 'arrow',
-                        piclistData: result.video_list
-                    },
-                    playerData: {
-                        type: '参演明星',
-                        pd: false,
-                        backEnable: true,
-                        itemRouteName: 'StarDetailView-id',
-                        personlistData: result.actor
-                    },
-                    clipsData: {
-                        id: '001',
-                        type: '片花资讯',
-                        headLinkIcon: 'arrow',
-                        newsModule: true,
-                        backEnable: true,
-                        itemRouteName: 'MovieDetailView-id',
-                        ellipsisLines: 2,
-                        piclistData: result.movie_clips_prevue
-                    },
-                    relatedData: {
-                        type: '相关专题',
-                        newsModule: true,
-                        backEnable: true,
-                        itemRouteName: 'TeleplayDetailView-id',
-                        piclistData: result.special_topic
-                    },
-                    similarData: {
-                        id: '002',
-                        type: '同类型电视剧',
-                        backEnable: true,
-                        itemRouteName: 'TeleplayDetailView-id',
-                        piclistData: result.common_video
-                    },
-                    hotData: {
-                        id: '003',
-                        type: '热播榜',
-                        rank: true,
-                        backEnable: true,
-                        itemRouteName: 'MovieDetailView-id',
-                        piclistData: result.hotMovieList
-                    },
-                });
-            }else {
-                ToastHandle(1);
-                callback();
-            }
+        }).then(result => {
+            callback(null, {
+                wikiData: {
+                    img: result.img,
+                    title: result.title,
+                    meta: '1080P',
+                    score: result.score,
+                    type: result.type,
+                    release: result.broadcast_time,
+                    time: '',
+                    des: result.introduce,
+                    sourceArr: result.video_list
+                },
+                playData: {
+                    id: '001',
+                    type: '选集',
+                    headLinkIcon: 'arrow',
+                    piclistData: result.video_list
+                },
+                playerData: {
+                    type: '参演明星',
+                    pd: false,
+                    backEnable: true,
+                    itemRouteName: 'StarDetailView-id',
+                    personlistData: result.actor
+                },
+                clipsData: {
+                    id: '001',
+                    type: '片花资讯',
+                    headLinkIcon: 'arrow',
+                    newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'MovieDetailView-id',
+                    ellipsisLines: 2,
+                    piclistData: result.movie_clips_prevue
+                },
+                relatedData: {
+                    type: '相关专题',
+                    newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
+                    piclistData: result.special_topic
+                },
+                similarData: {
+                    id: '002',
+                    type: '同类型电视剧',
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
+                    piclistData: result.common_video
+                },
+                hotData: {
+                    id: '003',
+                    type: '热播榜',
+                    rank: true,
+                    backEnable: true,
+                    itemRouteName: 'MovieDetailView-id',
+                    piclistData: result.hotMovieList
+                },
+            });
+        }).catch(error => {
+            callback();
         });
     },
     data () {

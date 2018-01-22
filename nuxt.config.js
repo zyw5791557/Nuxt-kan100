@@ -30,6 +30,7 @@ module.exports = {
 	loading: { color: '#3B8070' },
 	plugins: [
 		'~/plugins/vue-mint.js',
+		'~/plugins/vue-museui.js',
 		{ src: '~/plugins/fastclick.js', ssr: false }
 	],
 	/*
