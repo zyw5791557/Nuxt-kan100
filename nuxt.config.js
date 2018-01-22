@@ -6,7 +6,8 @@ module.exports = {
 		title: 'kan100',
 		meta: [
 			{ charset: 'utf-8' },
-			{ hid: 'description', name: 'description', content: 'Nuxt.js project' }
+			{ hid: 'description', name: 'description', content: 'Nuxt.js project' },
+			// { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' }
 		],
 		script: [
 			{ src: 'http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js' },

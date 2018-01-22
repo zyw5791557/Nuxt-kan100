@@ -32,11 +32,7 @@ export default {
                 slidesPerView: 'auto',
                 roundLengths : true,
                 observer:true,
-                observeParents: true,
-                scrollbar: {
-                    el: this.$refs['base-swiper--module-scrollbar'+this.loadData.id],
-                    hide: true,
-                },
+                observeParents: true
             });
         },
         routeGuide(item) {
@@ -108,7 +104,6 @@ export default {
                         </div>
                     </li>
                 </ul>
-                <div :ref="`base-swiper--module-scrollbar${loadData.id}`" class="swiper-scrollbar"></div>
             </div>
         </div>
     </section>

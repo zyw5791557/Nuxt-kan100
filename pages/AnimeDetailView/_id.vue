@@ -146,7 +146,7 @@ export default {
             class="selectSourcePopup">
             <base-select-item :data="playSource" @close="selectSourcePopupFlag=false"></base-select-item>
         </mt-popup>
-        <mu-popup position="bottom" popupClass="collectPopup" :open="collectPopupFlag">
+        <mu-popup position="bottom" popupClass="collectPopup" :open="collectPopupFlag" @close="collectPopupFlag=false">
             <base-num-collect-item :data="$store.state.play_source" @close="collectPopupFlag=false"></base-num-collect-item>
         </mu-popup>
         <!-- <mt-popup
@@ -166,7 +166,7 @@ export default {
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .selectSourcePopup,
 .clipsPopup,
 .collectPopup {
