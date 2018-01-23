@@ -33,7 +33,7 @@ export default {
     <section class="wiki-module">
         <div class="wiki-card">
             <div class="wiki-mask">
-                <div :style="`background-image:url(${loadData.img})`" class="img-mask"></div>
+                <div class="img-mask"></div>
                 <div class="color-mask"></div>
             </div>
             <div class="wiki-main">
@@ -93,19 +93,14 @@ export default {
     height: 100%;
     overflow: hidden;
     .img-mask {
-        // position: absolute;
-        // z-index: 99;
-        // width: 100%;
-        // height: 100%;
-        // filter: blur(100px);
-        // -webkit-filter: blur(100px);
-        // -ms-filter: blur(100px);
-        // -moz-filter: blur(100px);
-        // -o-filter: blur(100px);
-        // background-repeat: no-repeat;
-        // background-position: center -2.666667rem;
-        // background-size: cover;
-        // background-color: #000;
+        position: absolute;
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        background-image:url('~assets/images/blur.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
     }
     .color-mask {
         position: absolute;
