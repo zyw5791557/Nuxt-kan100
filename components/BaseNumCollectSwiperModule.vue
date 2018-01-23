@@ -84,7 +84,7 @@ export default {
                 font-weight: 600;
             }
             a {
-                padding: .266667rem 0 .266667rem .266667rem;
+                padding: .266667rem 0 .266667rem 1rem;
                 display: flex;
                 align-items: center;
                 color: $orange;
@@ -96,8 +96,8 @@ export default {
                     @include smallIcon('~assets/images/more.png');
                 }
                 i.arrow {
-                    width: .138889rem;
-                    height: .138889rem;
+                    width: .25rem;
+                    height: .25rem;
                     border-right: .027778rem solid #999;
                     border-bottom: .027778rem solid #999;
                     transform: rotate(-45deg);

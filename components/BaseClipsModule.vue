@@ -116,8 +116,8 @@ export default {
                         @include smallIcon('~assets/images/more.png');
                     }
                     i.arrow {
-                        width: .138889rem;
-                        height: .138889rem;
+                        width: .25rem;
+                        height: .25rem;
                         border-right: .027778rem solid #999;
                         border-bottom: .027778rem solid #999;
                         transform: rotate(-45deg);

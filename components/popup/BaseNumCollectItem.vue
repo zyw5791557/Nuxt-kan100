@@ -151,8 +151,8 @@ export default {
         align-items: center;
         line-height: 1.185185rem;
         border-bottom: $moduleBorder;
-        padding: 0 $gap;
         .flex-left {
+            padding-left: $gap;
             display: flex;
             h2 {
                 color: $baseColor;
@@ -187,11 +187,11 @@ export default {
             }
         }
         .close {
+            height: 1.185185rem;
             width: .351852rem;
-            height: .351852rem;
-            padding: .266667rem 0 .266667rem .266667rem;
+            padding: 0 $gap*2;
             background-image: url('~assets/images/close.png');
-            background-position: right center;
+            background-position: center;
             background-size: .351852rem .351852rem;
             background-repeat: no-repeat;
         }

@@ -30,15 +30,15 @@ module.exports = {
 	*/
 	loading: { color: '#3B8070' },
 	plugins: [
-		'~/plugins/vue-mint.js',
-		'~/plugins/vue-museui.js',
-		{ src: '~/plugins/fastclick.js', ssr: false }
+		{ src: '~/plugins/vue-fastclick.js', ssr: false },
+		{ src: '~/plugins/vue-mint.js' },
+		{ src: '~/plugins/vue-museui.js' }
 	],
 	/*
 	** Build configuration
 	*/
 	build: {
-		vendor: ['axios'],
+		vendor: ['axios', 'fastclick','mint-ui','muse-ui'],
 		/*
 		** Run ESLint on save
 		*/

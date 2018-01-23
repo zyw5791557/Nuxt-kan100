@@ -52,6 +52,7 @@ export default {
                     <p v-if="loadData.release" class="c-release">{{ loadData.release }}</p>
                     <p v-if="loadData.time" class="c-time">{{ loadData.time }}</p>
                     <a v-if="$store.state.play_source.play_list !== undefined" class="playBtn" :href="$store.state.play_source.play_list[0].playurl">立即播放</a>
+                    <a v-if="$store.state.play_source.play_list === undefined" class="noplayBtn">暂无资源</a>
                     <!-- <a class="shareBtn" href="javascript:void(0);">分享</a> -->
                     <a @click="$emit('popup')" v-if="$store.state.play_source.channel !== undefined" :class="$store.state.play_source.channel" class="sourceBtn" href="javascript:void(0);">
                         {{ $store.state.play_source.channel_name }}
@@ -92,18 +93,19 @@ export default {
     height: 100%;
     overflow: hidden;
     .img-mask {
-        position: absolute;
-        z-index: 10;
-        width: 100%;
-        height: 100%;
-        filter: blur(100px);
-        -webkit-filter: blur(100px);
-        -ms-filter: blur(100px);
-        -moz-filter: blur(100px);
-        -o-filter: blur(100px);
-        background-repeat: no-repeat;
-        background-position: center -2.666667rem;
-        background-size: cover;
+        // position: absolute;
+        // z-index: 99;
+        // width: 100%;
+        // height: 100%;
+        // filter: blur(100px);
+        // -webkit-filter: blur(100px);
+        // -ms-filter: blur(100px);
+        // -moz-filter: blur(100px);
+        // -o-filter: blur(100px);
+        // background-repeat: no-repeat;
+        // background-position: center -2.666667rem;
+        // background-size: cover;
+        // background-color: #000;
     }
     .color-mask {
         position: absolute;
@@ -183,6 +185,18 @@ export default {
         background-color: $orange;
         color: #fff;
     }
+    .noplayBtn {
+        position: absolute;
+        left: 0;
+        bottom: .981481rem;
+        width: 3.5rem;
+        height: 1rem;
+        line-height: 1rem;
+        border-radius: .092593rem;
+        text-align: center;
+        background-color: #aaa;
+        color: #fff;
+    }
     .shareBtn {
         text-indent: -1333.32rem;
         position: absolute;
@@ -202,7 +216,7 @@ export default {
         left: 0;
         bottom: .148148rem;
         color: $baseColor;
-        padding: 0 .37037rem 0 .6rem;
+        padding: 0 .38037rem 0 .7rem;
         height: .518519rem;
         line-height: .518519rem;
         background-image: url('~assets/images/source-icon.png');
@@ -261,7 +275,8 @@ export default {
     .sourceBtn {
         font-size: 12px;
     }
-    .playBtn {
+    .playBtn,
+    .noplayBtn {
         font-size: 17px;
     }
     .wiki-text {
@@ -287,7 +302,8 @@ export default {
     .c-type,
     .c-release,
     .c-time,
-    .sourceBtn {
+    .sourceBtn,
+    .noplayBtn {
         font-size: 24px;
     }
     .playBtn {
@@ -316,7 +332,8 @@ export default {
     .c-type,
     .c-release,
     .c-time,
-    .sourceBtn {
+    .sourceBtn,
+    .noplayBtn {
         font-size: 36px;
     }
     .playBtn {
