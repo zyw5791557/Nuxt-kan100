@@ -20,10 +20,6 @@ export default {
                 roundLengths : true,
                 observer:true,
                 observeParents: true,
-                scrollbar: {
-                    el: this.$refs['base-person-swiper-scrollbar'+this.loadData.id],
-                    hide: true,
-                },
             });
         },
         routeGuide(item) {
@@ -59,7 +55,6 @@ export default {
                         </nuxt-link>
                     </li>
                 </ul>
-                <div :ref="`base-person-swiper-scrollbar${loadData.id}`" class="swiper-scrollbar"></div>
             </div>
         </div>
     </section>

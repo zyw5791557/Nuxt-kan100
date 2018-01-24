@@ -39,7 +39,7 @@ export default {
                     <li v-for="(item,index) in loadData.personlistData" class="person-item">
                         <nuxt-link :to="routeGuide(item)">
                             <img :src="item.img" alt="" width="100%">
-                            <div class="c-title">{{ item.name }}</div>
+                            <div class="c-title">{{ item.title }}</div>
                         </nuxt-link>
                     </li>
                 </ul>
@@ -95,10 +95,10 @@ export default {
 .person-item {
     flex-shrink: 0;
     width: 1.648148rem;
-    padding-top: .462963rem;
-    padding-right: .796296rem;
+    margin-top: .462963rem;
+    margin-right: .796296rem;
     &:nth-child(4n) {
-        padding-right: 0;
+        margin-right: 0;
     }
     a {
         display: block;
@@ -106,6 +106,8 @@ export default {
         text-align: center;
         img {
             position: relative;
+            width: 1.648148rem;
+            height: 1.648148rem;
             border-radius: 50%;
         }
         .c-title {

@@ -1,4 +1,5 @@
 <script>
+import Axios from '~/plugins/getAPI.js';
 import BaseBanner from '~/components/BaseBanner';
 import BaseNavTypeModule from '~/components/BaseNavTypeModule';
 import BaseHotModule from '~/components/BaseHotModule';
@@ -20,405 +21,62 @@ export default {
         BaseHotModule,
         BasePersonModule
     },
-    asyncData ({ params }, callback) {
-        callback(null, {
-            bannerModuleData: {
-                backEnable: true,
-                piclistData: [
-                    // 电影
-                    {
-                        id: 123456,
-                        routeName: 'MovieDetailView-id',
-                        img: 'http://m.qiyipic.com/common/lego/20171128/17107ac0abbe4236b160598ec6d0b9d5.jpg',
-                        content: {
-                            title: '独步天下',
-                            des: '看到飙泪! 东哥与葛戴终于相认了东哥与葛戴按时打算大啥的'
-                        }
-                    },
-                    // 电视剧
-                    {
-                        id: 123456,
-                        routeName: 'TeleplayDetailView-id',
-                        img: 'http://m.qiyipic.com/common/lego/20171128/17107ac0abbe4236b160598ec6d0b9d5.jpg',
-                        content: {
-                            title: '独步天下',
-                            des: '看到飙泪! 东哥与葛戴终于相认了东哥与葛戴按时打算大啥的'
-                        }
-                    },
-                    // 综艺
-                    {
-                        id: 123456,
-                        routeName: 'ShowDetailView-id',
-                        img: 'http://m.qiyipic.com/common/lego/20171128/17107ac0abbe4236b160598ec6d0b9d5.jpg',
-                        content: {
-                            title: '独步天下',
-                            des: '看到飙泪! 东哥与葛戴终于相认了东哥与葛戴按时打算大啥的'
-                        }
-                    },
-                    // 动漫
-                    {
-                        id: 123456,
-                        routeName: 'AnimeDetailView-id',
-                        img: 'http://m.qiyipic.com/common/lego/20171128/17107ac0abbe4236b160598ec6d0b9d5.jpg',
-                        content: {
-                            title: '独步天下',
-                            des: '看到飙泪! 东哥与葛戴终于相认了东哥与葛戴按时打算大啥的'
-                        }
-                    },
-                    // 明星
-                    {
-                        id: 123456,
-                        routeName: 'StarDetailView-id',
-                        img: 'http://m.qiyipic.com/common/lego/20171128/17107ac0abbe4236b160598ec6d0b9d5.jpg',
-                        content: {
-                            title: '独步天下',
-                            des: '看到飙泪! 东哥与葛戴终于相认了东哥与葛戴按时打算大啥的'
-                        }
-                    }
-                ]
-            },
-            navTypeModuleData: [
-                {
-                    name: '大陆',
-                    classifyGuide: {
-                        name: 'Classify',
-                        query: {
-                            classifyNav: '明星',
-                            classifyArea: '大陆'
-                        }
-                    }
+    asyncData ({ route }, callback) {
+        Axios('star', {
+            method: 'get'
+        }).then(result => {
+            console.log(result)
+             callback(null, {
+                bannerModuleData: {
+                    backEnable: true,
+                    piclistData: []
                 },
-                {
-                    name: '台湾',
-                    classifyGuide: {
-                        name: 'Classify',
-                        query: {
-                            classifyNav: '明星',
-                            classifyArea: '台湾'
-                        }
-                    }
+                navTypeModuleData: [],
+                personData: {
+                    type: '热门明星',
+                    itemRouteName: 'StarDetailView-id',
+                    personlistData: result.hotActor
                 },
-                {
-                    name: '欧美',
-                    classifyGuide: {
-                        name: 'Classify',
-                        query: {
-                            classifyNav: '明星',
-                            classifyArea: '欧美'
-                        }
-                    }
+                dailyModuleData: {
+                    type: '明星八卦',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    newsModule: true,
+                    piclistData: [],
+                    newsData: []
                 },
-                {
-                    name: '韩国',
-                    classifyGuide: {
-                        name: 'Classify',
-                        query: {
-                            classifyNav: '明星',
-                            classifyArea: '韩国'
-                        }
-                    }
+                inlandModuleData: {
+                    type: '内地',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    itemRouteName: 'StarDetailView-id',
+                    personlistData: result.mainland
                 },
-                {
-                    name: '全部',
-                    classifyGuide: {
-                        name: 'Classify',
-                        query: {
-                            classifyNav: '明星',
-                            classifyArea: '全部'
-                        }
-                    }
+                HKTWModuleData: {
+                    type: '港台',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    itemRouteName: 'StarDetailView-id',
+                    personlistData: result.hongkongAndTaiwan
+                },
+                JKModuleData: {
+                    type: '日韩',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    itemRouteName: 'StarDetailView-id',
+                    personlistData: result.japanAndKorea
+                },
+                OAModuleData: {
+                    type: '欧美',
+                    headLinkName: '更多',
+                    headLinkIcon: 'more',
+                    itemRouteName: 'StarDetailView-id',
+                    personlistData: result.europeAndAmerica
                 }
-            ],
-            personData: {
-                type: '热门明星',
-                itemRouteName: 'StarDetailView-id',
-                personlistData: [
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '范冰冰'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    }
-                ]
-            },
-            dailyModuleData: {
-                type: '每日明星资讯',
-                headLinkName: '更多',
-                headLinkIcon: 'more',
-                newsModule: true,
-                piclistData: [
-                    {   
-                        id: 123456,
-                        img: 'http://m.qiyipic.com/image/20171208/16/14/v_114204071_m_601_284_160.jpg',
-                        catname: '1080P',
-                        collect: '更新至21集',
-                        score: '',
-                        title: '猎场',
-                        des: '看丘吉尔霸气强怼国王'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://m.qiyipic.com/image/20171208/16/14/v_114204071_m_601_284_160.jpg',
-                        catname: '',
-                        collect: '更新至22集',
-                        score: '',
-                        title: '九州海上牧云记',
-                        des: '三角恋？组合你站谁你站谁你沾水啊啊啊啊'
-                    }
-                ],
-                newsData: [
-                    {
-                        url: '',
-                        msg: '一条狗的使命什么时候中国上映，定档预告温暖上线定大师傅阿斯蒂芬阿萨德'
-                    },
-                    {
-                        url: '',
-                        msg: '吴宇森翻拍电影追捕 追捕上映时间主演阵容介绍'
-                    },
-                    {
-                        url: '',
-                        msg: '了不起的菲丽西电影主题曲叫什么?由谁演唱?'
-                    }
-                ]
-            },
-            inlandModuleData: {
-                type: '内地',
-                headLinkName: '更多',
-                headLinkIcon: 'more',
-                personlistData: [
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    }
-                ]
-            },
-            HKTWModuleData: {
-                type: '港台',
-                headLinkName: '更多',
-                headLinkIcon: 'more',
-                personlistData: [
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    }
-                ]
-            },
-            JKModuleData: {
-                type: '日韩',
-                headLinkName: '更多',
-                headLinkIcon: 'more',
-                personlistData: [
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    }
-                ]
-            },
-            OAModuleData: {
-                type: '欧美',
-                headLinkName: '更多',
-                headLinkIcon: 'more',
-                personlistData: [
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    },
-                    {
-                        id: 777,
-                        img: 'http://m.qiyipic.com/common/lego/20171125/a9f86ee193fd4cd2bfd6323c796f37b0.jpg',
-                        name: '胡歌'
-                    }
-                ]
-            }
-        })
+            });
+        }).catch(error => {
+            callback();
+        });
     },
     data () {
         return {
@@ -430,14 +88,14 @@ export default {
 
 <template>
     <div class="container">
-        <base-banner :data="bannerModuleData"></base-banner>
-        <base-nav-type-module :data="navTypeModuleData"></base-nav-type-module>
-        <base-person-module :data="personData"></base-person-module>
-		<base-hot-module :data="dailyModuleData"></base-hot-module>
-        <base-person-module :data="inlandModuleData"></base-person-module>
-        <base-person-module :data="HKTWModuleData"></base-person-module>
-        <base-person-module :data="JKModuleData"></base-person-module>
-        <base-person-module :data="OAModuleData"></base-person-module>
+        <base-banner v-if="bannerModuleData.piclistData.length > 0" :data="bannerModuleData"></base-banner>
+        <base-nav-type-module v-if="navTypeModuleData.length > 0" :data="navTypeModuleData"></base-nav-type-module>
+        <base-person-module v-if="personData.personlistData.length > 0" :data="personData"></base-person-module>
+		<base-hot-module v-if="dailyModuleData.piclistData.length > 0" :data="dailyModuleData"></base-hot-module>
+        <base-person-module v-if="inlandModuleData.personlistData.length > 0" :data="inlandModuleData"></base-person-module>
+        <base-person-module v-if="HKTWModuleData.personlistData.length > 0" :data="HKTWModuleData"></base-person-module>
+        <base-person-module v-if="JKModuleData.personlistData.length > 0" :data="JKModuleData"></base-person-module>
+        <base-person-module v-if="OAModuleData.personlistData.length > 0" :data="OAModuleData"></base-person-module>
     </div>
 </template>
 

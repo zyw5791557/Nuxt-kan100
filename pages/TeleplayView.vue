@@ -99,6 +99,7 @@ export default {
                 personData: {
                     type: '近期TA们在霸屏',
                     fire: true,
+                    itemRouteName: 'StarDetailView-id',
                     personlistData: result.hottv_star
                 },
                 inlandModuleData: {

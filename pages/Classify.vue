@@ -1,5 +1,6 @@
 <script>
 import Axios from '~/plugins/getAPI.js';
+import { detailViewCompareTable } from '~/util/router-table.js';
 import BaseFooter from '~/components/BaseFooter';
 export default {
     layout: 'independent',
@@ -38,11 +39,11 @@ export default {
             callback(null, {
                 classifyData: {
                     nav: ['电影','电视剧','综艺','动漫','搞笑'],
-                    type: result.type,
-                    area: result.region,
-                    time: result.age,
-                    actor: result.actor,
-                    sort: result.recent
+                    type: result.type || [],
+                    area: result.region || [],
+                    time: result.age || [],
+                    actor: result.actor || [],
+                    sort: result.recent || []
                 },
                 resData: result.video
             });
@@ -213,7 +214,7 @@ export default {
         },
         routeGuide(item) {
             let o = {
-                name: item.routeName,
+                name: detailViewCompareTable[this.selectStat.nav],
                 params: { id: item.id },
                 query: { backEnable: true }
             };

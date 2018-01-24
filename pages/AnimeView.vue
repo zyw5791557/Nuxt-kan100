@@ -37,7 +37,9 @@ export default {
                 personData: {
                     type: '',
                     pd: true,
-                    personlistData: []
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
+                    personlistData: result.actor
                 },
                 hotModuleData: {
                     type: '强档推荐',
@@ -50,6 +52,8 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -66,6 +70,8 @@ export default {
                     routerName: 'AnimeTimeline',
                     rank: false,
                     selectBtn: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     piclistData: []
                 },
                 animeMovieModuleData: {
@@ -73,6 +79,8 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -86,10 +94,13 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
-                            classifyNav: '动漫'
+                            classifyNav: '动漫',
+                            classifyArea: '日本'
                         }
                     },
                     piclistData: result.japan
@@ -99,10 +110,13 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
-                            classifyNav: '动漫'
+                            classifyNav: '动漫',
+                            classifyArea: '大陆'
                         }
                     },
                     piclistData: result.mainland
@@ -112,10 +126,13 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
-                            classifyNav: '动漫'
+                            classifyNav: '动漫',
+                            classifyType: '少儿'
                         }
                     },
                     piclistData: result.children
@@ -125,10 +142,13 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
-                            classifyNav: '动漫'
+                            classifyNav: '动漫',
+                            classifyArea: '美国'
                         }
                     },
                     piclistData: result.europeAndAmerica

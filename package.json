@@ -25,6 +25,7 @@
     "nuxt": "1.0.0-rc11"
   },
   "devDependencies": {
+    "less-loader": "4.0.5",
     "node-sass": "4.6.0",
     "sass-loader": "6.0.6"
   }

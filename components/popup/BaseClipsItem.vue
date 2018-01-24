@@ -6,9 +6,20 @@ export default {
             required: true
         }
     },
+    data () {
+        return {
+            type: ''
+        }
+    },
     computed: {
         loadData () {
-            return this.data.play_list
+            if(this.data.play_list) {
+                this.type = '选集';
+                return this.data.play_list;
+            } else if(this.data.piclistData) {
+                this.type = '片花资讯';
+                return this.data.piclistData;
+            }
         }
     },
     methods: {
@@ -39,19 +50,19 @@ export default {
 <template>
     <div class="popup-container">
         <div class="header-module">
-            <h2>选集</h2>
+            <h2>{{ type }}</h2>
             <a @click="$emit('close')" href="javascript:void(0);"></a>
         </div>
         <div :id="`clips-swiper-module${loadData.id}`" class="m-pic-list swiper-container">
             <ul class="swiper-wrapper">
                 <li v-for="(item,index) in loadData" :key="index" class="swiper-slide">
                     <div class="piclist-img">
-                        <a class="piclist-link" :href="item.playurl" :title="item.title" :style="`background-image: url(${item.img})`">
+                        <a class="piclist-link" :href="item.playurl || item.url" :title="item.title" :style="`background-image: url(${item.img})`">
                             <div class="c-rt">
                                 <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>
                             <div class="c-lb">
-                                <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
+                                <span class="c-date" v-if="item.collect || item.long">{{ item.collect || item.long }}</span>
                                 <span class="c-date c-date-score">
                                     <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
                                     ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>

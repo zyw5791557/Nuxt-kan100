@@ -15,8 +15,14 @@ export default (api, ...arg) => {
 		'movie': 'movieIndex',
 		// 电视剧
 		'teleplay': 'tvIndex',
+		// 综艺
+		'show': 'varietyIndex',
 		// 动漫
 		'anime': 'cartoonIndex',
+		// 明星
+		'star': 'actorIndex',
+		// 搞笑
+		'funny': 'funIndex',
 		// 视频详情
 		'detailItem': 'detailItem',
 		// 分类

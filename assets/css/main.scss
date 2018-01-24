@@ -85,6 +85,7 @@ div { font-size: 12px; }  // 默认写上dpr为1的fontSize
 
 
 
+
 // 全局淡入淡出
 .page-enter-active, .page-leave-active {
   transition: opacity .3s;
@@ -97,4 +98,3 @@ div { font-size: 12px; }  // 默认写上dpr为1的fontSize
 .flip-list-move {
   transition: transform 1s;
 }
-
