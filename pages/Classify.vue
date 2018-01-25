@@ -8,16 +8,6 @@ export default {
 		BaseFooter
     },
     asyncData ({ route }, callback) {
-        let $level = 1;
-        if(
-            route.query.classifyType || 
-            route.query.classifyArea || 
-            route.query.classifyTime || 
-            route.query.classifyActor ||
-            route.query.classifySort
-        ) {
-            $level = 2;
-        }
         Axios('classify', {
             method: 'post',
             data: {
@@ -27,7 +17,6 @@ export default {
                 age: route.query.classifyTime || '',
                 actor: route.query.classifyActor || '',
                 recent: route.query.classifySort || '',
-                level: $level,
                 page: 1
             }
         }).then(result => {
@@ -136,14 +125,6 @@ export default {
             });
         },
         requestHandle () {
-            let $level = 1;
-            if(this.selectStat.type !== '全部' || 
-            this.selectStat.area !== '全部' || 
-            this.selectStat.time !== '全部' || 
-            this.selectStat.actor !== '全部' || 
-            this.selectStat.sort !== '全部') {
-                $level = 2;
-            }
             return Axios('classify', {
                 method: 'post',
                 data: {
@@ -153,7 +134,6 @@ export default {
                     age: this.selectStat.time || '',
                     actor: this.selectStat.actor || '',
                     recent: this.selectStat.sort || '',
-                    level: $level,
                     page: ++this.requestPage
                 }
             });
@@ -245,42 +225,42 @@ export default {
                 <i class="search-icon"></i>
             </header>
             <section class="classify-list">
-                <div v-if="classifyData.nav" class="swiper-container" ref="navSwiper" id="stat0-swiper">
+                <div v-if="classifyData.nav.length > 0" class="swiper-container" ref="navSwiper" id="stat0-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.nav" class="swiper-slide">
                             <a :class="{ active: selectStat.nav === item }" @click="select('nav',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
-                <div v-if="classifyData.type" class="swiper-container" ref="typeSwiper" id="stat1-swiper">
+                <div v-if="classifyData.type.length > 0" class="swiper-container" ref="typeSwiper" id="stat1-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.type" class="swiper-slide">
                             <a :class="{ active: selectStat.type === item }" @click="select('type',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
-                <div v-if="classifyData.area" class="swiper-container" ref="areaSwiper" id="stat2-swiper">
+                <div v-if="classifyData.area.length > 0" class="swiper-container" ref="areaSwiper" id="stat2-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.area" class="swiper-slide">
                             <a :class="{ active: selectStat.area === item }" @click="select('area',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
-                <div v-if="classifyData.time" class="swiper-container" ref="timeSwiper" id="stat3-swiper">
+                <div v-if="classifyData.time.length > 0" class="swiper-container" ref="timeSwiper" id="stat3-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.time" class="swiper-slide">
                             <a :class="{ active: selectStat.time === item }" @click="select('time',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
-                <div v-if="classifyData.actor" class="swiper-container" ref="actorSwiper" id="stat4-swiper">
+                <div v-if="classifyData.actor.length > 0" class="swiper-container" ref="actorSwiper" id="stat4-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.actor" class="swiper-slide">
                             <a :class="{ active: selectStat.actor === item }" @click="select('actor',item)" href="javascript:void(0);">{{ item }}</a>
                         </li>
                     </ul>
                 </div>
-                <div v-if="classifyData.sort" class="swiper-container" ref="sortSwiper" id="stat5-swiper">
+                <div v-if="classifyData.sort.length > 0" class="swiper-container" ref="sortSwiper" id="stat5-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.sort" class="swiper-slide">
                             <a :class="{ active: selectStat.sort === item }" @click="select('sort',item)" href="javascript:void(0);">{{ item }}</a>
@@ -341,11 +321,12 @@ export default {
         justify-content: space-between;
         align-items: center;
         .return-title {
+            margin-left: -1rem;
             font-weight: 600;
         }
         .return-icon-box {
             margin-left: .12963rem;
-            padding: .266667rem;
+            padding: .266667rem 1rem .266667rem .266667rem;
             padding-left: 0;
         }
         .return-icon {

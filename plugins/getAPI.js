@@ -25,6 +25,8 @@ export default (api, ...arg) => {
 		'funny': 'funIndex',
 		// 视频详情
 		'detailItem': 'detailItem',
+		// 明星详情页
+		'starDetail': 'actorDetail',
 		// 分类
 		'classify': 'categoryList',
 		// 获取追番表信息
@@ -42,7 +44,9 @@ export default (api, ...arg) => {
 			const result = res.data.data;
 			const code   = res.data.code;
 			if(code === 1) {
-				ToastHandle(1);
+				if(process.browser) {
+					ToastHandle(1);
+				}
 				reject();
 			} else if (code === 0) {
 				resolve(result);
@@ -60,11 +64,13 @@ axios.interceptors.request.use(function (config) {
 	return config;
 },  error => {
 	// Do something with request error
-	Toast({
-		message: '加载超时',
-		position: 'bottom',
-		duration: 5000
-	});
+	if(process.browser) {
+		Toast({
+			message: '加载失败',
+			position: 'bottom',
+			duration: 5000
+		});
+	}
 	return Promise.reject(error);
 });
 
@@ -74,10 +80,12 @@ axios.interceptors.response.use(function (response) {
     return response;
   },  error => {
 	// Do something with response error
-	Toast({
-		message: '加载失败',
-		position: 'bottom',
-		duration: 5000
-	});
+	if(process.browser) {
+		Toast({
+			message: '加载失败',
+			position: 'bottom',
+			duration: 5000
+		});
+	}
     return Promise.reject(error);
   });

@@ -8,40 +8,34 @@ export default {
     },
     data () {
         return {
-            loadData: this.data,
-            minHeight: ''
+            loadData: this.data
+        }
+    },
+    computed: {
+        requestPermission () {
+            return this.loadData.data.length < 12 ?  false : true;
         }
     },
     methods: {
-        init() {
-            new Swiper('#starDetail-show-swiper-module',{
-                direction: 'vertical',
-                freeMode: true,
-                freeModeMomentumRatio: 0.5,
-                slidesPerView: 'auto',    
-            });
-        },
-        minHeightComputed() {
-            const dom = (document.documentElement.clientHeight) / (lib.flexible.rem);
-            const header = 1.22222;
-            const nav = 1.055556;
-            const footer = 2.092593 + 1.62963;
-            this.minHeight = dom - (header + nav + footer) + 'rem';
+        loadMore () {
+            if(this.requestPermission) {
+                this.$emit('loadMore','show');
+                return true;
+            }
+            return true;
         }
-    },
-    mounted () {
-        this.minHeightComputed();
-        this.$nextTick(() => {
-            this.init();
-        });
     }
 }
 </script>
 
 <template>
     <section class="starDetail-show-module">   
-        <div :style="`max-height:${minHeight}`" id="starDetail-show-swiper-module" class="m-pic-list swiper-container">
-            <ul class="swiper-wrapper">
+        <div id="starDetail-show-swiper-module" class="m-pic-list swiper-container">
+            <ul 
+                 v-infinite-scroll="loadMore"
+                infinite-scroll-distance="10"
+                infinite-scroll-immediate-check="false"
+                class="swiper-wrapper">
                 <li v-for="(item,index) in loadData.data" :key="index" class="swiper-slide">
                     <div class="piclist-img">
                         <a class="piclist-link" :href="item.url" :title="item.title" :style="`background-image: url(${item.img})`">
@@ -81,6 +75,10 @@ export default {
         justify-content: flex-start;
         margin-bottom: .277778rem;
     }
+}
+.swiper-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 .m-pic-list {
     .piclist-img {

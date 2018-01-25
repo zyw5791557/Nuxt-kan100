@@ -11,10 +11,18 @@ export default {
             loadData: this.data
         }
     },
+    computed: {
+        requestPermission () {
+            return this.loadData.length < 12 ?  false : true;
+        }
+    },
     methods: {
         loadMore () {
-            this.$emit('loadMore','img');
-            return;
+            if(this.requestPermission) {
+                this.$emit('loadMore','img');
+                return true;
+            }
+            return true;
         }
     }
 }
@@ -28,7 +36,7 @@ export default {
             infinite-scroll-immediate-check="false"
             class="m-pic-list">
             <li v-for="(item,index) in loadData" :key="index">
-                <a :style="`background-image:url(${item})`" class="img-item" href="javascript:void(0);"></a>
+                <a :style="`background-image:url(${item.img})`" class="img-item" :href="item.img"></a>
             </li>
         </ul>
         <slot name="loading"></slot>

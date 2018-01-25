@@ -9,6 +9,11 @@ export default {
             loadData: this.data
         }
     },
+    computed: {
+        requestPermission () {
+            return this.loadData.data.length < 12 ?  false : true;
+        }
+    },
     filters: {
         scoreBeforeFilter (val) {
             return val.substr(0,2);
@@ -27,8 +32,11 @@ export default {
             return o;
         },
         loadMore () {
-            this.$emit('loadMore','teleplay');
-            return;
+            if(this.requestPermission) {
+                this.$emit('loadMore','teleplay');
+                return true;
+            }
+            return true;
         }
     }
 }
@@ -70,7 +78,7 @@ export default {
     padding: .287037rem $gap 0;
     ul {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-wrap: wrap;
         li {
             width: 32.35294117647059%;

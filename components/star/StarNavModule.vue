@@ -55,8 +55,10 @@ export default {
     .swiper-slide {
         color: $baseColor;
         line-height: 1.055556rem;
-        width: auto;
-        margin-right: .518519rem;
+        flex: 1;
+        text-align: center;
+        // width: auto;
+        // margin-right: .518519rem;
         &:last-child {
             margin-right: 0;
         }

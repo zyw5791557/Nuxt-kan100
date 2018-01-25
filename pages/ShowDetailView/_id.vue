@@ -34,7 +34,6 @@ export default {
         Axios('detailItem', {
             method: 'post',
             data: {
-                is_fun: 0,
                 id: ~~route.params.id,
                 category: '综艺'
             }
