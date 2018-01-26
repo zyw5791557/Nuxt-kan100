@@ -1,4 +1,5 @@
 <script>
+import { ImagePreview } from 'vant';
 export default {
     props: {
         data: {
@@ -14,6 +15,11 @@ export default {
     computed: {
         requestPermission () {
             return this.loadData.length < 12 ?  false : true;
+        },
+        previewArr () {
+            return Array.from(this.loadData, (item) => {
+                return item.img;
+            });    
         }
     },
     methods: {
@@ -23,6 +29,10 @@ export default {
                 return true;
             }
             return true;
+        },
+        
+        previewExec (index) {
+            ImagePreview(this.previewArr,index);
         }
     }
 }
@@ -36,9 +46,10 @@ export default {
             infinite-scroll-immediate-check="false"
             class="m-pic-list">
             <li v-for="(item,index) in loadData" :key="index">
-                <a :style="`background-image:url(${item.img})`" class="img-item" :href="item.img"></a>
+                <a :style="`background-image:url(${item.img})`" @click="previewExec(index)" class="img-item" href="javascript:void(0);"></a>
             </li>
         </ul>
+        <slot v-if="loadData.length === 0" name="noData"></slot>
         <slot name="loading"></slot>
     </section>
 </template>

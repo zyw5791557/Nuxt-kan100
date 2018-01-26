@@ -20,8 +20,8 @@
     "axios": "^0.17.1",
     "fastclick": "1.0.6",
     "mint-ui": "2.2.13",
-    "muse-ui": "2.1.0",
-    "nuxt": "1.0.0-rc11"
+    "nuxt": "1.0.0-rc11",
+    "vant": "0.12.6"
   },
   "devDependencies": {
     "less-loader": "4.0.5",

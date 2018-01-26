@@ -61,6 +61,7 @@ export default {
                     </div>
                 </li>
             </ul>
+            <slot v-if="loadData.data.length === 0" name="noData"></slot>
         </div>
     </section>
 </template>
@@ -68,8 +69,10 @@ export default {
 <style lang="scss" scoped>
 @import '~assets/css/vars.scss';
 @import '~assets/css/mixins.scss';
-#starDetail-show-swiper-module {
+.starDetail-show-module {
     padding: .287037rem $gap 0;
+}
+#starDetail-show-swiper-module {
     .swiper-slide {
         display: flex;
         justify-content: flex-start;

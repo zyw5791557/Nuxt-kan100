@@ -252,10 +252,11 @@ export default {
         },
         minHeightComputed() {
             const dom = (document.documentElement.clientHeight) / (lib.flexible.rem);
-            const header = this.headerFlag ? 4.648148 : 1.22222;
+            const header = !this.headerFlag ? 4.648148 : 1.22222;
             const nav = 1.055556;
+            const content_pd = 0.28704;
             const footer = 2.092593 + 1.62963;
-            this.minHeight = dom - (header + nav + footer) + 'rem';
+            this.minHeight = dom - (header + nav + content_pd + footer) + 'rem';
         }
     },
     mounted () {
@@ -301,6 +302,9 @@ export default {
                 <!-- 具名插槽 -->
                 <div v-if="loading" class="loading" slot="loading">
                     <img v-show="loading" src="~assets/images/loading.gif" width="100%" alt="">
+                </div>
+                <div :style="`line-height: ${ minHeight }`" class="noData" slot="noData">
+                    暂无数据
                 </div>
             </component>
         </transition>
@@ -386,6 +390,7 @@ export default {
     }
 }
 
+// 具名插槽 - loading
 .loading {
     display: flex;
     justify-content: center;
@@ -399,24 +404,35 @@ export default {
     }
 }
 
+// 具名插槽 - noData
+.noData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -0.28704rem;
+    color: #999;
+}
+
 .starDetail-module {
-    .return-title { font-size: 18px }
-    .poster-name { font-size: 22px }
+    .return-title { font-size: 18px; }
+    .poster-name { font-size: 22px; }
     .p-num { font-size: 21px; }
     .p-title { font-size: 10px; }
-    
+    .noData { font-size: 14px; }
 }
 [data-dpr="2"] .starDetail-module {
-    .return-title { font-size: 36px }
-    .poster-name { font-size: 44px }
+    .return-title { font-size: 36px; }
+    .poster-name { font-size: 44px; }
     .p-num { font-size: 42px; }
     .p-title { font-size: 20px; }
+    .noData { font-size: 28px; }
 }
 [data-dpr="3"] .starDetail-module {
-    .return-title { font-size: 54px }
-    .poster-name { font-size: 66px }
+    .return-title { font-size: 54px; }
+    .poster-name { font-size: 66px; }
     .p-num { font-size: 63px; }
     .p-title { font-size: 30px; }
+    .noData { font-size: 42px; }
 }
 
 // 动态组件动画

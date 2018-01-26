@@ -13,7 +13,6 @@ export default {
     },
     methods: {
         baseInfoFilter (val) {
-            console.log(val);
             if(typeof val === 'string') {
                 return val
             }else {
@@ -44,6 +43,7 @@ export default {
         <div class="info-introduce" v-html="loadData.introduce">
 
         </div>
+        <slot v-if="loadData['中文名'] === undefined" name="noData"></slot>
     </section>
 </template>
 
@@ -65,10 +65,10 @@ export default {
                 &.master {
                     width: 100%;
                     .info-base-item-dt {
-                        width: 25%;
+                        width: 22%;
                     }
                     .info-base-item-dd {
-                        width: 75%;
+                        width: 78%;
                     }
                 }
             }
@@ -76,11 +76,11 @@ export default {
         .info-base-item {
             flex-shrink: 0;
             &.info-base-item-dt {
-                width: 50%;
+                width: 44%;
                 text-align: left;
             }
             &.info-base-item-dd {
-                width: 50%;
+                width: 56%;
                 text-align: left;
             }
         }

@@ -59,6 +59,10 @@ a {
   text-decoration: none;
 }
 
+.boxSize {
+  box-sizing: border-box;
+}
+
 input::-webkit-input-placeholder {
   /* WebKit*/
   color: #b3b3b3;
