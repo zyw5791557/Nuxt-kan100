@@ -78,7 +78,7 @@ export default {
                             <span class="c-timeline">{{ item.timeline }}</span>
                         </div>
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :style="`background-image: url(${item.img})`">
+                            <nuxt-link class="piclist-link" :to="routeGuide(item)" v-lazy:background-image="item.img">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>

@@ -50,7 +50,7 @@ export default {
 		<div class="swiper-container" id="banner-swiper--home">
 			<div class="swiper-wrapper">
 				<div v-for="(item,index) in loadData.piclistData" :key="index" class="swiper-slide" title="" >
-                    <nuxt-link :to="routeGuide(item)" :style="`background-image: url(${item.img})`">
+                    <nuxt-link :to="routeGuide(item)" v-lazy:background-image="item.img">
                         <div class="c-lb">
                             <h3>{{ item.content.title }}</h3>
                             <p class="text-ellipsis">{{ item.content.des }}</p>

@@ -6,12 +6,16 @@ export default {
     },
     data () {
         return {
-            loadData: this.data
+            loadMoreLock: false
         }
     },
     computed: {
+        loadData () {
+            this.loadMoreLock = true;
+            return this.data;
+        },
         requestPermission () {
-            return this.loadData.data.length < 12 ?  false : true;
+            return (this.loadData.data.length % 12 !== 0) || (this.loadData.data.length === 0) ?  false : true;
         }
     },
     filters: {
@@ -32,8 +36,9 @@ export default {
             return o;
         },
         loadMore () {
-            if(this.requestPermission) {
+            if(this.requestPermission && this.loadMoreLock) {
                 this.$emit('loadMore','teleplay');
+                this.loadMoreLock = false;
                 return true;
             }
             return true;
@@ -51,7 +56,7 @@ export default {
             class="m-pic-list">
             <li v-for="(item,index) in loadData.data" :key="index">
                 <div class="piclist-img">
-                    <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                    <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                         <div class="c-lb">
                             <span class="c-date c-date-score">
                                 <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i

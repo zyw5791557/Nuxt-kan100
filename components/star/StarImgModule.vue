@@ -9,12 +9,16 @@ export default {
     },
     data () {
         return {
-            loadData: this.data
+            loadMoreLock: false
         }
     },
     computed: {
+        loadData () {
+            this.loadMoreLock = true;
+            return this.data;
+        },
         requestPermission () {
-            return this.loadData.length < 12 ?  false : true;
+            return (this.loadData.length % 12 !== 0) || (this.loadData.length === 0) ?  false : true;
         },
         previewArr () {
             return Array.from(this.loadData, (item) => {
@@ -24,8 +28,9 @@ export default {
     },
     methods: {
         loadMore () {
-            if(this.requestPermission) {
+            if(this.requestPermission && this.loadMoreLock) {
                 this.$emit('loadMore','img');
+                this.loadMoreLock = false;
                 return true;
             }
             return true;
@@ -46,7 +51,7 @@ export default {
             infinite-scroll-immediate-check="false"
             class="m-pic-list">
             <li v-for="(item,index) in loadData" :key="index">
-                <a :style="`background-image:url(${item.img})`" @click="previewExec(index)" class="img-item" href="javascript:void(0);"></a>
+                <a v-lazy:background-image="item.img" @click="previewExec(index)" class="img-item" href="javascript:void(0);"></a>
             </li>
         </ul>
         <slot v-if="loadData.length === 0" name="noData"></slot>
@@ -61,14 +66,18 @@ export default {
     padding: .287037rem $gap 0;
     .m-pic-list {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-wrap: wrap;
         li {
             position: relative;
             width: 32.254901960784316%;
             @include propor(100%);
             margin-bottom: .148148rem;
+            margin-right: .148148rem;
             border-radius: $itemRadius;
+            &:nth-child(3n) {
+                margin-right: 0;
+            }
         }
     }
     .img-item {

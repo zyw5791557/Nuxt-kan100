@@ -115,7 +115,6 @@ export default {
         }
     },
     created () {
-        // console.log('数据源',Object.prototype.toString.call(this.playData.piclistData))
         // 修改默认源
         this.PLAY_SOURCE(this.wikiData.sourceArr[0]);
     },

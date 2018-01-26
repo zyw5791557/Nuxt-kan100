@@ -25,7 +25,6 @@ export default {
         Axios('star', {
             method: 'get'
         }).then(result => {
-            console.log(result)
              callback(null, {
                 bannerModuleData: {
                     backEnable: true,

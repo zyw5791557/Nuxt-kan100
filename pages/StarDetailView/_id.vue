@@ -92,6 +92,10 @@ export default {
             headerFlag: false,
             currentView: 'StarMovieModule',
             minHeight: '',
+            moviePage: 1,
+            teleplayPage: 1,
+            showPage: 1,
+            photosPage: 1,
             loading: false
         }
     },
@@ -126,6 +130,16 @@ export default {
       }  
     },
     methods: {
+        requestHandle (type, page) {
+            return Axios('starDetail', {
+                method: 'post',
+                data: {
+                    id: ~~this.$route.params.id,
+                    classify: type,
+                    page: ++page
+                }
+            });
+        },
         navController(ic) {
             this.currentView = ic;
             const posterArr = ['StarMovieModule','StarImgModule','StarInfoModule','StarProgramModule'];
@@ -154,101 +168,34 @@ export default {
         },
         loadMoreMovie () {
             this.loading = true;
-            setTimeout(() => {
-                var mockData = [
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    }
-                ];
-                this.starData.movie.data = this.starData.movie.data.concat(mockData);
-                this.loading = false;
-            }, 2500);
+            this.requestHandle('电影',this.moviePage)
+                .then(result => {
+                    this.starData.movie.data = this.starData.movie.data.concat(result.movie);
+                    this.this.moviePage++;
+                    this.loading = false;
+                });
         },
         loadMoreTeleplay () {
             this.loading = true;
-            setTimeout(() => {
-                var mockData = [
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    },
-                    {
-                        id: 123456,
-                        img: 'http://pic9.qiyipic.com/image/20170629/64/cf/v_106612240_m_601_m3_195_260.jpg',
-                        score: '9.9',
-                        title: '我是加载出来的'
-                    }
-                ];
-                this.starData.teleplay.data = this.starData.teleplay.data.concat(mockData);
-                this.loading = false;
-            }, 2500);
+            this.requestHandle('电视剧',this.teleplayPage)
+                .then(result => {
+                    this.starData.teleplay.data = this.starData.teleplay.data.concat(result.tv);
+                    this.teleplayPage++;
+                    this.loading = false;
+                });
         },
         loadMoreShow() {
             console.log('没有了更多综艺了');
             return;
         },
         loadMoreImg() {
-            console.log('没有更多美图了');
-            return;
+            this.loading = true;
+            this.requestHandle('美图',this.photosPage)
+                .then(result => {
+                    this.starData.photos = this.starData.photos.concat(result.photos);
+                    this.photosPage++;
+                    this.loading = false;
+                });
         },
         minHeightComputed() {
             const dom = (document.documentElement.clientHeight) / (lib.flexible.rem);

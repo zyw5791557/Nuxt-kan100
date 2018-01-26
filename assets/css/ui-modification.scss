@@ -1,0 +1,43 @@
+// Vant UI Modification
+.van-swipe__indicators {
+    display: none;
+}
+
+// 设置懒加载样式
+[lazy="loading"] {
+    background-size: contain!important; 
+}
+[lazy="error"] {
+    background-size: contain!important; 
+}
+
+[data-dpr="2"] {
+    // ImagesPreview UI UPDATE
+    .van-swipe__indicators {
+        bottom: 20px;
+        height: 12px;
+    }
+    .van-swipe__indicators>i:not(:last-child) {
+        margin-right: 12px;
+    }
+    .van-swipe__indicators>i {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+
+[data-dpr="3"] {
+    // ImagesPreview UI UPDATE
+    .van-swipe__indicators {
+        bottom: 30px;
+        height: 18px;
+    }
+    .van-swipe__indicators>i:not(:last-child) {
+        margin-right: 18px;
+    }
+    .van-swipe__indicators>i {
+        width: 18px;
+        height: 18px;
+    }
+}

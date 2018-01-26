@@ -8,18 +8,23 @@ export default {
     },
     data () {
         return {
-            loadData: this.data
+            loadMoreLock: false
         }
     },
     computed: {
+        loadData () {
+            this.loadMoreLock = true;
+            return this.data;
+        },
         requestPermission () {
-            return this.loadData.data.length < 12 ?  false : true;
+            return (this.loadData.data.length % 12 !== 0) || (this.loadData.data.length === 0) ?  false : true;
         }
     },
     methods: {
         loadMore () {
-            if(this.requestPermission) {
+            if(this.requestPermission && this.loadMoreLock) {
                 this.$emit('loadMore','show');
+                this.loadMoreLock = false;
                 return true;
             }
             return true;
@@ -38,7 +43,7 @@ export default {
                 class="swiper-wrapper">
                 <li v-for="(item,index) in loadData.data" :key="index" class="swiper-slide">
                     <div class="piclist-img">
-                        <a class="piclist-link" :href="item.url" :title="item.title" :style="`background-image: url(${item.img})`">
+                        <a class="piclist-link" :href="item.url" :title="item.title" v-lazy:background-image="item.img">
                             <div class="c-rt">
                                 <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>

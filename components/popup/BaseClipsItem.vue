@@ -57,7 +57,7 @@ export default {
             <ul class="swiper-wrapper">
                 <li v-for="(item,index) in loadData" :key="index" class="swiper-slide">
                     <div class="piclist-img">
-                        <a class="piclist-link" :href="item.playurl || item.url" :title="item.title" :style="`background-image: url(${item.img})`">
+                        <a class="piclist-link" :href="item.playurl || item.url" :title="item.title" v-lazy:background-image="item.img">
                             <div class="c-rt">
                                 <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>

@@ -53,7 +53,7 @@ export default {
                 <ul>
                     <li v-for="(item,index) in loadData.piclistData" :key="index" :class="{ branch: index === 0 }">
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>

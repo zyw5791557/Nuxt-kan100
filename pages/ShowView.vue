@@ -127,7 +127,7 @@ export default {
                             classifyType: '八卦'
                         }
                     },
-                    piclistData: result.actor_news
+                    piclistData: result.information.piclistData
                 },
                 inlandModuleData: {
                     type: '内地综艺',

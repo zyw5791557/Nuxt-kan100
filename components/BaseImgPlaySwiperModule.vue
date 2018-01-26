@@ -74,7 +74,7 @@ export default {
                             <span class="c-timeline">{{ item.timeline }}</span>
                         </div>
                         <div class="piclist-img">
-                            <a class="piclist-link" :href="item.playurl" :style="`background-image: url(${item.img})`">
+                            <a class="piclist-link" :href="item.playurl" v-lazy:background-image="item.img">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>

@@ -21,6 +21,7 @@ module.exports = {
 	css: [
 		'~assets/css/normalize.css',
 		'~assets/css/main.css',
+		'~assets/css/ui-modification.css',
 	],
 	env: {
 		baseUrl: process.env.BASE_URL || 'http://localhost:8888'

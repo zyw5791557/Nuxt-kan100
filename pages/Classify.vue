@@ -276,7 +276,7 @@ export default {
                     class="m-pic-list">
                     <li v-for="(item,index) in resData" :key="index">
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" :style="`background-image: url(${item.img})`">
+                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                                 <div class="c-lb">
                                     <span class="c-date c-date-score">
                                         <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
