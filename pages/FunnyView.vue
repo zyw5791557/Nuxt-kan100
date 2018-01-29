@@ -38,6 +38,8 @@ export default {
                 personData: {
                     type: '',
                     pd: true,
+                    backEnable: true,
+                    itemRouteName: 'FunnyDetailView-id',
                     personlistData: result.fun_man
                 },
                 dailyModuleData: {

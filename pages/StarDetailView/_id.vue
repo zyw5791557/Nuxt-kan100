@@ -171,7 +171,7 @@ export default {
             this.requestHandle('电影',this.moviePage)
                 .then(result => {
                     this.starData.movie.data = this.starData.movie.data.concat(result.movie);
-                    this.this.moviePage++;
+                    this.moviePage++;
                     this.loading = false;
                 });
         },

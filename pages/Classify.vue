@@ -53,7 +53,8 @@ export default {
             resData: [],
             requestPage: 1,
             requestLock: true,
-            loading: false
+            loading: false,
+            classifyFix: false
         }
     },
     filters: {
@@ -172,11 +173,11 @@ export default {
                 this.selectStat['actor'] = '全部';
                 this.selectStat['sort'] = '全部';
                 this.requestHandle().then(result => {
-                    this.classifyData.type = result.type;
-                    this.classifyData.area = result.region;
-                    this.classifyData.time = result.age;
-                    this.classifyData.actor = result.actor;
-                    this.classifyData.sort = result.recent;
+                    this.classifyData.type = result.type || [];
+                    this.classifyData.area = result.region || [];
+                    this.classifyData.time = result.age || [];
+                    this.classifyData.actor = result.actor || [];
+                    this.classifyData.sort = result.recent || [];
                     if(result.video.length < 12) this.requestLock = false;
                     this.resData = result.video;
                 });
@@ -190,6 +191,27 @@ export default {
                     if(result.video.length < 12) this.requestLock = false; 
                     this.resData = result.video;
                 });
+            }
+            this.classifyListTotal();
+        },
+        classifyListTotal () {
+            const nav = this.selectStat.nav + ' · ';
+            const type = this.classifyData.type.length !== 0 ? this.selectStat.type + ' · ' : '';
+            const area = this.classifyData.area.length !== 0 ? this.selectStat.area + ' · ' : '';
+            const time = this.classifyData.time.length !== 0 ? this.selectStat.time + ' · ' : '';
+            const actor = this.classifyData.actor.length !== 0 ? this.selectStat.actor + ' · ' : '';
+            const sort = this.classifyData.sort.length !== 0 ? this.selectStat.sort : '';
+            return nav + type + area + time + actor + sort;
+        },
+        scrollCeilling () {
+            window.onscroll =  () => {
+                var btop = document.body.scrollTop||document.documentElement.scrollTop;
+                const titleTop = lib.flexible.rem * 9.03;
+                if( btop > titleTop) {
+                    this.classifyFix = true;
+                }else {
+                    this.classifyFix = false;
+                }
             }
         },
         routeGuide(item) {
@@ -210,6 +232,7 @@ export default {
     },
     mounted () {
         this.init();
+        this.scrollCeilling();
     }
 }
 </script>
@@ -224,14 +247,14 @@ export default {
                 <span class="return-title">{{ selectStat.nav }}</span>
                 <i class="search-icon"></i>
             </header>
+            <div v-if="classifyData.nav.length > 0" class="swiper-container" ref="navSwiper" id="stat0-swiper">
+                <ul class="swiper-wrapper">
+                    <li v-for="(item,index) in classifyData.nav" class="swiper-slide">
+                        <a :class="{ active: selectStat.nav === item }" @click="select('nav',item)" href="javascript:void(0);">{{ item }}</a>
+                    </li>
+                </ul>
+            </div>
             <section class="classify-list">
-                <div v-if="classifyData.nav.length > 0" class="swiper-container" ref="navSwiper" id="stat0-swiper">
-                    <ul class="swiper-wrapper">
-                        <li v-for="(item,index) in classifyData.nav" class="swiper-slide">
-                            <a :class="{ active: selectStat.nav === item }" @click="select('nav',item)" href="javascript:void(0);">{{ item }}</a>
-                        </li>
-                    </ul>
-                </div>
                 <div v-if="classifyData.type.length > 0" class="swiper-container" ref="typeSwiper" id="stat1-swiper">
                     <ul class="swiper-wrapper">
                         <li v-for="(item,index) in classifyData.type" class="swiper-slide">
@@ -268,6 +291,9 @@ export default {
                     </ul>
                 </div>
             </section>
+            <div :class="{ exec: classifyFix }" class="classify-list-total">
+                {{ classifyListTotal() }}
+            </div>
             <section v-if="resData.length > 0" class="classify-result">
                 <ul 
                     v-infinite-scroll="loadMore"
@@ -310,9 +336,11 @@ export default {
     .classify {
         padding: 0 $gap;
         overflow: hidden;
+        #stat0-swiper {
+            border-bottom: $moduleBorder;
+        }
         .classify-list {
             padding-bottom: .555556rem;
-            border-bottom: $moduleBorder;
         }
     }
     .return-header {
@@ -442,6 +470,24 @@ export default {
             }
         }   
     }
+    /* 分类集合 */
+    .classify-list-total {
+        position: fixed;
+        // top: 2.07rem;
+        top: -0.962963rem;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        height: .962963rem;
+        line-height: .962963rem;
+        text-align: center;
+        color: $orange;
+        background-color: rgba(255,255,255, .8);
+        transition: all .3s;
+        &.exec {
+            top: 0;
+        }
+    }
     .no-result {
         color: #999;
         line-height: .2rem;
@@ -463,6 +509,7 @@ export default {
     }
 
     .classify {
+        .classify-list-total { font-size: 12px; }
         .return-header {
             font-size: 18px;
         }
@@ -482,6 +529,7 @@ export default {
 
     
     [data-dpr="2"] .classify {
+        .classify-list-total { font-size: 24px; }
         .return-header {
             font-size: 36px;
         }
@@ -498,6 +546,7 @@ export default {
         .no-result { font-size: 28px; }
     }
     [data-dpr="3"] .classify {
+        .classify-list-total { font-size: 36px; }
         .return-header {
             font-size: 54px;
         }

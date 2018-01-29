@@ -106,6 +106,8 @@ export default {
                     type: '内地剧场',
                     headLinkName: '更多',
                     headLinkIcon: 'more',
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -120,6 +122,8 @@ export default {
                     type: '新剧预告',
                     headLinkName: '',
                     rank: false,
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     piclistData: []
                 },
                 KteleplayModuleData: {
@@ -127,6 +131,8 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -141,6 +147,8 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -154,6 +162,8 @@ export default {
                     type: '港剧',
                     headLinkName: '更多',
                     headLinkIcon: 'more',
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     newsModule: true,classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -168,6 +178,8 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -182,6 +194,8 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
+                    backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {

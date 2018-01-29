@@ -21,6 +21,14 @@ export default {
         }
     },
     methods: {
+        routeGuide(item) {
+            let o = {
+                name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
+                params: { id: item.id },
+                query: { backEnable: this.loadData.backEnable }
+            };
+            return o;
+        },
         loadMore () {
             if(this.requestPermission && this.loadMoreLock) {
                 this.$emit('loadMore','show');
@@ -43,7 +51,7 @@ export default {
                 class="swiper-wrapper">
                 <li v-for="(item,index) in loadData.data" :key="index" class="swiper-slide">
                     <div class="piclist-img">
-                        <a class="piclist-link" :href="item.url" :title="item.title" v-lazy:background-image="item.img">
+                        <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                             <div class="c-rt">
                                 <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>
@@ -54,14 +62,14 @@ export default {
                                     ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                 </span>
                             </div>
-                        </a>
+                        </nuxt-link>
                     </div>
                     <div class="piclist-title">
                         <div class="c-title text-ellipsis-2">
-                            <a :href="item.url">{{ item.title }}</a>
+                            <nuxt-link :to="routeGuide(item)">{{ item.title }}</nuxt-link>
                         </div>
                         <div class="c-info" v-if="item.des">
-                            <a class="text-ellipsis" :href="item.url">{{ item.des }}</a>
+                            <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
                         </div>
                     </div>
                 </li>
