@@ -1,0 +1,46 @@
+@charset "UTF-8";
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.router-view {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.view-out-enter-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.view-out-leave-active {
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+}
+
+.view-out-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.view-in-enter-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.view-in-leave-active {
+  transform: translateX(-100%);
+  transition: all 0.3s ease-in-out;
+}
+
+.view-in-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}

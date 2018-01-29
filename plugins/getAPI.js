@@ -23,6 +23,10 @@ export default (api, ...arg) => {
 		'star': 'actorIndex',
 		// 搞笑
 		'funny': 'funIndex',
+		// 资讯
+		'news': 'newsIndex',
+		// 专题
+		'special': 'specialIndex',
 		// 视频详情
 		'detailItem': 'detailItem',
 		// 明星详情页

@@ -89,7 +89,7 @@ export default {
                 </div>
             </div>
         </div>
-        <nuxt-link class="moreLinks" to="">
+        <nuxt-link class="moreLinks" :to="{ name: 'index' }">
             <i class="menu-more-icon"></i>
         </nuxt-link>
     </nav>
@@ -123,8 +123,7 @@ export default {
         width: auto;
         margin-right: .518519rem;
         &:last-child {
-            padding-right: .925926rem;
-            margin-right: 0;
+            margin-right: .925926rem;
         }
         
         &.nuxt-link-exact-active {

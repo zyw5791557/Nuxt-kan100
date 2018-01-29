@@ -1,0 +1,58 @@
+// Variables
+$AnimateHook: "animated";
+$AnimateDuration: .3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $AnimateDuration;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.router-view {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+
+/* 可以设置不同的进入和离开动画 */
+
+
+/* 设置持续时间和动画函数 */
+
+.view-out-enter-active {
+  transition: all $AnimateDuration ease-in-out;
+}
+
+.view-out-leave-active {
+  transform: translateX(100%);
+  transition: all $AnimateDuration ease-in-out;
+}
+
+.view-out-enter
+/* .view-out-leave-active for below version 2.1.8 */
+
+{
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.view-in-enter-active {
+  transition: all $AnimateDuration ease-in-out;
+}
+
+.view-in-leave-active {
+  transform: translateX(-100%);
+  transition: all $AnimateDuration ease-in-out;
+}
+
+.view-in-enter
+/* .view-in-leave-active for below version 2.1.8 */
+
+{
+  transform: translateX(100%);
+  opacity: 0;
+}

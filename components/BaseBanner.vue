@@ -52,7 +52,7 @@ export default {
 				<div v-for="(item,index) in loadData.piclistData" :key="index" class="swiper-slide" title="" >
                     <nuxt-link :to="routeGuide(item)" :style="`background-image:url(${ item.img })`">
                         <div class="c-lb">
-                            <h3>{{ item.content.title }}</h3>
+                            <h3 class="text-ellipsis">{{ item.content.title }}</h3>
                             <p class="text-ellipsis">{{ item.content.des }}</p>
                         </div>
                     </nuxt-link>

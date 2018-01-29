@@ -9,7 +9,14 @@ export default {
     data () {
         return {
             selected: '1',
-            loadData: this.data
+            movieLock: true,
+            teleplayLock: true,
+            actorLock: true
+        }
+    },
+    computed: {
+        loadData () {
+            return this.data;
         }
     },
     filters: {
@@ -28,6 +35,17 @@ export default {
                 query: { backEnable: this.loadData.backEnable }
             };
             return o;
+        },
+        loadMore () {
+            const list = ['电影专题', '电视剧专题', '影人专题'];
+            const current = list[this.selected - 1];
+            console.log( list[this.selected - 1],'sssss')
+            // if(this.requestPermission && this.loadMoreLock) {
+            //     this.$emit('loadMore', current);
+            //     this.loadMoreLock = false;
+            //     return true;
+            // }
+            // return false;
         }
     }
 }
@@ -44,13 +62,15 @@ export default {
             {{ item }}
         </mt-tab-item>
         </mt-navbar>
-
         <!-- tab-container -->
         <mt-tab-container v-model="selected" class="nav-content-box">
             <mt-tab-container-item id="1">
                 <div class="m-pic-list">
-                    <ul>
-                        <li v-for="(item,index) in loadData.newData" :key="index" class="branch">
+                    <ul
+                        v-infinite-scroll="loadMore"
+                        infinite-scroll-immediate-check="false"
+                        infinite-scroll-distance="10">
+                        <li v-for="(item,index) in loadData.movieData" :key="index" class="branch">
                             <div class="piclist-img">
                                 <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                                     <div class="c-rt">
@@ -79,8 +99,11 @@ export default {
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
                 <div class="m-pic-list">
-                    <ul>
-                        <li v-for="(item,index) in loadData.movieData" :key="index" class="branch">
+                    <ul
+                        v-infinite-scroll="loadMore"
+                        infinite-scroll-immediate-check="false"
+                        infinite-scroll-distance="10">
+                        <li v-for="(item,index) in loadData.teleplayData" :key="index" class="branch">
                             <div class="piclist-img">
                                 <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                                     <div class="c-rt">
@@ -109,38 +132,11 @@ export default {
             </mt-tab-container-item>
             <mt-tab-container-item id="3">
                 <div class="m-pic-list">
-                    <ul>
-                        <li v-for="(item,index) in loadData.teleplayData" :key="index" class="branch">
-                            <div class="piclist-img">
-                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
-                                    <div class="c-rt">
-                                        <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
-                                    </div>
-                                    <div class="c-lb">
-                                        <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
-                                        <span class="c-date c-date-score">
-                                            <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
-                                            ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
-                                        </span>
-                                    </div>
-                                </nuxt-link>
-                            </div>
-                            <div class="piclist-title">
-                                <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
-                                </div>
-                                <div class="c-info"  v-if="item.des">
-                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </mt-tab-container-item>
-            <mt-tab-container-item id="4">
-                <div class="m-pic-list">
-                    <ul>
-                        <li v-for="(item,index) in loadData.showData" :key="index" class="branch">
+                    <ul
+                        v-infinite-scroll="loadMore"
+                        infinite-scroll-immediate-check="false"
+                        infinite-scroll-distance="10">
+                        <li v-for="(item,index) in loadData.actorData" :key="index" class="branch">
                             <div class="piclist-img">
                                 <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
                                     <div class="c-rt">
@@ -187,7 +183,6 @@ export default {
         box-sizing: border-box;
         border-color: $orange;
         border-width: .055556rem;
-        font-weight: bold;
     }
     
     .m-pic-list {
