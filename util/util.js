@@ -1,12 +1,8 @@
-import { Toast } from 'mint-ui';
+import { Toast } from 'vant';
 
 export let ToastHandle = ($code) => {
     if($code === 1) {
-        return Toast({
-            message: '数据加载失败, 请稍后再试!',
-            position: 'bottom',
-            duration: 5000
-        });
+        return Toast('数据加载失败, 请稍后再试!');
     }
 }
 

@@ -2,12 +2,20 @@
   display: none;
 }
 
+.van-toast div {
+  font-size: 16px;
+}
+
 [lazy="loading"] {
   background-size: contain !important;
 }
 
 [lazy="error"] {
   background-size: contain !important;
+}
+
+[data-dpr="2"] .van-toast div {
+  font-size: 32px;
 }
 
 [data-dpr="2"] .van-swipe__indicators {
@@ -22,6 +30,10 @@
 [data-dpr="2"] .van-swipe__indicators > i {
   width: 12px;
   height: 12px;
+}
+
+[data-dpr="3"] .van-toast div {
+  font-size: 48px;
 }
 
 [data-dpr="3"] .van-swipe__indicators {

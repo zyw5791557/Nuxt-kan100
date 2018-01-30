@@ -1,4 +1,5 @@
 <script>
+import { Toast } from 'vant';
 import Axios from '~/plugins/getAPI.js';
 import { detailViewCompareTable } from '~/util/router-table.js';
 import BaseFooter from '~/components/BaseFooter';
@@ -142,11 +143,7 @@ export default {
         loadMore() {
             this.loading = true;
             if(!this.requestLock) {
-                this.$toast({
-                    message: '没有更多数据啦!',
-                    position: 'bottom',
-                    duration: 1000
-                });
+                Toast('没有更多数据啦!');
                 this.loading = false;
                 return;
             }
@@ -296,9 +293,9 @@ export default {
             </div>
             <section v-if="resData.length > 0" class="classify-result">
                 <ul 
-                    v-infinite-scroll="loadMore"
-                    infinite-scroll-distance="10"
-                    infinite-scroll-immediate-check="false"
+                    v-waterfall-lower="loadMore"
+                    waterfall-disabled="disabled"
+                    waterfall-offset="400"
                     class="m-pic-list">
                     <li v-for="(item,index) in resData" :key="index">
                         <div class="piclist-img">

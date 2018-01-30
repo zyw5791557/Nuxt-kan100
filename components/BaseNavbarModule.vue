@@ -8,7 +8,7 @@ export default {
     },
     data () {
         return {
-            selected: '1',
+            selected: 1,
             movieLock: true,
             teleplayLock: true,
             actorLock: true,
@@ -101,20 +101,23 @@ export default {
 
 <template>
     <section class="navbar-module">
-        <mt-navbar v-model="selected" class="nav-title-box">
-            <mt-tab-item 
-            v-for="(item,index) in loadData.navbarTitleArr" 
-            :key="index" 
-            :id="(index+1).toString()"
-            class="nav-title">
-            {{ item }}
-        </mt-tab-item>
-        </mt-navbar>
+        <div class="nav-title-box">
+            <a 
+                v-for="(item,index) in loadData.navbarTitleArr"
+                :key="index" 
+                :id="(index+1).toString()"
+                @click="selected = index + 1"
+                :class="{ active: selected === index + 1 }"
+                class="nav-title"
+                href="javascript:void(0);">
+                {{ item }}
+            </a>
+        </div>
         <div class="m-pic-list">
             <ul
-                v-infinite-scroll="loadMore"
-                infinite-scroll-immediate-check="false"
-                infinite-scroll-distance="10">
+                v-waterfall-lower="loadMore"
+                waterfall-disabled="disabled"
+                waterfall-offset="400">
                 <li v-for="(item,index) in currentData" :key="index" class="branch">
                     <div class="piclist-img">
                         <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
@@ -149,16 +152,24 @@ export default {
 @import '~assets/css/mixins.scss';
 .navbar-module {
     .nav-title-box {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         border-bottom: $moduleBorder;
     }
     .nav-title {
         color: $baseColor;
+        width: 33.3%;
+        text-align: center;
         padding: 0 0 .407407rem 0;
         box-sizing: border-box;
-        border-color: $orange;
+        border-color: #fff;
         border-width: .055556rem;
-        &.is-selected {
+        border-bottom-style: solid;
+        &.active {
             color: $orange;
+            border-color: $orange;
+            border-bottom-style: solid;
         }
     }
     
@@ -198,17 +209,17 @@ export default {
 <style lang="scss">
 /* 字体大小调整 */
 .navbar-module {
-    .nav-title .mint-tab-item-label {
+    .nav-title {
         font-size: 18px;
     }
 }
 [data-dpr="2"] .navbar-module {
-    .nav-title .mint-tab-item-label {
+    .nav-title {
         font-size: 36px;
     }
 }
 [data-dpr="3"] .navbar-module {
-    .nav-title .mint-tab-item-label {
+    .nav-title {
         font-size: 54px;
     }
 }

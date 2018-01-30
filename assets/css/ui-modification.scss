@@ -3,6 +3,9 @@
     display: none;
 }
 
+// Toast 字体大小修改
+.van-toast div { font-size: 16px; }
+
 // 设置懒加载样式
 [lazy="loading"] {
     background-size: contain!important; 
@@ -12,6 +15,7 @@
 }
 
 [data-dpr="2"] {
+    .van-toast div { font-size: 32px; }
     // ImagesPreview UI UPDATE
     .van-swipe__indicators {
         bottom: 20px;
@@ -28,6 +32,7 @@
 
 
 [data-dpr="3"] {
+    .van-toast div { font-size: 48px; }
     // ImagesPreview UI UPDATE
     .van-swipe__indicators {
         bottom: 30px;

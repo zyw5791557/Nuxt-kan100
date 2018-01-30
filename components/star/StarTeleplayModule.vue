@@ -50,9 +50,9 @@ export default {
 <template>
     <section class="starDetail-teleplay-module">
         <ul 
-            v-infinite-scroll="loadMore"
-            infinite-scroll-distance="10"
-            infinite-scroll-immediate-check="false"
+            v-waterfall-lower="loadMore"
+            waterfall-disabled="disabled"
+            waterfall-offset="400"
             class="m-pic-list">
             <li v-for="(item,index) in loadData.data" :key="index">
                 <div class="piclist-img">

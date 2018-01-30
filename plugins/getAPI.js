@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Toast } from 'mint-ui';
+import { Toast } from 'vant';
 import { ToastHandle } from '~/util/util.js';
 
 const baseURL = 'http://localhost:8888';
@@ -69,11 +69,7 @@ axios.interceptors.request.use(function (config) {
 },  error => {
 	// Do something with request error
 	if(process.browser) {
-		Toast({
-			message: '加载失败',
-			position: 'bottom',
-			duration: 5000
-		});
+		Toast('加载失败');
 	}
 	return Promise.reject(error);
 });
@@ -85,11 +81,7 @@ axios.interceptors.response.use(function (response) {
   },  error => {
 	// Do something with response error
 	if(process.browser) {
-		Toast({
-			message: '加载失败',
-			position: 'bottom',
-			duration: 5000
-		});
+		Toast('加载失败');
 	}
     return Promise.reject(error);
   });

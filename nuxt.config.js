@@ -32,14 +32,13 @@ module.exports = {
 	loading: { color: '#3B8070' },
 	plugins: [
 		{ src: '~/plugins/vue-fastclick.js', ssr: false },
-		{ src: '~/plugins/vue-mint.js' },
 		{ src: '~/plugins/vue-vant.js' }
 	],
 	/*
 	** Build configuration
 	*/
 	build: {
-		vendor: ['axios', 'fastclick','mint-ui','vant'],
+		vendor: ['axios', 'fastclick', 'vant'],
 		/*
 		** Run ESLint on save
 		*/

@@ -1,4 +1,5 @@
 <script>
+import { Toast } from 'vant';
 import { mapMutations } from 'vuex';
 export default {
     props: {
@@ -16,11 +17,7 @@ export default {
         selectSource (item) {
             this.$store.dispatch('selectSource', item).then(res => {
                 this.$emit('close');
-                this.$toast({
-                    message: '切换成功!',
-                    position: 'middle',
-                    duration: 1000
-                });
+                Toast('切换成功!');
             });
         }
     }

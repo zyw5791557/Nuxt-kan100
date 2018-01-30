@@ -45,9 +45,9 @@ export default {
     <section class="starDetail-show-module">   
         <div id="starDetail-show-swiper-module" class="m-pic-list swiper-container">
             <ul 
-                 v-infinite-scroll="loadMore"
-                infinite-scroll-distance="10"
-                infinite-scroll-immediate-check="false"
+                v-waterfall-lower="loadMore"
+                waterfall-disabled="disabled"
+                waterfall-offset="400"
                 class="swiper-wrapper">
                 <li v-for="(item,index) in loadData.data" :key="index" class="swiper-slide">
                     <div class="piclist-img">

@@ -140,27 +140,33 @@ export default {
         <base-swiper-module v-if="similarData.piclistData.length > 0" :data="similarData"></base-swiper-module>
         <base-swiper-module v-if="hotData.piclistData.length > 0" :data="hotData"></base-swiper-module>
         <!-- popup -->
-        <mt-popup
+        <van-popup
             v-if="playSource.items.length > 0"
             v-model="selectSourcePopupFlag"
             position="bottom"
+            :overlay="true"
+            :prevent-scroll="true"
             class="selectSourcePopup">
             <base-select-item :data="playSource" @close="selectSourcePopupFlag=false"></base-select-item>
-        </mt-popup>
-        <mt-popup
+        </van-popup>
+        <van-popup
             v-if="$store.state.play_source.play_list !== undefined"
             v-model="collectPopupFlag"
             position="bottom"
+            :overlay="true"
+            :prevent-scroll="true"
             class="collectPopup">
             <base-num-collect-item :data="$store.state.play_source" @close="collectPopupFlag=false"></base-num-collect-item>
-        </mt-popup>
-        <mt-popup
+        </van-popup>
+        <van-popup
             v-if="clipsData.piclistData.length > 6"
             v-model="clipsPopupFlag"
             position="bottom"
+            :overlay="true"
+            :prevent-scroll="true"
             class="clipsPopup">
             <base-clips-item :data="clipsData" @close="clipsPopupFlag=false"></base-clips-item>
-        </mt-popup>
+        </van-popup>
     </div>
 </template>
 
