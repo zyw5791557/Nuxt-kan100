@@ -185,8 +185,13 @@ export default {
                 });
         },
         loadMoreShow() {
-            console.log('没有了更多综艺了');
-            return;
+            this.loading = true;
+            this.requestHandle('综艺',this.showPage)
+                .then(result => {
+                    this.starData.show.data = this.starData.show.data.concat(result.variety);
+                    this.showPage++;
+                    this.loading = false;
+                });
         },
         loadMoreImg() {
             this.loading = true;

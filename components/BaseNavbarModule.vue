@@ -11,12 +11,48 @@ export default {
             selected: '1',
             movieLock: true,
             teleplayLock: true,
-            actorLock: true
+            actorLock: true,
+        }
+    },
+    watch: {
+        movieIndex (val) {
+            this.movieLock = true;
+        },
+        teleplayIndex (val) {
+            this.teleplayLock = true;
+        },
+        actorIndex (val) {
+            this.actorLock = true;
         }
     },
     computed: {
         loadData () {
             return this.data;
+        },
+        movieIndex () {
+            return this.loadData.movieData.length;
+        },
+        teleplayIndex () {
+            return this.loadData.teleplayData.length;
+        },
+        actorIndex () {
+            return this.loadData.actorData.length;
+        },
+        currentData () {
+            switch (~~this.selected) {
+                case 1:
+                    return this.loadData.movieData;
+                    break;
+                case 2:
+                    return this.loadData.teleplayData;
+                    break;
+                case 3:
+                    return this.loadData.actorData;
+                    break;
+            }
+        },
+        requestPermission () {
+            return (this.currentData.length % 3 !== 0) || (this.currentData.length === 0) ?  false : true;
         }
     },
     filters: {
@@ -37,15 +73,27 @@ export default {
             return o;
         },
         loadMore () {
-            const list = ['电影专题', '电视剧专题', '影人专题'];
-            const current = list[this.selected - 1];
-            console.log( list[this.selected - 1],'sssss')
-            // if(this.requestPermission && this.loadMoreLock) {
-            //     this.$emit('loadMore', current);
-            //     this.loadMoreLock = false;
-            //     return true;
-            // }
-            // return false;
+            const current = this.loadData.navbarTitleArr[this.selected - 1];
+            if(current === '电影专题') {
+                if(this.requestPermission && this.movieLock) {
+                    this.$emit('loadMore', current);
+                    this.movieLock = false;
+                    return true;
+                }
+            } else if (current === '电视剧专题') {
+                 if(this.requestPermission && this.teleplayLock) {
+                    this.$emit('loadMore', current);
+                    this.teleplayLock = false;
+                    return true;
+                }
+            }else {
+                 if(this.requestPermission && this.actorLock) {
+                    this.$emit('loadMore', current);
+                    this.actorLock = false;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
@@ -62,108 +110,37 @@ export default {
             {{ item }}
         </mt-tab-item>
         </mt-navbar>
-        <!-- tab-container -->
-        <mt-tab-container v-model="selected" class="nav-content-box">
-            <mt-tab-container-item id="1">
-                <div class="m-pic-list">
-                    <ul
-                        v-infinite-scroll="loadMore"
-                        infinite-scroll-immediate-check="false"
-                        infinite-scroll-distance="10">
-                        <li v-for="(item,index) in loadData.movieData" :key="index" class="branch">
-                            <div class="piclist-img">
-                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
-                                    <div class="c-rt">
-                                        <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
-                                    </div>
-                                    <div class="c-lb">
-                                        <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
-                                        <span class="c-date c-date-score">
-                                            <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
-                                            ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
-                                        </span>
-                                    </div>
-                                </nuxt-link>
+        <div class="m-pic-list">
+            <ul
+                v-infinite-scroll="loadMore"
+                infinite-scroll-immediate-check="false"
+                infinite-scroll-distance="10">
+                <li v-for="(item,index) in currentData" :key="index" class="branch">
+                    <div class="piclist-img">
+                        <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
+                            <div class="c-rt">
+                                <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                             </div>
-                            <div class="piclist-title">
-                                <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
-                                </div>
-                                <div class="c-info"  v-if="item.des">
-                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
-                                </div>
+                            <div class="c-lb">
+                                <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
+                                <span class="c-date c-date-score">
+                                    <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
+                                    ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
+                                </span>
                             </div>
-                        </li>
-                    </ul>
-                </div>
-            </mt-tab-container-item>
-            <mt-tab-container-item id="2">
-                <div class="m-pic-list">
-                    <ul
-                        v-infinite-scroll="loadMore"
-                        infinite-scroll-immediate-check="false"
-                        infinite-scroll-distance="10">
-                        <li v-for="(item,index) in loadData.teleplayData" :key="index" class="branch">
-                            <div class="piclist-img">
-                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
-                                    <div class="c-rt">
-                                        <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
-                                    </div>
-                                    <div class="c-lb">
-                                        <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
-                                        <span class="c-date c-date-score">
-                                            <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
-                                            ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
-                                        </span>
-                                    </div>
-                                </nuxt-link>
-                            </div>
-                            <div class="piclist-title">
-                                <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
-                                </div>
-                                <div class="c-info"  v-if="item.des">
-                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </mt-tab-container-item>
-            <mt-tab-container-item id="3">
-                <div class="m-pic-list">
-                    <ul
-                        v-infinite-scroll="loadMore"
-                        infinite-scroll-immediate-check="false"
-                        infinite-scroll-distance="10">
-                        <li v-for="(item,index) in loadData.actorData" :key="index" class="branch">
-                            <div class="piclist-img">
-                                <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
-                                    <div class="c-rt">
-                                        <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
-                                    </div>
-                                    <div class="c-lb">
-                                        <span class="c-date" v-if="item.collect">{{ item.collect }}</span>
-                                        <span class="c-date c-date-score">
-                                            <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
-                                            ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
-                                        </span>
-                                    </div>
-                                </nuxt-link>
-                            </div>
-                            <div class="piclist-title">
-                                <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                    <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
-                                </div>
-                                <div class="c-info"  v-if="item.des">
-                                    <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </mt-tab-container-item>
-        </mt-tab-container>
+                        </nuxt-link>
+                    </div>
+                    <div class="piclist-title">
+                        <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
+                            <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
+                        </div>
+                        <div class="c-info"  v-if="item.des">
+                            <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </section>
 </template>
 
@@ -174,19 +151,20 @@ export default {
     .nav-title-box {
         border-bottom: $moduleBorder;
     }
-    .nav-content-box {
-        padding: 0 $gap;
-    }
     .nav-title {
         color: $baseColor;
         padding: 0 0 .407407rem 0;
         box-sizing: border-box;
         border-color: $orange;
         border-width: .055556rem;
+        &.is-selected {
+            color: $orange;
+        }
     }
     
     .m-pic-list {
         margin-top: $piclistMarginTop;
+        padding: 0 $gap;
         ul {
             display: flex;
             justify-content: space-between;

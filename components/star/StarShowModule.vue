@@ -75,6 +75,7 @@ export default {
                 </li>
             </ul>
             <slot v-if="loadData.data.length === 0" name="noData"></slot>
+            <slot name="loading"></slot>
         </div>
     </section>
 </template>

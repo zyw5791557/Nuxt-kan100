@@ -2,6 +2,9 @@ import Vue from 'vue';
 import Vant from 'vant';
 import 'vant/lib/vant-css/index.css';
 import { Lazyload } from 'vant';
+import { Waterfall } from 'vant';
+
+Vue.use(Waterfall);
 
 /**
  * @options loading 加载时的图片
