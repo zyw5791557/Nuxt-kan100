@@ -32,13 +32,14 @@ module.exports = {
 	loading: { color: '#3B8070' },
 	plugins: [
 		{ src: '~/plugins/vue-fastclick.js', ssr: false },
-		{ src: '~/plugins/vue-vant.js' }
+		{ src: '~/plugins/vue-vant.js' },
+		{ src: '~/plugins/vue-infinite-scroll.js', ssr: false }
 	],
 	/*
 	** Build configuration
 	*/
 	build: {
-		vendor: ['axios', 'fastclick', 'vant'],
+		vendor: ['axios', 'fastclick', 'vant', 'vue-infinite-scroll'],
 		/*
 		** Run ESLint on save
 		*/

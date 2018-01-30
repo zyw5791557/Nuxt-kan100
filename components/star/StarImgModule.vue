@@ -46,9 +46,8 @@ export default {
 <template>
     <section class="starDetail-img-module">
         <ul 
-            v-waterfall-lower="loadMore"
-            waterfall-disabled="disabled"
-            waterfall-offset="400"
+            v-infinite-scroll="loadMore" 
+            infinite-scroll-distance="10"
             class="m-pic-list">
             <li v-for="(item,index) in loadData" :key="index">
                 <a v-lazy:background-image="item.img" @click="previewExec(index)" class="img-item" href="javascript:void(0);"></a>

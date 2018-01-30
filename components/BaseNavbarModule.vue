@@ -115,9 +115,8 @@ export default {
         </div>
         <div class="m-pic-list">
             <ul
-                v-waterfall-lower="loadMore"
-                waterfall-disabled="disabled"
-                waterfall-offset="400">
+                v-infinite-scroll="loadMore" 
+                infinite-scroll-distance="10">
                 <li v-for="(item,index) in currentData" :key="index" class="branch">
                     <div class="piclist-img">
                         <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">

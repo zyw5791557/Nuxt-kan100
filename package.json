@@ -20,7 +20,8 @@
     "axios": "^0.17.1",
     "fastclick": "1.0.6",
     "nuxt": "1.0.0-rc11",
-    "vant": "0.12.6"
+    "vant": "0.12.6",
+    "vue-infinite-scroll": "2.0.2"
   },
   "devDependencies": {
     "less-loader": "4.0.5",
