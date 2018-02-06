@@ -3,10 +3,11 @@ module.exports = {
 	** Headers of the page
 	*/
 	head: {
-		title: 'kan100',
+		title: '看100影视-好看的电影电视剧视频网站大全-免费在线观看',
 		meta: [
 			{ charset: 'utf-8' },
-			{ hid: 'description', name: 'description', content: 'Nuxt.js project' },
+			{ name: 'keywords', content: '看100影视,好看电影, 免费电视剧,免费在线电影,电视剧在线观看' },
+			{ name: 'description', content: '看高清视频哪个网站好?首选看100!看100影视为您提供2016最新好看的电影、电视剧、综艺、动漫、搞笑等免费高清视频大全.在看100,所有的视频都可免费在线观看.' },
 			// { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' }
 		],
 		script: [
