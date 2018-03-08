@@ -31,6 +31,8 @@ export default (api, ...arg) => {
 		'detailItem': 'detailItem',
 		// 明星详情页
 		'starDetail': 'actorDetail',
+		// 资讯详情页
+		'newsDetail': 'newsDetail',
 		// 分类
 		'classify': 'categoryList',
 		// 获取追番表信息

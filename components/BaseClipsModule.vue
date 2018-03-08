@@ -18,6 +18,21 @@ export default {
         scoreAfterFilter (val) {
             return val.substr(-1);
         }
+    },
+    methods: {
+        routeGuide(item) {
+            let o = {
+                name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
+                params: { id: item.id },
+                query: { backEnable: this.loadData.backEnable }
+            };
+            return o;
+        },
+        routerJump (item) {
+            if(item.id) {
+                this.$router.replace(this.routeGuide(item));
+            }
+        }
     }
 }
 </script>
@@ -36,7 +51,11 @@ export default {
                 <ul>
                     <li v-for="(item,index) in loadData.piclistData" :key="index" v-if="index < 6">
                         <div class="piclist-img">
-                            <a :href="item.url" class="piclist-link" :title="item.title" v-lazy:background-image="item.img">
+                            <a :href="item.url" 
+                                :title="item.title" 
+                                @click="routerJump(item)"
+                                v-lazy:background-image="item.img" 
+                                class="piclist-link">
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -51,10 +70,14 @@ export default {
                         </div>
                         <div class="piclist-title">
                             <div v-if="item.title" class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsisLines }">
-                                <a :href="item.url" :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }">{{ item.title }}</a>
+                                <a :href="item.url" 
+                                    :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }"
+                                    @click="routerJump(item)">{{ item.title }}</a>
                             </div>
                             <div v-if="item.des" class="c-info">
-                                <a :href="item.url" class="text-ellipsis">{{ item.des }}</a>
+                                <a :href="item.url"
+                                    @click="routerJump(item)"
+                                    class="text-ellipsis">{{ item.des }}</a>
                             </div>
                         </div>
                     </li>
