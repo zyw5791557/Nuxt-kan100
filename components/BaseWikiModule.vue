@@ -97,7 +97,7 @@ export default {
         z-index: 99;
         width: 100%;
         height: 100%;
-        background-image:url('~assets/images/blur.png');
+        background-image:url('~assets/images/common_bg.png');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
