@@ -82,7 +82,3 @@ export default {
         <base-clips-module v-if="gossipData.piclistData.length > 0" :data="gossipData"></base-clips-module>
     </div>
 </template>
-
-<style lang="scss" scoped>
-
-</style>

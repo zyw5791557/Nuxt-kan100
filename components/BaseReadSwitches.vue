@@ -44,7 +44,7 @@ export default {
     <div class="switches-container">
         <div class="switches-box">
             <nuxt-link v-if="previous_page.id" :to="routeGuide(previous_page)" replace>
-                <i class="more"></i>
+                <i class="more previous"></i>
                 <div>
                     <span>{{ previousText }}</span>
                     <p class="title">{{ previous_page.title }}</p>
@@ -91,6 +91,12 @@ export default {
         .more {
             @include smallIcon('~assets/images/more.png');
             flex-shrink: 0;
+            &.previous {
+                transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+            }
         }
         span { color: $colorGray; }
         .title {

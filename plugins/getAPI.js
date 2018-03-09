@@ -33,6 +33,10 @@ export default (api, ...arg) => {
 		'starDetail': 'actorDetail',
 		// 资讯详情页
 		'newsDetail': 'newsDetail',
+		//专题详情页
+		'specialDetail': 'specialDetail',
+		// 搞笑达人详情页
+		'funSpecialDetail': 'funSpecialDetail',
 		// 分类
 		'classify': 'categoryList',
 		// 获取追番表信息

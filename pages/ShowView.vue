@@ -32,6 +32,7 @@ export default {
             callback(null, {
                 bannerModuleData: {
                     backEnable: true,
+                    itemRouteName: 'ShowDetailView-id',
                     piclistData: result.index_slideshow
                 },
                 navTypeModuleData: [

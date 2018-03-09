@@ -35,6 +35,7 @@ export default {
             callback(null, {
                 bannerModuleData: {
                     backEnable: true,
+                    itemRouteName: 'TeleplayDetailView-id',
                     piclistData: result.index_slideshow
                 },
                 navTypeModuleData: [

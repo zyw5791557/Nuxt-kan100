@@ -35,7 +35,7 @@ export default {
         <div class="read-main" v-html="content">
 
         </div>
-        <div v-if="tags.length > 0" class="read-tags">
+        <div v-if="tags.length > 0 && tags[0] !== ''" class="read-tags">
             <span class="title">相关标签</span>
             <a v-for="(item,index) in tags" :key="index" href="javascript:void(0);">{{ item }}</a>
         </div>

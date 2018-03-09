@@ -22,6 +22,7 @@ export default {
             callback(null, {
                 bannerModuleData: {
                     backEnable: true,
+                    itemRouteName: 'SpecialDetailView-id',
                     piclistData: result.index_slideshow
                 },
                 navbarModuleData: {

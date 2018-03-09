@@ -30,7 +30,7 @@ export default {
         },
         routerJump (item) {
             if(item.id) {
-                this.$router.replace(this.routeGuide(item));
+                this.$router.push(this.routeGuide(item));
             }
         }
     }
@@ -49,7 +49,7 @@ export default {
             </div>
             <div class="m-pic-list">
                 <ul>
-                    <li v-for="(item,index) in loadData.piclistData" :key="index" v-if="index < 6">
+                    <li v-for="(item,index) in loadData.piclistData" :key="index" v-if="loadData.noLimit ? true : index < 6">
                         <div class="piclist-img">
                             <a :href="item.url" 
                                 :title="item.title" 

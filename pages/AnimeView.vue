@@ -32,6 +32,7 @@ export default {
             callback(null, {
                 bannerModuleData: {
                     backEnable: true,
+                    itemRouteName: 'AnimeDetailView-id',
                     piclistData: result.index_slideshow
                 },
                 personData: {

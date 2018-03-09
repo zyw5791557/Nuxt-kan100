@@ -34,23 +34,7 @@ export default {
                     itemRouteName: 'NewsDetailView-id',
                     piclistData: result.index_slideshow
                 },
-                navTypeModuleData: [
-                    {
-                        name: '黑幕'
-                    },
-                    {
-                        name: '绯闻'
-                    },
-                    {
-                        name: '整容'
-                    },
-                    {
-                        name: '马蓉'
-                    },
-                    {
-                        name: '恋情'
-                    }
-                ],
+                navTypeModuleData: [],
                 hotModuleData: {
                     type: '资讯爆头条',
                     headLinkName: '',
