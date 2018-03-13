@@ -9,6 +9,7 @@ export default {
     data () {
         return {
             wikiFold: true,
+            moreDesFlag: false
         }
     },
     computed: {
@@ -25,6 +26,13 @@ export default {
                 return '收起';
             }
         }
+    },
+    mounted () {
+        // 确认描述实际高度。
+        this.$nextTick(() => {
+            const flag = this.$refs.wiki.offsetHeight > lib.flexible.rem * 0.611111 * 3;
+            if(flag) this.moreDesFlag = true;
+        });
     }
 }
 </script>
@@ -61,8 +69,19 @@ export default {
             </div>
         </div>
         <div class="wiki-des">
-            <p :class="{ 'text-ellipsis-n': wikiFold }" v-html="loadData.des" class="wiki-text"></p>
-            <a @click="wikiFold=!wikiFold" class="fold" href="javascript:void(0);">{{ foldText }}</a>
+            <p 
+                ref="wiki"
+                :class="{ 'height-limit': wikiFold }" 
+                v-html="loadData.des" 
+                class="wiki-text">
+            </p>
+            <a 
+                v-if="moreDesFlag"
+                @click="wikiFold=!wikiFold" 
+                class="fold" 
+                href="javascript:void(0);">
+                {{ foldText }}
+            </a>
         </div>
     </section>
 </template>
@@ -235,8 +254,9 @@ export default {
     padding-bottom: .185185rem;
     .wiki-text {
         line-height: .611111rem;
-        &.text-ellipsis-n {
-            @include text-ellipsis-n(3);
+        &.height-limit {
+            max-height: .611111rem * 3;
+            overflow: hidden;
         }
     }
     .fold {

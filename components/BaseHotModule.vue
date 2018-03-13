@@ -21,6 +21,7 @@ export default {
     },
     methods: {
         routeGuide(item, type) {
+            if(item.url) return;
             let o1 = {
                 name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
                 params: { id: item.id },
@@ -32,9 +33,9 @@ export default {
                 query: { backEnable: true }
             };
             if(type === 1) {
-                return o1;
+                this.$router.push(o1);
             } else if (type === 2) {
-                return o2;
+                this.$router.push(o2);
             }
         },
         sideIconAction () {
@@ -62,7 +63,12 @@ export default {
                 <ul>
                     <li v-for="(item,index) in loadData.piclistData" :key="index">
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item,1)" :title="item.title" v-lazy:background-image="item.img">
+                            <a 
+                                :href="item.url" 
+                                :title="item.title" 
+                                @click="routeGuide(item,1)"
+                                v-lazy:background-image="item.img"
+                                class="piclist-link" >
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -73,14 +79,24 @@ export default {
                                         ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                     </span>
                                 </div>
-                            </nuxt-link>
+                            </a>
                         </div>
                         <div class="piclist-title">
                             <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsis2 }">
-                                <nuxt-link :class="{ 'text-ellipsis': !loadData.ellipsis2 }" :to="routeGuide(item,1)">{{ item.title }}</nuxt-link>
+                                <a 
+                                    :href="item.url"
+                                    :class="{ 'text-ellipsis': !loadData.ellipsis2 }"
+                                    @click="routeGuide(item,1)">
+                                    {{ item.title }}
+                                </a>
                             </div>
                             <div class="c-info" v-if="item.des">
-                                <nuxt-link class="text-ellipsis" :to="routeGuide(item,1)">{{ item.des }}</nuxt-link>
+                                <a 
+                                    :href="item.url"
+                                    @click="routeGuide(item,1)"
+                                    class="text-ellipsis" >
+                                    {{ item.des }}
+                                </a>
                             </div>
                         </div>
                     </li>
@@ -90,7 +106,12 @@ export default {
             <div class="m-new-list" v-if="loadData.newsData">
                 <ul>
                     <li v-for="(item,index) in loadData.newsData" :key="index">
-                        <nuxt-link :to="routeGuide(item,2)" class="text-ellipsis">{{ item.title }}</nuxt-link>
+                        <a 
+                            :href="item.url" 
+                            @click="routeGuide(item,2)"
+                            class="text-ellipsis">
+                            {{ item.title }}
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -126,7 +126,7 @@ export default {
             margin-right: .925926rem;
         }
         
-        &.nuxt-link-exact-active {
+        &.nuxt-link-exact-active, {
             color: $orange;
             &:after {
                 content: '';

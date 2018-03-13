@@ -15,7 +15,6 @@ export default {
                 id: ~~route.params.id
             }
         }).then(result => {
-            console.log(result)
             callback(null, {
                 author: result.title,
                 img: result.img,

@@ -46,8 +46,6 @@ export default {
                     type: '今日推荐',
                     headLinkName: '',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     piclistData: result.today_recommend
                 },
                 funnyModuleData: {
@@ -55,8 +53,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -71,8 +67,6 @@ export default {
                     type: '24小时排行榜',
                     headLinkName: '',
                     rank: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     piclistData: result.order_list
                 },
                 originalModuleData: {
@@ -80,8 +74,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -96,8 +88,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -112,8 +102,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -128,8 +116,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -144,8 +130,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {
@@ -160,8 +144,6 @@ export default {
                     headLinkName: '更多',
                     headLinkIcon: 'more',
                     newsModule: true,
-                    backEnable: true,
-                    itemRouteName: 'FunnyDetailView-id',
                     classifyGuide: {
                         name: 'Classify',
                         query: {

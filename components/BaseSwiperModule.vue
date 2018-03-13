@@ -36,12 +36,13 @@ export default {
             });
         },
         routeGuide(item) {
+            if(item.url) return;
             let o = {
                 name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
                 params: { id: item.id },
                 query: { backEnable: this.loadData.backEnable }
             };
-            return o;
+            this.$router.push(o);
         },
         selectTabs(param,e) {
             var activeEle = document.querySelector('.m-tabs-item.active');
@@ -63,7 +64,9 @@ export default {
         <div class="mainer">
             <div class="header-module">
                 <h2>{{ loadData.type }}</h2>
-                <nuxt-link :to="{ name: loadData.routerName }" v-if="loadData.headLinkName">
+                <nuxt-link 
+                    :to="{ name: loadData.routerName }" 
+                    v-if="loadData.headLinkName">
                     <span>{{ loadData.headLinkName }}</span>
                     <i></i>
                 </nuxt-link>
@@ -78,7 +81,11 @@ export default {
                             <span class="c-timeline">{{ item.timeline }}</span>
                         </div>
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item)" v-lazy:background-image="item.img">
+                            <a 
+                                :href="item.url"
+                                @click="routeGuide(item)" 
+                                v-lazy:background-image="item.img"
+                                class="piclist-link" >
                                 <div class="c-rt">
                                     <i class="c-collect" v-if="item.catname">{{ item.catname }}</i>
                                 </div>
@@ -92,14 +99,24 @@ export default {
                                         ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                     </span>
                                 </div>
-                            </nuxt-link>
+                            </a>
                         </div>
                         <div class="piclist-title">
                             <div class="c-title" :class="{ 'text-ellipsis-2': loadData.ellipsisLines }">
-                                <nuxt-link :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
+                                <a 
+                                :class="{ 'text-ellipsis': !(loadData.ellipsisLines) }"
+                                :href="item.url"
+                                @click="routeGuide(item)">
+                                    {{ item.title }}
+                                </a>
                             </div>
                             <div class="c-info">
-                                <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.des }}</nuxt-link>
+                                <a 
+                                :href="item.url"
+                                @click="routeGuide(item)" 
+                                class="text-ellipsis">
+                                {{ item.des }}
+                            </a>
                             </div>
                         </div>
                     </li>

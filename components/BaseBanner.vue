@@ -29,12 +29,13 @@ export default {
             });  
         },
         routeGuide(item) {
+            if(item.url) return;
             let o = {
                 name: this.loadData.itemRouteName ? this.loadData.itemRouteName : item.routeName,
                 params: { id: item.id },
                 query: { backEnable: this.loadData.backEnable }
             };
-            return o;
+            this.$router.push(o);
         }
     },
     mounted() {
@@ -50,12 +51,15 @@ export default {
 		<div class="swiper-container" id="banner-swiper--home">
 			<div class="swiper-wrapper">
 				<div v-for="(item,index) in loadData.piclistData" :key="index" class="swiper-slide" title="" >
-                    <nuxt-link :to="routeGuide(item)" :style="`background-image:url(${ item.img })`">
+                    <a 
+                        :href="item.url"
+                        @click="routeGuide(item)" 
+                        :style="`background-image:url(${ item.img })`">
                         <div class="c-lb">
                             <h3 class="text-ellipsis">{{ item.content.title }}</h3>
                             <p class="text-ellipsis">{{ item.content.des }}</p>
                         </div>
-                    </nuxt-link>
+                    </a>
                 </div>
 			</div>
             <!-- 如果需要分页器 -->

@@ -49,7 +49,7 @@ export default {
                 area: this.$route.query.classifyArea || '全部',
                 time: this.$route.query.classifyTime || '全部',
                 actor: this.$route.query.classifyActor || '全部',
-                sort: this.$route.query.classifySort || '全部'
+                sort: this.$route.query.classifySort || '最新播出'
             },
             resData: [],
             requestPage: 1,
@@ -168,7 +168,7 @@ export default {
                 this.selectStat['area'] = '全部';
                 this.selectStat['time'] = '全部';
                 this.selectStat['actor'] = '全部';
-                this.selectStat['sort'] = '全部';
+                this.selectStat['sort'] = '最新播出';
                 this.requestHandle().then(result => {
                     this.classifyData.type = result.type || [];
                     this.classifyData.area = result.region || [];
@@ -212,12 +212,13 @@ export default {
             }
         },
         routeGuide(item) {
+            if(item.url) return;
             let o = {
                 name: detailViewCompareTable[this.selectStat.nav],
                 params: { id: item.id },
                 query: { backEnable: true }
             };
-            return o;
+            this.$router.push(o);
         },
         minHeightComputed() {
             const dom = (document.documentElement.clientHeight) / (lib.flexible.rem);
@@ -298,18 +299,28 @@ export default {
                     class="m-pic-list">
                     <li v-for="(item,index) in resData" :key="index">
                         <div class="piclist-img">
-                            <nuxt-link class="piclist-link" :to="routeGuide(item)" :title="item.title" v-lazy:background-image="item.img">
+                            <a 
+                                :href="item.url" 
+                                :title="item.title" 
+                                @click="routeGuide(item)"
+                                v-lazy:background-image="item.img"
+                                class="piclist-link" >
                                 <div class="c-lb">
                                     <span class="c-date c-date-score">
                                         <i class="score-item-before" v-if="item.score">{{ item.score | scoreBeforeFilter }}</i
                                         ><i class="score-item-after" v-if="item.score">{{ item.score | scoreAfterFilter }}</i>
                                     </span>
                                 </div>
-                            </nuxt-link>
+                            </a>
                         </div>
                         <div class="piclist-title">
                             <div class="c-title">
-                                <nuxt-link class="text-ellipsis" :to="routeGuide(item)">{{ item.title }}</nuxt-link>
+                                <a 
+                                    :href="item.url"
+                                    @click="routeGuide(item)"
+                                    class="text-ellipsis">
+                                    {{ item.title }}
+                                </a>
                             </div>
                         </div>
                     </li>
